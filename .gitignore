@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+#Custom
+*.suo
+*.vsidx
+*.lock
+*.db
+*.ipch
