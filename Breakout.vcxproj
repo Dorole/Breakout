@@ -134,7 +134,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml-1.14\src\pugixml.cpp" />
+    <ClCompile Include="src/Platform.cpp" />
     <ClCompile Include="src/main.cpp" />
+    <ClCompile Include="src/XmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -162,6 +164,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\pugixml-1.14\src\pugixml.hpp" />
+    <ClInclude Include="src/Platform.h" />
+    <ClInclude Include="src/XmlParser.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\xml files\exampleLevel.xml">
