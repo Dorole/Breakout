@@ -1,25 +1,9 @@
-﻿  XmlParser.cpp
-  main.cpp
-C:\Users\dorot\Desktop\C++\Breakout\src\main.cpp(27,63): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\dorot\Desktop\C++\Breakout\src\main.cpp(27,39): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\dorot\Desktop\C++\Breakout\src\main.cpp(61,33): warning C4018: '>': signed/unsigned mismatch
-C:\Users\dorot\Desktop\C++\Breakout\src\main.cpp(62,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\dorot\Desktop\C++\Breakout\src\main.cpp(65,40): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  Platform.cpp
+C:\Users\dorot\Desktop\C++\Breakout\src\Platform.cpp(31,46): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
+  main.cpp
   Generating Code...
   Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe

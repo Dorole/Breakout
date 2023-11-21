@@ -5,7 +5,6 @@
 	RowSpacing="3"
 	ColumnSpacing="3"
 	BackgroundTexture="Textures/Boards/Board_01.dds">
-	<!-- PlatformTexture? -->
 	<BrickTypes>
 		<!-- Soft Brick -->
 		<BrickType

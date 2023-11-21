@@ -1,13 +1,21 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameObject.h"
 
-class Platform
+using namespace sf;
+
+//odvojiti vizual od logike
+
+class Platform : public GameObject
 {
-public:
-	//void setTexture(const char* path);
-
 private:
-	sf::Texture texture;
+    Vector2f initialPlatformPosition;
+    RenderWindow& window;
 
+    void movePlatform();
+
+public:
+    Platform(const sf::Vector2f& position, RenderWindow& windowRef, const std::string& texturePath);
+    void update() override;
 };
 

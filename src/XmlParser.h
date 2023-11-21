@@ -12,9 +12,6 @@ class XmlParser
 public:
 	bool loadDocument(const char* filePath);
 
-	//get texture - or just get texture path (as string)?
-	//get sound - or as above?
-
 	/// <summary>
 	/// Gets text from an XML node. If the node is nested, 
 	/// list all higher level nodes as arguments, in order from higher to lower.
@@ -40,8 +37,15 @@ public:
 	/// <param name="attributeName"></param>
 	/// <param name="...args">Nodes listed from higher level to lower.</param>
 	template <typename... Args>
-	int getNodeAttributeAsInt(const char* attributeName, const Args&... args) {
-		return getAttributeValue(doc, attributeName, args...);
+	int getNodeAttributeAsInt(const char* attributeName, const Args&... args) 
+	{
+		return getAttributeIntValue(doc, attributeName, args...);
+	}
+
+	template <typename... Args>
+	std::string getNodeAttributeAsString(const char* attributeName, const Args&... args)
+	{
+		return getAttributeStringValue(doc, attributeName, args...);
 	}
 	
 
@@ -55,7 +59,8 @@ private:
 	/// calls itself recursively until the base node is reached. 
 	/// </summary>
 	template <typename T, typename... Args>
-	xml_node getNode(xml_node parent, const T& arg, const Args&... args) {
+	xml_node getNode(xml_node parent, const T& arg, const Args&... args) 
+	{
 		xml_node node = parent.child(arg);
 		return node ? getNode(node, args...) : node;
 	}
@@ -65,22 +70,53 @@ private:
 	/// by its name directly from the parent.
 	/// </summary>
 	template <typename T>
-	xml_node getNode(xml_node parent, const T& arg) {
+	xml_node getNode(xml_node parent, const T& arg) 
+	{
 		return parent.child(arg);
 	}
 
-	// Recursive helper function to navigate through nested nodes with attributes
+	/// <summary>
+	/// Recursive template function for getting an int attribute value
+	/// from nested nodes.
+	/// </summary>
 	template <typename T, typename... Args>
-	int getAttributeValue(xml_node parent, const char* attributeName, const T& arg, const Args&... args) {
+	int getAttributeIntValue(xml_node parent, const char* attributeName, const T& arg, const Args&... args) 
+	{
 		xml_node node = parent.child(arg);
-		return node ? getAttributeValue(node, args..., attributeName) : -1;
+		return node ? getAttributeIntValue(node, args..., attributeName) : -1;
 	}
 
-	// Base case for recursion (single node with attribute)
+	/// <summary>
+	/// Base case for recursion (single node with attribute) for retrieving 
+	/// attribute value as int.
+	/// </summary>
 	template <typename T>
-	int getAttributeValue(xml_node parent, const char* attributeName, const T& arg) {
+	int getAttributeIntValue(xml_node parent, const char* attributeName, const T& arg) 
+	{
 		xml_attribute attribute = parent.child(arg).attribute(attributeName);
 		return attribute ? attribute.as_int() : -1;
+	}
+
+	/// <summary>
+	/// Recursive template function for getting a string attribute value
+	/// from nested nodes.
+	/// </summary>
+	template <typename T, typename... Args>
+	std::string getAttributeStringValue(xml_node parent, const char* attributeName, const T& arg, const Args&... args)
+	{
+		xml_node node = parent.child(arg);
+		return node ? getAttributeStringValue(node, args..., attributeName) : "No node found";
+	}
+
+	/// <summary>
+	/// Base case for recursion (single node with attribute) for retrieving 
+	/// attribute value (string).
+	/// </summary>
+	template <typename T>
+	std::string getAttributeStringValue(xml_node parent, const char* attributeName, const T& arg)
+	{
+		xml_attribute attribute = parent.child(arg).attribute(attributeName);
+		return attribute ? attribute.value() : "No value found";
 	}
 };
 

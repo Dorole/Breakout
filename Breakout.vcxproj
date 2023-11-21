@@ -134,9 +134,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml-1.14\src\pugixml.cpp" />
+    <ClCompile Include="src/Game.cpp" />
+    <ClCompile Include="src/GameObject.cpp" />
     <ClCompile Include="src/Platform.cpp" />
     <ClCompile Include="src/main.cpp" />
     <ClCompile Include="src/XmlParser.cpp" />
+    <ClCompile Include="src/WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -164,11 +167,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\pugixml-1.14\src\pugixml.hpp" />
+    <ClInclude Include="src/Game.h" />
+    <ClInclude Include="src/GameObject.h" />
     <ClInclude Include="src/Platform.h" />
     <ClInclude Include="src/XmlParser.h" />
+    <ClInclude Include="src/WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\xml files\exampleLevel.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\platform_purple.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\xml files\Level_1.xml">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
   </ItemGroup>
