@@ -3,6 +3,7 @@
 #include "XmlParser.h"
 #include "GameObject.h"
 #include "Platform.h"
+#include "../BrickGrid.h"
 
 using namespace sf;
 
@@ -15,7 +16,10 @@ Game::Game(RenderWindow& windowRef)
 	std::string platformTexturePath = parser.getNodeAttributeAsString("PlatformTexture", "Level");
 
 	//Create objects
-	gameObjects.push_back(std::make_unique<Platform>(Vector2f(window.getSize().x / 2, window.getSize().y - 20), window, platformTexturePath));
+	auto platform = std::make_unique<Platform>(window, platformTexturePath);
+	gameObjects.push_back(std::move(platform)); //pazi ako planiras jos koristiti platform, sad je platform nullptr! --> push_back direktno
+
+	BrickGrid grid(parser, "Level", "ColumnCount", "RowCount", "ColumnSpacing", "RowSpacing");
 }
 
 void Game::update()

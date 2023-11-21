@@ -12,10 +12,11 @@ private:
     Vector2f initialPlatformPosition;
     RenderWindow& window;
 
+    void setInitialPlatformPosition();
     void movePlatform();
 
 public:
-    Platform(const sf::Vector2f& position, RenderWindow& windowRef, const std::string& texturePath);
+    Platform(RenderWindow& windowRef, const std::string& texturePath);
     void update() override;
 };
 

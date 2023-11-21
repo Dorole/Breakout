@@ -5,16 +5,21 @@
 
 using namespace sf;
 
-Platform::Platform(const sf::Vector2f& position, RenderWindow& windowRef, const std::string& texturePath)
+Platform::Platform(RenderWindow& windowRef, const std::string& texturePath)
     : window(windowRef)
 {
     texture.loadFromFile(texturePath);
     sprite.setTexture(texture);
-    setSpriteOriginToCenter();
-    sprite.setPosition(position);
 
-    initialPlatformPosition = sprite.getPosition();
+    setSpriteOriginToCenter();
+    setInitialPlatformPosition();
     getSpriteBounds();
+}
+
+void Platform::setInitialPlatformPosition()
+{
+    initialPlatformPosition = Vector2f(window.getSize().x / 2, window.getSize().y - 20);
+    sprite.setPosition(initialPlatformPosition);
 }
 
 void Platform::movePlatform()

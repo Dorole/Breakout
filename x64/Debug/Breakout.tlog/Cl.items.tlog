@@ -1,4 +1,6 @@
 C:\Users\dorot\Desktop\C++\pugixml-1.14\src\pugixml.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\pugixml.obj
+C:\Users\dorot\Desktop\C++\Breakout\Brick.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Brick.obj
+C:\Users\dorot\Desktop\C++\Breakout\BrickGrid.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\BrickGrid.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\Game.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Game.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\GameObject.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GameObject.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\Platform.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Platform.obj

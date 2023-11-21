@@ -134,6 +134,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml-1.14\src\pugixml.cpp" />
+    <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickGrid.cpp" />
     <ClCompile Include="src/Game.cpp" />
     <ClCompile Include="src/GameObject.cpp" />
     <ClCompile Include="src/Platform.cpp" />
@@ -167,6 +169,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\pugixml-1.14\src\pugixml.hpp" />
+    <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickGrid.h" />
     <ClInclude Include="src/Game.h" />
     <ClInclude Include="src/GameObject.h" />
     <ClInclude Include="src/Platform.h" />
@@ -185,6 +189,20 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\xml files\Level_1.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\brick_golden.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\brick_gray.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\brick_purple.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\brick_spec_purplegolden.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
   </ItemGroup>

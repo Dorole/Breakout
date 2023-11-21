@@ -1,9 +1,4 @@
-﻿  Platform.cpp
-C:\Users\dorot\Desktop\C++\Breakout\src\Platform.cpp(31,46): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-  main.cpp
+﻿  BrickGrid.cpp
+  Game.cpp
   Generating Code...
   Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe
