@@ -22,10 +22,10 @@ public:
 	template <typename... Args>
 	std::string getTextFromNode(const Args&... args) 
 	{
-		xml_node node = getNode(doc, args...);
+		std::string nodeText = getNodeText(doc, args...);
 
-		if (!node.text().empty()) 
-			return node.text().get();
+		if (!nodeText.empty()) 
+			return nodeText;
 		else 
 			return "No text content found!";
 
@@ -37,13 +37,13 @@ public:
 	/// <param name="attributeName"></param>
 	/// <param name="...args">Nodes listed from higher level to lower.</param>
 	template <typename... Args>
-	int getNodeAttributeAsInt(const char* attributeName, const Args&... args) 
+	int getNodeAttributeAsInt(std::string attributeName, const Args&... args)
 	{
 		return getAttributeIntValue(doc, attributeName, args...);
 	}
 
 	template <typename... Args>
-	std::string getNodeAttributeAsString(const char* attributeName, const Args&... args)
+	std::string getNodeAttributeAsString(std::string attributeName, const Args&... args)
 	{
 		return getAttributeStringValue(doc, attributeName, args...);
 	}
@@ -59,9 +59,9 @@ private:
 	/// calls itself recursively until the base node is reached. 
 	/// </summary>
 	template <typename T, typename... Args>
-	xml_node getNode(xml_node parent, const T& arg, const Args&... args) 
+	xml_node getNode(xml_node parent, const T& arg, const Args&... args)
 	{
-		xml_node node = parent.child(arg);
+		xml_node node = getNodeImpl(parent, arg);
 		return node ? getNode(node, args...) : node;
 	}
 
@@ -70,9 +70,18 @@ private:
 	/// by its name directly from the parent.
 	/// </summary>
 	template <typename T>
-	xml_node getNode(xml_node parent, const T& arg) 
+	xml_node getNode(xml_node parent, const T& arg)
 	{
-		return parent.child(arg);
+		return getNodeImpl(parent, arg);
+	}
+
+	/// <summary>
+	/// Specialization for std::string.
+	/// Without this, the getNode ars don't get properly converted.
+	/// </summary>
+	xml_node getNodeImpl(xml_node parent, const std::string& arg)
+	{
+		return parent.child(arg.c_str());
 	}
 
 	/// <summary>
@@ -80,7 +89,7 @@ private:
 	/// from nested nodes.
 	/// </summary>
 	template <typename T, typename... Args>
-	int getAttributeIntValue(xml_node parent, const char* attributeName, const T& arg, const Args&... args) 
+	int getAttributeIntValue(xml_node parent, std::string attributeName, const T& arg, const Args&... args)
 	{
 		xml_node node = parent.child(arg);
 		return node ? getAttributeIntValue(node, args..., attributeName) : -1;
@@ -91,9 +100,10 @@ private:
 	/// attribute value as int.
 	/// </summary>
 	template <typename T>
-	int getAttributeIntValue(xml_node parent, const char* attributeName, const T& arg) 
+	int getAttributeIntValue(xml_node parent, std::string attributeName_s, const T& arg) 
 	{
-		xml_attribute attribute = parent.child(arg).attribute(attributeName);
+		const char* attributeName = attributeName_s.c_str();
+		xml_attribute attribute = parent.child(arg.c_str()).attribute(attributeName);
 		return attribute ? attribute.as_int() : -1;
 	}
 
@@ -102,7 +112,7 @@ private:
 	/// from nested nodes.
 	/// </summary>
 	template <typename T, typename... Args>
-	std::string getAttributeStringValue(xml_node parent, const char* attributeName, const T& arg, const Args&... args)
+	std::string getAttributeStringValue(xml_node parent, std::string attributeName, const T& arg, const Args&... args)
 	{
 		xml_node node = parent.child(arg);
 		return node ? getAttributeStringValue(node, args..., attributeName) : "No node found";
@@ -113,10 +123,38 @@ private:
 	/// attribute value (string).
 	/// </summary>
 	template <typename T>
-	std::string getAttributeStringValue(xml_node parent, const char* attributeName, const T& arg)
+	std::string getAttributeStringValue(xml_node parent, std::string attributeName_s, const T& arg)
 	{
-		xml_attribute attribute = parent.child(arg).attribute(attributeName);
+		const char* attributeName = attributeName_s.c_str();
+		xml_attribute attribute = parent.child(arg.c_str()).attribute(attributeName);
 		return attribute ? attribute.value() : "No value found";
 	}
+
+	/// <summary>
+	/// Recursive template function for getting a text content
+	/// from a nested node.
+	/// </summary>
+	template <typename... Args>
+	std::string getNodeText(xml_node parent, const Args&... args)
+	{
+		xml_node node = getNode(parent, args...);
+		return node ? node.text().get() : "";
+	}
+
+	/// <summary>
+	/// Base case for recursion for getting the text content
+	/// of a single node.
+	/// </summary>
+	template <typename T>
+	std::string getNodeText(xml_node parent, const T& arg)
+	{
+		xml_node node = parent.child(arg);
+		return node ? node.text().get() : "";
+	}
+
+
+
+
+
 };
 

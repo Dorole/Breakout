@@ -134,14 +134,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml-1.14\src\pugixml.cpp" />
-    <ClCompile Include="Brick.cpp" />
-    <ClCompile Include="BrickGrid.cpp" />
+    <ClCompile Include="src/Brick.cpp" />
+    <ClCompile Include="src/BrickGrid.cpp" />
     <ClCompile Include="src/Game.cpp" />
     <ClCompile Include="src/GameObject.cpp" />
     <ClCompile Include="src/Platform.cpp" />
     <ClCompile Include="src/main.cpp" />
     <ClCompile Include="src/XmlParser.cpp" />
     <ClCompile Include="src/WindowManager.cpp" />
+    <ClCompile Include="src/ValueGetter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -169,13 +170,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\pugixml-1.14\src\pugixml.hpp" />
-    <ClInclude Include="Brick.h" />
-    <ClInclude Include="BrickGrid.h" />
+    <ClInclude Include="src/Brick.h" />
+    <ClInclude Include="src/BrickGrid.h" />
     <ClInclude Include="src/Game.h" />
     <ClInclude Include="src/GameObject.h" />
     <ClInclude Include="src/Platform.h" />
     <ClInclude Include="src/XmlParser.h" />
     <ClInclude Include="src/WindowManager.h" />
+    <ClInclude Include="src/ValueGetter.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\xml files\exampleLevel.xml">

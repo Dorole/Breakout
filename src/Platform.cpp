@@ -2,13 +2,14 @@
 #include <SFML/Window.hpp>
 #include "Platform.h"
 #include "GameObject.h"
+#include "ValueGetter.h"
 
 using namespace sf;
 
-Platform::Platform(RenderWindow& windowRef, const std::string& texturePath)
+Platform::Platform(RenderWindow& windowRef, ValueGetter& valueGetter)
     : window(windowRef)
 {
-    texture.loadFromFile(texturePath);
+    texture.loadFromFile(valueGetter.getPlatformTexture());
     sprite.setTexture(texture);
 
     setSpriteOriginToCenter();

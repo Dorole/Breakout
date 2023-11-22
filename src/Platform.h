@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
+#include "ValueGetter.h"
 
 using namespace sf;
 
@@ -16,7 +17,7 @@ private:
     void movePlatform();
 
 public:
-    Platform(RenderWindow& windowRef, const std::string& texturePath);
+    Platform(RenderWindow& windowRef, ValueGetter& valueGetter);
     void update() override;
 };
 
