@@ -66,8 +66,8 @@ ValueGetter::ValueGetter(XmlParser& parserRef, std::string& levelFileName)
 	mapBrickValuesToIds();
 
 	//debug
-	BrickTypeValues softBrick = getBrickValuesById("S");
-	std::cout << softBrick.id << TEXTURE << ": " << softBrick.texture << std::endl;
+	//BrickTypeValues softBrick = getBrickValuesById("S");
+	//std::cout << softBrick.id << TEXTURE << ": " << softBrick.texture << std::endl;
 
 }
 

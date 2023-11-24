@@ -17,6 +17,17 @@ Platform::Platform(RenderWindow& windowRef, ValueGetter& valueGetter)
     getSpriteBounds();
 }
 
+void Platform::setSpriteOriginToCenter()
+{
+    spriteBounds = sprite.getLocalBounds();
+    sprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
+}
+
+void Platform::getSpriteBounds()
+{
+    spriteBounds = sprite.getLocalBounds();
+}
+
 void Platform::setInitialPlatformPosition()
 {
     initialPlatformPosition = Vector2f(window.getSize().x / 2, window.getSize().y - 20);
@@ -41,5 +52,10 @@ void Platform::movePlatform()
 void Platform::update() 
 {
     movePlatform();
+}
+
+void Platform::draw()
+{
+    window.draw(sprite);
 }
 

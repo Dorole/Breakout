@@ -134,8 +134,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml-1.14\src\pugixml.cpp" />
+    <ClCompile Include="src/BrickGridVisual.cpp" />
+    <ClCompile Include="src/BrickHard.cpp" />
+    <ClCompile Include="src/BrickImpenetrable.cpp" />
+    <ClCompile Include="src/BrickMedium.cpp" />
     <ClCompile Include="src/BrickSoft.cpp" />
-    <ClCompile Include="src\BrickTypeValues.cpp" />
+    <ClCompile Include="src/BrickTypeValues.cpp" />
     <ClCompile Include="src/Brick.cpp" />
     <ClCompile Include="src/BrickGrid.cpp" />
     <ClCompile Include="src/Game.cpp" />
@@ -171,8 +175,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\pugixml-1.14\src\pugixml.hpp" />
+    <ClInclude Include="src/BrickGridVisual.h" />
+    <ClInclude Include="src/BrickHard.h" />
+    <ClInclude Include="src/BrickImpenetrable.h" />
+    <ClInclude Include="src/BrickMedium.h" />
     <ClInclude Include="src/BrickSoft.h" />
-    <ClInclude Include="src\BrickTypeValues.h" />
+    <ClInclude Include="src/BrickTypeValues.h" />
     <ClInclude Include="src/Brick.h" />
     <ClInclude Include="src/BrickGrid.h" />
     <ClInclude Include="src/Game.h" />

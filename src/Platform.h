@@ -10,14 +10,20 @@ using namespace sf;
 class Platform : public GameObject
 {
 private:
-    Vector2f initialPlatformPosition;
     RenderWindow& window;
+    Texture texture;
+    Sprite sprite;
+    Vector2f initialPlatformPosition;
+    FloatRect spriteBounds;
 
+    void setSpriteOriginToCenter();
+    void getSpriteBounds();
     void setInitialPlatformPosition();
     void movePlatform();
 
 public:
     Platform(RenderWindow& windowRef, ValueGetter& valueGetter);
     void update() override;
+    void draw() override;
 };
 

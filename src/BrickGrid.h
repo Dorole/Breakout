@@ -15,58 +15,32 @@ private:
 	int rowSpacing;
 	std::string bricksLayout;
 	std::vector<std::vector<char>> brickSchemeVector;
+	std::vector<std::vector<bool>> renderVector;
 
-	void setBrickSchemeVector()
-	{
-		bricksLayout.erase(std::remove_if(bricksLayout.begin(), bricksLayout.end(), ::isspace), bricksLayout.end());
+	/// <summary>
+	/// Stores information in a 2d vector about brick id layout.
+	/// </summary>
+	void setBrickSchemeVector();
 
-		int index = 0;
-
-		for (size_t i = 0; i < rowCount; i++)
-		{
-			brickSchemeVector.push_back(std::vector<char>());
-
-			for (size_t j = 0; j < columnCount; j++)
-			{
-				brickSchemeVector.at(i).push_back(bricksLayout.at(index));
-				index++;
-			}
-		}
-	}
+	/// <summary>
+	/// Stores information in a 2d vector about whether or not 
+	/// a brick should be rendered in the grid.
+	/// </summary>
+	void setRenderVector();
 
 	//debug
-	void printBrickScheme()
-	{
-		for (const auto& row : brickSchemeVector)
-		{
-			for (char brick : row) 
-			{
-				std::cout << brick << ' ';
-			}
-			std::cout << std::endl;
-		}
-	}
+	void printBrickScheme();
+
+	//debug
+	void printRenderVector();
 
 
 public:
 
-	BrickGrid(ValueGetter& valueGetter)
-	{
-		columnCount = valueGetter.getColumnCount();
-		rowCount = valueGetter.getRowCount();
-		columnSpacing = valueGetter.getColumnSpacing();
-		rowSpacing = valueGetter.getRowSpacing();
+	BrickGrid(ValueGetter& valueGetter);
 
-		bricksLayout = valueGetter.getBricksLayout();
-
-		setBrickSchemeVector();
-		printBrickScheme();
-	}
-
-	std::vector<std::vector<char>> getBrickSchemeVector()
-	{
-		return brickSchemeVector;
-	}
+	std::vector<std::vector<char>> getBrickSchemeVector() { return brickSchemeVector; }
+	std::vector<std::vector<bool>> getRenderVector() { return renderVector; }
 
 };
 
