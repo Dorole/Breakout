@@ -1,10 +1,11 @@
 C:\Users\dorot\Desktop\C++\pugixml-1.14\src\pugixml.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\pugixml.obj
-C:\Users\dorot\Desktop\C++\Breakout\Brick.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Brick.obj
-C:\Users\dorot\Desktop\C++\Breakout\BrickGrid.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\BrickGrid.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\BrickSoft.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\BrickSoft.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\BrickTypeValues.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\BrickTypeValues.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\Brick.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Brick.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\BrickGrid.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\BrickGrid.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\Game.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Game.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\GameObject.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GameObject.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\Platform.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Platform.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\main.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\main.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\XmlParser.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\XmlParser.obj
-C:\Users\dorot\Desktop\C++\Breakout\src\WindowManager.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\WindowManager.obj
-C:\Users\dorot\Desktop\C++\Breakout\ValueGetter.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ValueGetter.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\ValueGetter.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ValueGetter.obj

@@ -48,16 +48,19 @@
     <ClCompile Include="src/GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/WindowManager.cpp">
+    <ClCompile Include="src/Brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
+    <ClCompile Include="src/BrickGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BrickGrid.cpp">
+    <ClCompile Include="src/ValueGetter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ValueGetter.cpp">
+    <ClCompile Include="src/BrickSoft.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BrickTypeValues.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -115,16 +118,19 @@
     <ClInclude Include="src/GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src/WindowManager.h">
+    <ClInclude Include="src/Brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
+    <ClInclude Include="src/BrickGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BrickGrid.h">
+    <ClInclude Include="src/ValueGetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ValueGetter.h">
+    <ClInclude Include="src/BrickSoft.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BrickTypeValues.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

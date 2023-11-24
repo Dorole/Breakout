@@ -9,7 +9,7 @@ using namespace sf;
 Platform::Platform(RenderWindow& windowRef, ValueGetter& valueGetter)
     : window(windowRef)
 {
-    texture.loadFromFile(valueGetter.getPlatformTexture());
+    texture.loadFromFile(valueGetter.getPlatformTexturePath());
     sprite.setTexture(texture);
 
     setSpriteOriginToCenter();

@@ -8,10 +8,11 @@ class Brick
 protected:
 	Sprite sprite;
 	FloatRect spriteBounds;
+	
+	std::string id;
 	Texture texture;
 	int hitPoints;
 	int breakScore;
-	//id?
 	//audio
 
 	enum class BrickType { SOFT, MEDIUM, HARD, IMPENETRABLE } brickType {BrickType::SOFT};

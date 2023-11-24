@@ -134,6 +134,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml-1.14\src\pugixml.cpp" />
+    <ClCompile Include="src/BrickSoft.cpp" />
+    <ClCompile Include="src\BrickTypeValues.cpp" />
     <ClCompile Include="src/Brick.cpp" />
     <ClCompile Include="src/BrickGrid.cpp" />
     <ClCompile Include="src/Game.cpp" />
@@ -141,7 +143,6 @@
     <ClCompile Include="src/Platform.cpp" />
     <ClCompile Include="src/main.cpp" />
     <ClCompile Include="src/XmlParser.cpp" />
-    <ClCompile Include="src/WindowManager.cpp" />
     <ClCompile Include="src/ValueGetter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,13 +171,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\pugixml-1.14\src\pugixml.hpp" />
+    <ClInclude Include="src/BrickSoft.h" />
+    <ClInclude Include="src\BrickTypeValues.h" />
     <ClInclude Include="src/Brick.h" />
     <ClInclude Include="src/BrickGrid.h" />
     <ClInclude Include="src/Game.h" />
     <ClInclude Include="src/GameObject.h" />
     <ClInclude Include="src/Platform.h" />
     <ClInclude Include="src/XmlParser.h" />
-    <ClInclude Include="src/WindowManager.h" />
     <ClInclude Include="src/ValueGetter.h" />
   </ItemGroup>
   <ItemGroup>
