@@ -60,10 +60,22 @@
     <ClCompile Include="src/BrickSoft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BrickTypeValues.cpp">
+    <ClCompile Include="src/BrickGridVisual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BrickMedium.cpp">
+    <ClCompile Include="src/BrickHard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src/BrickImpenetrable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src/BrickMedium.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src/BrickTypeValues.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,10 +145,22 @@
     <ClInclude Include="src/BrickSoft.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BrickTypeValues.h">
+    <ClInclude Include="src/BrickGridVisual.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BrickMedium.h">
+    <ClInclude Include="src/BrickHard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src/BrickImpenetrable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src/BrickMedium.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src/BrickTypeValues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

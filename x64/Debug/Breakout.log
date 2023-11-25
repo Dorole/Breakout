@@ -1,4 +1,7 @@
-﻿  BrickGridVisual.cpp
-  Game.cpp
-  Generating Code...
+﻿  Ball.cpp
+C:\Users\dorot\Desktop\C++\Breakout\src\Ball.cpp(41,46): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
   Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe

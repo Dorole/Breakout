@@ -7,7 +7,7 @@
 	ColumnSpacing="3"
 	BackgroundTexture=""
 	PlatformTexture="resources/textures/platform_purple.png"
-	BallTexture="">
+	BallTexture="resources/textures/ball_golden.png" >
 	<BrickTypes>
 		<!-- Soft Brick -->
 		<BrickType

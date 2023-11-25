@@ -3,6 +3,7 @@
 #include "XmlParser.h"
 #include "GameObject.h"
 #include "Platform.h"
+#include "Ball.h"
 #include "BrickGrid.h"
 #include "ValueGetter.h"
 #include "BrickGridVisual.h"
@@ -16,9 +17,11 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 
 	//Create objects
 	auto platform = std::make_unique<Platform>(window, valueGetter);
-	gameObjects.push_back(std::move(platform)); //pazi ako planiras jos koristiti platform, sad je platform nullptr! --> push_back direktno
-
+	auto ball = std::make_unique<Ball>(window, valueGetter, *platform);
 	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid);
+	
+	gameObjects.push_back(std::move(platform)); 
+	gameObjects.push_back(std::move(ball));
 	gameObjects.push_back(std::move(gridVisual));
 }
 

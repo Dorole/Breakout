@@ -34,6 +34,7 @@ int ValueGetter::rowSpacing = 0;
 std::string ValueGetter::bricksLayout = "";
 std::string ValueGetter::backgroundTexturePath = "";
 std::string ValueGetter::platformTexturePath = "";
+std::string ValueGetter::ballTexturePath = "";
 
 std::vector<std::string> ValueGetter::bricksIds{};
 std::map<std::string, BrickTypeValues> ValueGetter::brickTypesMap{};
@@ -60,6 +61,7 @@ ValueGetter::ValueGetter(XmlParser& parserRef, std::string& levelFileName)
 	bricksLayout = parser.getTextFromNode(LEVEL, BRICKS);
 	backgroundTexturePath = parser.getNodeAttributeAsString(BACKGROUND_TEXTURE, LEVEL);
 	platformTexturePath = parser.getNodeAttributeAsString(PLATFORM_TEXTURE, LEVEL);
+	ballTexturePath = parser.getNodeAttributeAsString(BALL_TEXTURE, LEVEL);
 
 	bricksIds = parser.getSiblingAttributesValuesByType(ID, LEVEL, BRICK_TYPES);
 

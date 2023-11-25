@@ -36,16 +36,20 @@ void Platform::setInitialPlatformPosition()
 
 void Platform::movePlatform()
 {
+    Vector2f lastPos = sprite.getPosition();
     Vector2i localMousePosition = Mouse::getPosition(window); 
 
     if (localMousePosition.x < (spriteBounds.width / 2)) {
         sprite.setPosition((spriteBounds.width / 2), initialPlatformPosition.y);
+        windowBoundReached = true;
     }
     else if (localMousePosition.x > window.getSize().x - (spriteBounds.width / 2)) {
         sprite.setPosition(window.getSize().x - (spriteBounds.width / 2), initialPlatformPosition.y);
+        windowBoundReached = true;
     }
     else {
         sprite.setPosition(localMousePosition.x, initialPlatformPosition.y);
+        windowBoundReached = false;
     }
 }
 

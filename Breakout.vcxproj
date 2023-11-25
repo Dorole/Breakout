@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml-1.14\src\pugixml.cpp" />
+    <ClCompile Include="src/Ball.cpp" />
     <ClCompile Include="src/BrickGridVisual.cpp" />
     <ClCompile Include="src/BrickHard.cpp" />
     <ClCompile Include="src/BrickImpenetrable.cpp" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\pugixml-1.14\src\pugixml.hpp" />
+    <ClInclude Include="src/Ball.h" />
     <ClInclude Include="src/BrickGridVisual.h" />
     <ClInclude Include="src/BrickHard.h" />
     <ClInclude Include="src/BrickImpenetrable.h" />
@@ -215,6 +217,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
     <CopyFileToFolders Include="resources\textures\brick_spec_purplegolden.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\ball_golden.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
   </ItemGroup>

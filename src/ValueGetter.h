@@ -44,6 +44,7 @@ private:
 	static std::string bricksLayout;
 	static std::string platformTexturePath;
 	static std::string backgroundTexturePath;
+	static std::string ballTexturePath;
 
 	static std::vector<std::string> bricksIds;
 	static std::map<std::string, BrickTypeValues> brickTypesMap;
@@ -68,6 +69,7 @@ public:
 	static std::string getBricksLayout() { return bricksLayout; }
 	static std::string getPlatformTexturePath() { return platformTexturePath; }
 	static std::string getBackgroundTexturePath() { return backgroundTexturePath; }
+	static std::string getBallTexturePath() { return ballTexturePath; }
 
 	BrickTypeValues getBrickValuesById(const std::string& brickId);
 

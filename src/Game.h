@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "BrickGrid.h"
+#include "Platform.h"
 
 using namespace sf;
 
