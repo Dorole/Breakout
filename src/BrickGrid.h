@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream> //
+#include <iostream> 
 #include <vector>
 #include "ValueGetter.h"
 
@@ -11,11 +11,9 @@ class BrickGrid
 private:
 	int columnCount;
 	int rowCount;
-	int columnSpacing;
-	int rowSpacing;
 	std::string bricksLayout;
-	std::vector<std::vector<char>> brickSchemeVector;
-	std::vector<std::vector<bool>> renderVector;
+	std::vector<std::vector<char>> brickSchemeVector {};
+	std::vector<std::vector<bool>> renderVector {};
 
 	/// <summary>
 	/// Stores information in a 2d vector about brick id layout.

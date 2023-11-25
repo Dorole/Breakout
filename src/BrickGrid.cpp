@@ -6,9 +6,9 @@
 
 BrickGrid::BrickGrid(ValueGetter& valueGetter)
 {
-
-
 	bricksLayout = valueGetter.getBricksLayout();
+	columnCount = valueGetter.getColumnCount();
+	rowCount = valueGetter.getRowCount();
 
 	setBrickSchemeVector();
 	setRenderVector();
@@ -20,7 +20,6 @@ void BrickGrid::setBrickSchemeVector()
 	bricksLayout.erase(std::remove_if(bricksLayout.begin(), bricksLayout.end(), ::isspace), bricksLayout.end());
 
 	int index = 0;
-
 	for (size_t i = 0; i < rowCount; i++)
 	{
 		brickSchemeVector.push_back(std::vector<char>());
