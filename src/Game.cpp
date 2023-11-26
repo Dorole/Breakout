@@ -5,8 +5,9 @@
 #include "Platform.h"
 #include "Ball.h"
 #include "BrickGrid.h"
-#include "ValueGetter.h"
 #include "BrickGridVisual.h"
+#include "ValueGetter.h"
+#include <iostream>
 
 using namespace sf;
 
@@ -16,19 +17,26 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 	//should be able to change path from constructor!
 
 	//Create objects
-	auto platform = std::make_unique<Platform>(window, valueGetter);	
-	auto ball = std::make_unique<Ball>(window, valueGetter, *platform);
 	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid);
+	auto platform = std::make_unique<Platform>(window, valueGetter);	
+	auto ball = std::make_unique<Ball>(window, valueGetter, *platform, *gridVisual);
 	
+	gameObjects.push_back(std::move(gridVisual));
 	gameObjects.push_back(std::move(platform)); 
 	gameObjects.push_back(std::move(ball));
-	gameObjects.push_back(std::move(gridVisual));
 }
 
 void Game::startGame()
 {
-	auto ball = static_cast<Ball*>(gameObjects[1].get());
+	auto ball = static_cast<Ball*>(gameObjects[2].get());
 	ball->toggleBounce();
+}
+
+void Game::restartGame()
+{
+	auto ball = static_cast<Ball*>(gameObjects[2].get());
+	ball->toggleBounce();
+	ball->setInitialBallPosition();
 }
 
 void Game::update(float deltaTime)

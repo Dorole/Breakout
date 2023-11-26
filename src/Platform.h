@@ -16,7 +16,7 @@ private: //move these to GameObject
     Vector2f initialPlatformPosition;
     FloatRect spriteLocalBounds;
 
-    float platformSpeed = 400.0f;
+    float platformSpeed = 400.0f; //set from ctr!
     bool windowBoundReached = false;
 
     //move these to GameObject

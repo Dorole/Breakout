@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "BrickGrid.h"
+#include "BrickGridVisual.h"
 #include "Platform.h"
 #include "Ball.h"
 
@@ -22,6 +23,8 @@ public:
 
 	void update(float deltaTime);
 	void render();
+
 	void startGame();
+	void restartGame();
 };
 

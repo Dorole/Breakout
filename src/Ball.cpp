@@ -5,15 +5,17 @@
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "Platform.h"
+#include "BrickGridVisual.h"
 
 using namespace sf;
 
-Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetter, Platform& platformRef)
-	: window(windowRef), platform(platformRef)
+Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetter, Platform& platformRef, BrickGridVisual& brickGridVisual)
+    : window(windowRef), platform(platformRef), brickSprites(brickGridVisual)
 {
 	texture.loadFromFile(valueGetter.getBallTexturePath());
 	sprite.setTexture(texture);
     windowSize = window.getSize();
+    shouldBounce = false;
 
     setSpriteOriginToCenter();
     setInitialBallPosition();
@@ -56,6 +58,7 @@ void Ball::moveIdle(float deltaTime)
 void Ball::toggleBounce()
 {
     shouldBounce = !shouldBounce;
+    std::cout << shouldBounce << std::endl;
 }
 
 void Ball::checkWindowCollision()
@@ -80,10 +83,34 @@ void Ball::checkWindowCollision()
 
 }
 
+//should return bool
 void Ball::checkPlatformCollision()
 {
     if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()))
         ballVelocity.y = -ballVelocity.y;
+}
+
+//should return bool
+void Ball::checkBrickCollision()
+{
+    std::vector<std::vector<Sprite>> brickGrid = brickSprites.getBrickSpriteVector();
+
+    for (const auto& row : brickGrid)
+    {
+        for (const auto& brickSprite : row)
+        {
+            if (brickSprite.getTexture() && brickSprite.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+            {
+                ballVelocity.y = -ballVelocity.y;
+                return;
+            }
+        }
+    }
+
+    
+    //ball doesn't care that a brick is hit,
+    //it only cares that something is hit and that it should change velocity
+    //and brick grid handles actual hit logic
 }
 
 //***************************************************
@@ -97,7 +124,7 @@ void Ball::update(float deltaTime)
         
         checkWindowCollision();
         checkPlatformCollision();
-
+        checkBrickCollision();
     }
 }
 

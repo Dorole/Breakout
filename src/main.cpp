@@ -42,6 +42,9 @@ int main()
 
 			if (Mouse::isButtonPressed(Mouse::Left))
 				game.startGame();
+
+			if (Mouse::isButtonPressed(Mouse::Right)) //debug only
+				game.restartGame();
 		}
 
 

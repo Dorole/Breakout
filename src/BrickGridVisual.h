@@ -71,5 +71,7 @@ public:
 	void update(float deltaTime) override;
 	void draw() override;
 
+	std::vector<std::vector<Sprite>> getBrickSpriteVector() { return spriteVector; }
+
 };
 
