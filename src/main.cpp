@@ -25,18 +25,27 @@ int main()
 	RenderWindow window(VideoMode(700, 500), "Breakout"); //adjust - SHOULD BE WAY SMALLER
 	window.setPosition({ 650, 150 });
 
+	Clock clock;
+	float deltaTime;
+
 	Game game(window, valueGetter, grid);
 
 	while (window.isOpen())
 	{
+		deltaTime = clock.restart().asSeconds();
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			if (Mouse::isButtonPressed(Mouse::Left))
+				game.startGame();
 		}
 
-		game.update();
+
+		game.update(deltaTime);
 		game.render();
 	}
 }

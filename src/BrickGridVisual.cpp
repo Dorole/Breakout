@@ -16,7 +16,7 @@ BrickGridVisual::BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGett
 }
 
 
-void BrickGridVisual::update()
+void BrickGridVisual::update(float deltaTime)
 {
 	//check the state of renderVector in BrickGrid
 }

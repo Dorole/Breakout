@@ -16,7 +16,7 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 	//should be able to change path from constructor!
 
 	//Create objects
-	auto platform = std::make_unique<Platform>(window, valueGetter);
+	auto platform = std::make_unique<Platform>(window, valueGetter);	
 	auto ball = std::make_unique<Ball>(window, valueGetter, *platform);
 	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid);
 	
@@ -25,11 +25,17 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 	gameObjects.push_back(std::move(gridVisual));
 }
 
-void Game::update()
+void Game::startGame()
+{
+	auto ball = static_cast<Ball*>(gameObjects[1].get());
+	ball->toggleBounce();
+}
+
+void Game::update(float deltaTime)
 {
 	for (auto& gameObject : gameObjects)
 	{
-		gameObject->update();
+		gameObject->update(deltaTime);
 	}
 }
 

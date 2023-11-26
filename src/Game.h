@@ -4,6 +4,7 @@
 #include "ValueGetter.h"
 #include "BrickGrid.h"
 #include "Platform.h"
+#include "Ball.h"
 
 using namespace sf;
 
@@ -19,7 +20,8 @@ private:
 public:
 	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid);
 
-	void update();
+	void update(float deltaTime);
 	void render();
+	void startGame();
 };
 

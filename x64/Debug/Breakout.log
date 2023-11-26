@@ -1,7 +1,22 @@
 ﻿  Ball.cpp
-C:\Users\dorot\Desktop\C++\Breakout\src\Ball.cpp(41,46): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+  Platform.cpp
+C:\Users\dorot\Desktop\C++\Breakout\src\Platform.cpp(33,83): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
-              T=int
+              T=unsigned int
           ]
+          and
+          [
+              T=float
+          ]
+C:\Users\dorot\Desktop\C++\Breakout\src\Platform.cpp(33,59): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+  Generating Code...
   Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe

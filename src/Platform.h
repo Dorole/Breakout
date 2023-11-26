@@ -14,23 +14,27 @@ private: //move these to GameObject
     Texture texture;
     Sprite sprite;
     Vector2f initialPlatformPosition;
-    FloatRect spriteBounds;
+    FloatRect spriteLocalBounds;
+
+    float platformSpeed = 400.0f;
     bool windowBoundReached = false;
 
     //move these to GameObject
     void setSpriteOriginToCenter();
-    void getSpriteBounds();
+    void getSpriteLocalBounds();
     void setInitialPlatformPosition();
-    void movePlatform();
+    void movePlatform(float deltaTime);
 
 public:
     Platform(RenderWindow& windowRef, ValueGetter& valueGetter);
-    void update() override;
+    void update(float deltaTime) override;
     void draw() override;
 
     Vector2f getInitialPlatformPosition() { return initialPlatformPosition; }
     Vector2f getPlatformPosition() { return sprite.getPosition(); }
-    FloatRect getPlatformBounds() { return spriteBounds; }
+    FloatRect getPlatformLocalBounds() { return spriteLocalBounds; }
+    FloatRect getPlatformGlobalBounds() { return sprite.getGlobalBounds(); }
     bool platformWindowBoundReached() { return windowBoundReached; } //MAKE EVENT!!
+
 };
 

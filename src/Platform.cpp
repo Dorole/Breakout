@@ -14,18 +14,18 @@ Platform::Platform(RenderWindow& windowRef, ValueGetter& valueGetter)
 
     setSpriteOriginToCenter();
     setInitialPlatformPosition();
-    getSpriteBounds();
+    getSpriteLocalBounds();
 }
 
 void Platform::setSpriteOriginToCenter()
 {
-    spriteBounds = sprite.getLocalBounds();
-    sprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
+    spriteLocalBounds = sprite.getLocalBounds();
+    sprite.setOrigin(spriteLocalBounds.width / 2, spriteLocalBounds.height / 2);
 }
 
-void Platform::getSpriteBounds()
+void Platform::getSpriteLocalBounds()
 {
-    spriteBounds = sprite.getLocalBounds();
+    spriteLocalBounds = sprite.getLocalBounds();
 }
 
 void Platform::setInitialPlatformPosition()
@@ -34,28 +34,34 @@ void Platform::setInitialPlatformPosition()
     sprite.setPosition(initialPlatformPosition);
 }
 
-void Platform::movePlatform()
+void Platform::movePlatform(float deltaTime)
 {
-    Vector2f lastPos = sprite.getPosition();
-    Vector2i localMousePosition = Mouse::getPosition(window); 
+    Vector2f currentPosition = sprite.getPosition();
+    Vector2i localMousePosition = Mouse::getPosition(window);
+    Vector2f targetPosition;
 
-    if (localMousePosition.x < (spriteBounds.width / 2)) {
-        sprite.setPosition((spriteBounds.width / 2), initialPlatformPosition.y);
+    if (localMousePosition.x < (spriteLocalBounds.width / 2)) 
+    {
+        targetPosition = Vector2f((spriteLocalBounds.width / 2) - currentPosition.x, 0);
         windowBoundReached = true;
     }
-    else if (localMousePosition.x > window.getSize().x - (spriteBounds.width / 2)) {
-        sprite.setPosition(window.getSize().x - (spriteBounds.width / 2), initialPlatformPosition.y);
+    else if (localMousePosition.x > window.getSize().x - (spriteLocalBounds.width / 2)) 
+    {
+        targetPosition = Vector2f((window.getSize().x - (spriteLocalBounds.width / 2)) - currentPosition.x, 0);
         windowBoundReached = true;
     }
-    else {
-        sprite.setPosition(localMousePosition.x, initialPlatformPosition.y);
+    else 
+    {
+        targetPosition = Vector2f(localMousePosition.x - currentPosition.x, 0);
         windowBoundReached = false;
     }
+
+    sprite.move(targetPosition * deltaTime * platformSpeed);
 }
 
-void Platform::update() 
+void Platform::update(float deltaTime) 
 {
-    movePlatform();
+    movePlatform(deltaTime);
 }
 
 void Platform::draw()

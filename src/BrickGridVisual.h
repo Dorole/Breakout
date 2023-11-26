@@ -68,7 +68,7 @@ public:
 
 	BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetter, BrickGrid& brickGridRef);
 
-	void update() override;
+	void update(float deltaTime) override;
 	void draw() override;
 
 };
