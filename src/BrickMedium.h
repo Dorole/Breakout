@@ -11,9 +11,6 @@ private:
 public:
 	BrickMedium(ValueGetter& valueGetter);
 
-	void onHit() override
-	{
-
-	};
+	void onHit() override;
 };
 

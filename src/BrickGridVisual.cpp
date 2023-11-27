@@ -32,6 +32,7 @@ void BrickGridVisual::draw()
 
 			//bounds treba drugacije pohraniti da se ne retrievaju svaki frame 
 			//potencijalno isto u vector ili mozda bolje map!
+			//ili zasto jednostavno ne uzmem bounds direktno sa spritea i izbacim brick vec??
 			spriteVector.at(row).at(column).setPosition(
 				column * (brickVector.at(row).at(column)->getSpriteBounds().width + columnSpacing),
 				row * (brickVector.at(row).at(column)->getSpriteBounds().height + rowSpacing));

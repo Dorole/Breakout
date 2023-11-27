@@ -22,7 +22,7 @@ private:
 
 	//ovo mozda ima vise smisla da bude u BrickGrid?
 	//je li potrebno uopce??
-	std::vector<std::vector<std::unique_ptr<Brick>>> brickVector {};
+	std::vector<std::vector<std::shared_ptr<Brick>>> brickVector {};
 	
 	void setBrickVector(ValueGetter& valueGetter, BrickGrid& grid)
 	{
@@ -30,20 +30,20 @@ private:
 
 		for (size_t i = 0; i < rowCount; i++)
 		{
-			brickVector.push_back(std::vector<std::unique_ptr<Brick>>());
+			brickVector.push_back(std::vector<std::shared_ptr<Brick>>());
 
 			for (size_t j = 0; j < columnCount; j++)
 			{
 				if (brickSchemeVector[i][j] == 'S')
-					brickVector.at(i).push_back(std::make_unique<BrickSoft>(valueGetter));
+					brickVector.at(i).push_back(std::make_shared<BrickSoft>(valueGetter));
 				else if (brickSchemeVector[i][j] == 'M')
-					brickVector.at(i).push_back(std::make_unique<BrickMedium>(valueGetter));
+					brickVector.at(i).push_back(std::make_shared<BrickMedium>(valueGetter));
 				else if (brickSchemeVector[i][j] == 'H')
-					brickVector.at(i).push_back(std::make_unique<BrickHard>(valueGetter));
+					brickVector.at(i).push_back(std::make_shared<BrickHard>(valueGetter));
 				else if (brickSchemeVector[i][j] == 'I')
-					brickVector.at(i).push_back(std::make_unique<BrickImpenetrable>(valueGetter));
+					brickVector.at(i).push_back(std::make_shared<BrickImpenetrable>(valueGetter));
 				else
-					brickVector.at(i).push_back(std::make_unique<BrickHard>(valueGetter)); //PLACEHOLDER! SMISLI STO OVDJE
+					brickVector.at(i).push_back(std::make_shared<BrickHard>(valueGetter)); //PLACEHOLDER! SMISLI STO OVDJE
 
 			}
 		}
@@ -71,6 +71,7 @@ public:
 	void update(float deltaTime) override;
 	void draw() override;
 
+	std::vector<std::vector<std::shared_ptr<Brick>>> getBrickVector() { return brickVector; }
 	std::vector<std::vector<Sprite>> getBrickSpriteVector() { return spriteVector; }
 
 };

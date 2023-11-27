@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "ValueGetter.h"
@@ -11,18 +12,22 @@ class Ball : public GameObject
 {
 private: //move these to GameObject
     RenderWindow& window;
+    ValueGetter& valueGetter;
     Texture texture;
     Sprite sprite; //circle shape?
     Vector2f initialBallPosition;
     FloatRect spriteBounds;
 
     Platform& platform;
-    BrickGridVisual& brickSprites;
+    BrickGridVisual& brickGridVisual;
+
 
     Vector2u windowSize;
     bool shouldBounce;
     sf::Vector2f ballVelocity {-0.8f, -0.8f}; //set from ctr! (from value getter or similar)
     float ballSpeed = 400.0f; //set from ctr!
+
+    std::vector<std::vector<std::shared_ptr<Brick>>> brickGrid;
 
     //move these to GameObject
     void setSpriteOriginToCenter();
@@ -36,7 +41,7 @@ private: //move these to GameObject
 
 
 public:
-    Ball(RenderWindow& windowRef, ValueGetter& valueGetter, Platform& platformRef, BrickGridVisual& brickGridVisual);
+    Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGridVisual& brickGridVisualRef);
 
     void update(float deltaTime) override;
     void draw() override;

@@ -11,9 +11,6 @@ private:
 public:
 	BrickImpenetrable(ValueGetter& valueGetter);
 
-	void onHit() override
-	{
-
-	};
+	void onHit() override;
 };
 

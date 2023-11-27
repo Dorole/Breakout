@@ -190,6 +190,7 @@
     <ClInclude Include="src/Platform.h" />
     <ClInclude Include="src/XmlParser.h" />
     <ClInclude Include="src/ValueGetter.h" />
+    <ClInclude Include="src\Observer.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\xml files\exampleLevel.xml">

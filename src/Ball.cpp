@@ -9,12 +9,14 @@
 
 using namespace sf;
 
-Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetter, Platform& platformRef, BrickGridVisual& brickGridVisual)
-    : window(windowRef), platform(platformRef), brickSprites(brickGridVisual)
+Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGridVisual& brickGridVisualRef)
+    : window(windowRef), platform(platformRef), valueGetter(valueGetterRef), brickGridVisual(brickGridVisualRef)
 {
 	texture.loadFromFile(valueGetter.getBallTexturePath());
 	sprite.setTexture(texture);
     windowSize = window.getSize();
+    brickGrid = brickGridVisual.getBrickVector();
+    
     shouldBounce = false;
 
     setSpriteOriginToCenter();
@@ -90,27 +92,24 @@ void Ball::checkPlatformCollision()
         ballVelocity.y = -ballVelocity.y;
 }
 
-//should return bool
+//should return bool?
+//cache values
 void Ball::checkBrickCollision()
 {
-    std::vector<std::vector<Sprite>> brickGrid = brickSprites.getBrickSpriteVector();
+    std::vector<std::vector<Sprite>> sprites = brickGridVisual.getBrickSpriteVector();
 
-    for (const auto& row : brickGrid)
+    for (size_t i = 0; i < valueGetter.getRowCount(); i++)
     {
-        for (const auto& brickSprite : row)
+        for (size_t j = 0; j < valueGetter.getColumnCount(); j++)
         {
-            if (brickSprite.getTexture() && brickSprite.getGlobalBounds().intersects(sprite.getGlobalBounds()))
+            if (sprites[i][j].getTexture() && sprites[i][j].getGlobalBounds().intersects(sprite.getGlobalBounds()))
             {
+                brickGrid[i][j]->onHit(); //:(
                 ballVelocity.y = -ballVelocity.y;
                 return;
             }
         }
     }
-
-    
-    //ball doesn't care that a brick is hit,
-    //it only cares that something is hit and that it should change velocity
-    //and brick grid handles actual hit logic
 }
 
 //***************************************************
@@ -120,6 +119,7 @@ void Ball::update(float deltaTime)
         moveIdle(deltaTime);
     else
     {
+        //nekako kao da uvijek udara u ista mjesta?? 
         sprite.move(ballVelocity * ballSpeed * deltaTime);
         
         checkWindowCollision();

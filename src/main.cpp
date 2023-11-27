@@ -2,14 +2,11 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "Game.h"
-
 #include "XmlParser.h"
 #include "ValueGetter.h"
-#include "BrickSoft.h"
 #include "BrickGrid.h"
-#include "BrickHard.h"
-#include "BrickMedium.h"
-#include "BrickImpenetrable.h"
+
+
 
 using namespace sf;
 

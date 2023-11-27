@@ -11,9 +11,6 @@ private:
 public:
 	BrickHard(ValueGetter& valueGetter);
 
-	void onHit() override
-	{
-
-	};
+	void onHit() override;
 };
 

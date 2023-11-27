@@ -11,9 +11,6 @@ private:
 public:
 	BrickSoft(ValueGetter& valueGetter);
 
-	void onHit() override
-	{
-
-	};
+	void onHit() override;
 };
 

@@ -1,2 +1,11 @@
-﻿  main.cpp
+﻿  Ball.cpp
+  BrickGridVisual.cpp
+  BrickHard.cpp
+  BrickImpenetrable.cpp
+  BrickMedium.cpp
+  BrickSoft.cpp
+  Brick.cpp
+  Game.cpp
+  main.cpp
+  Generating Code...
   Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe

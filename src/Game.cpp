@@ -21,10 +21,14 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 	auto platform = std::make_unique<Platform>(window, valueGetter);	
 	auto ball = std::make_unique<Ball>(window, valueGetter, *platform, *gridVisual);
 	
+	//if you change the order here, 
 	gameObjects.push_back(std::move(gridVisual));
 	gameObjects.push_back(std::move(platform)); 
 	gameObjects.push_back(std::move(ball));
+
 }
+
+//destructor needed I think, if you will use new Game for each level?
 
 void Game::startGame()
 {
@@ -57,3 +61,4 @@ void Game::render()
 	window.display();
 	window.clear();
 }
+
