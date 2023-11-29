@@ -30,6 +30,7 @@ int ValueGetter::rowCount = 0;
 int ValueGetter::columnCount = 0;
 int ValueGetter::columnSpacing = 0;
 int ValueGetter::rowSpacing = 0;
+int ValueGetter::levelId = 0;
 
 std::string ValueGetter::bricksLayout = "";
 std::string ValueGetter::backgroundTexturePath = "";
@@ -57,6 +58,8 @@ ValueGetter::ValueGetter(XmlParser& parserRef, std::string& levelFileName)
 	columnCount = parser.getNodeAttributeAsInt(COLUMN_COUNT, LEVEL);
 	rowSpacing = parser.getNodeAttributeAsInt(ROW_SPACING, LEVEL);
 	columnSpacing = parser.getNodeAttributeAsInt(COLUMN_SPACING, LEVEL);
+	levelId = parser.getNodeAttributeAsInt(ID, LEVEL);
+
 
 	bricksLayout = parser.getTextFromNode(LEVEL, BRICKS);
 	backgroundTexturePath = parser.getNodeAttributeAsString(BACKGROUND_TEXTURE, LEVEL);
@@ -67,9 +70,7 @@ ValueGetter::ValueGetter(XmlParser& parserRef, std::string& levelFileName)
 
 	mapBrickValuesToIds();
 
-	//debug
-	//BrickTypeValues softBrick = getBrickValuesById("S");
-	//std::cout << softBrick.id << TEXTURE << ": " << softBrick.texture << std::endl;
+
 
 }
 

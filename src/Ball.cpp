@@ -5,17 +5,16 @@
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "Platform.h"
-#include "BrickGridVisual.h"
+#include "BrickGrid.h"
 
 using namespace sf;
 
-Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGridVisual& brickGridVisualRef)
-    : window(windowRef), platform(platformRef), valueGetter(valueGetterRef), brickGridVisual(brickGridVisualRef)
+Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGrid& gridRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
+    : window(windowRef), platform(platformRef), valueGetter(valueGetterRef), grid(gridRef), gridVector(gridDataVectorRef)
 {
 	texture.loadFromFile(valueGetter.getBallTexturePath());
 	sprite.setTexture(texture);
     windowSize = window.getSize();
-    brickGrid = brickGridVisual.getBrickVector();
     
     shouldBounce = false;
 
@@ -88,28 +87,36 @@ void Ball::checkWindowCollision()
 //should return bool
 void Ball::checkPlatformCollision()
 {
-    if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()))
+    if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()) && ballVelocity.y > 0)
+    {
         ballVelocity.y = -ballVelocity.y;
+        return;
+    }
 }
 
 //should return bool?
 //cache values
 void Ball::checkBrickCollision()
-{
-    std::vector<std::vector<Sprite>> sprites = brickGridVisual.getBrickSpriteVector();
-
+{     
     for (size_t i = 0; i < valueGetter.getRowCount(); i++)
     {
         for (size_t j = 0; j < valueGetter.getColumnCount(); j++)
         {
-            if (sprites[i][j].getTexture() && sprites[i][j].getGlobalBounds().intersects(sprite.getGlobalBounds()))
+            if (gridVector[i][j].shouldRender && gridVector[i][j].getSpriteGlobalBounds().intersects(sprite.getGlobalBounds()))
             {
-                brickGrid[i][j]->onHit(); //:(
-                ballVelocity.y = -ballVelocity.y;
+                if (!isInCollision)
+                {
+					ballVelocity.y = -ballVelocity.y;
+					grid.handleCollision(i, j);
+					isInCollision = true;
+                }
                 return;
             }
         }
     }
+
+
+    isInCollision = false;
 }
 
 //***************************************************
@@ -119,12 +126,18 @@ void Ball::update(float deltaTime)
         moveIdle(deltaTime);
     else
     {
-        //nekako kao da uvijek udara u ista mjesta?? 
-        sprite.move(ballVelocity * ballSpeed * deltaTime);
-        
         checkWindowCollision();
         checkPlatformCollision();
         checkBrickCollision();
+        
+        //nekako kao da uvijek udara u ista mjesta?? 
+        sprite.move(ballVelocity * ballSpeed * deltaTime);
+
+        if (grid.allBricksDestroyed()) //callback to event??
+        {
+            shouldBounce = false;
+            setInitialBallPosition();
+        }
     }
 }
 

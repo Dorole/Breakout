@@ -149,6 +149,8 @@
     <ClCompile Include="src/main.cpp" />
     <ClCompile Include="src/XmlParser.cpp" />
     <ClCompile Include="src/ValueGetter.cpp" />
+    <ClCompile Include="src\GridData.cpp" />
+    <ClCompile Include="src\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -190,12 +192,10 @@
     <ClInclude Include="src/Platform.h" />
     <ClInclude Include="src/XmlParser.h" />
     <ClInclude Include="src/ValueGetter.h" />
-    <ClInclude Include="src\Observer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="resources\xml files\exampleLevel.xml">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </CopyFileToFolders>
+    <ClInclude Include="src\GridData.h" />
+    <ClInclude Include="src\IObserver.h" />
+    <ClInclude Include="src\ISubject.h" />
+    <ClInclude Include="src\UIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\textures\platform_purple.png">
@@ -223,6 +223,28 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\textures\ball_golden.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\xml files\Level_2.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\xml files\Level_3.xml">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\fonts\Cartoon Blocks Christmas.otf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\heart_empty.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\heart_full.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
   </ItemGroup>

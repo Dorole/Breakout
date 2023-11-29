@@ -9,11 +9,17 @@ BrickSoft::BrickSoft(ValueGetter& valueGetter) : Brick(valueGetter)
 
 void BrickSoft::onHit()
 {
+	if (hitPoints == 0)
+		return;
+
 	std::cout << "Soft brick hit." << std::endl;
 	hitPoints--;
 	std::cout << "Hp: " << hitPoints << std::endl;
 
-	if (hitPoints <= 0)
+	if (hitPoints == 0)
+	{
 		std::cout << "Soft brick destroyed." << std::endl;
+		//Notify();
+	}
 
 };

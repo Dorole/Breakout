@@ -8,8 +8,6 @@ C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\sfml-graphics-d-2.dll
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\sfml-system-d-2.dll
 ^C:\USERS\DOROT\DESKTOP\C++\SFML\SFML-2.5.1\BIN\SFML-WINDOW-D-2.DLL
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\sfml-window-d-2.dll
-^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\XML FILES\EXAMPLELEVEL.XML
-C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\exampleLevel.xml
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\PLATFORM_PURPLE.PNG
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\platform_purple.png
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\XML FILES\LEVEL_1.XML
@@ -24,3 +22,13 @@ C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\brick_purple.png
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\brick_spec_purplegolden.png
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\BALL_GOLDEN.PNG
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ball_golden.png
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\XML FILES\LEVEL_2.XML
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Level_2.xml
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\XML FILES\LEVEL_3.XML
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Level_3.xml
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\FONTS\CARTOON BLOCKS CHRISTMAS.OTF
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Cartoon Blocks Christmas.otf
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\HEART_EMPTY.PNG
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\heart_empty.png
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\HEART_FULL.PNG
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\heart_full.png

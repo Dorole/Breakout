@@ -2,18 +2,18 @@
 #include <iostream> 
 #include <vector>
 #include "ValueGetter.h"
+#include "GridData.h"
+#include "IObserver.h"
 
-//odvojiti ovo od renderanja? mozda onda odvoji Brick od GameObjecta 
-//i umjesto toga BrickGridVisual : GameObject ? jer on ce crtati stvari? 
-//a ovaj ce pratiti koliko jos ima brickova nerazbijenih
-class BrickGrid
+class BrickGrid //: public IObserver
 {
 private:
+	ValueGetter& valueGetter;
 	int columnCount;
 	int rowCount;
 	std::string bricksLayout;
 	std::vector<std::vector<char>> brickSchemeVector {};
-	std::vector<std::vector<bool>> renderVector {};
+	std::vector<std::vector<GridData>> gridDataVector {};
 
 	/// <summary>
 	/// Stores information in a 2d vector about brick id layout.
@@ -21,24 +21,27 @@ private:
 	void setBrickSchemeVector();
 
 	/// <summary>
-	/// Stores information in a 2d vector about whether or not 
-	/// a brick should be rendered in the grid.
+	/// Stores information about each grid cell - what brick is contained
+	/// in it and whether it should be rendered.
 	/// </summary>
-	void setRenderVector();
+	void setGridDataVector();
 
 	//debug
 	void printBrickScheme();
 
-	//debug
-	void printRenderVector();
-
 
 public:
 
-	BrickGrid(ValueGetter& valueGetter);
+	BrickGrid(ValueGetter& valueGetterRef);
 
 	std::vector<std::vector<char>> getBrickSchemeVector() { return brickSchemeVector; }
-	std::vector<std::vector<bool>> getRenderVector() { return renderVector; }
+	std::vector<std::vector<GridData>>& getGridDataVector() { return gridDataVector; }
+	void handleCollision(std::size_t row, std::size_t column);
+	bool allBricksDestroyed();
+	
+	//void onNotify() override;
 
+	//debug
+	void setLevelFinished();
 };
 

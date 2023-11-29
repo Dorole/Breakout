@@ -17,9 +17,9 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 	//should be able to change path from constructor!
 
 	//Create objects
-	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid);
+	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid, grid.getGridDataVector());
 	auto platform = std::make_unique<Platform>(window, valueGetter);	
-	auto ball = std::make_unique<Ball>(window, valueGetter, *platform, *gridVisual);
+	auto ball = std::make_unique<Ball>(window, valueGetter, *platform, grid, grid.getGridDataVector());
 	
 	//if you change the order here, 
 	gameObjects.push_back(std::move(gridVisual));
@@ -49,6 +49,9 @@ void Game::update(float deltaTime)
 	{
 		gameObject->update(deltaTime);
 	}
+
+	if (grid.allBricksDestroyed())
+		std::cout << "LEVEL FINISHED." << std::endl;
 }
 
 void Game::render()

@@ -78,6 +78,12 @@
     <ClCompile Include="src/Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GridData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UIManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -94,9 +100,6 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\sfml-window-d-2.dll">
       <Filter>Resource Files\SFML</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\xml files\exampleLevel.xml">
-      <Filter>Resource Files\XML</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="resources\textures\platform_purple.png">
       <Filter>Resource Files\Textures</Filter>
@@ -116,8 +119,23 @@
     <CopyFileToFolders Include="resources\textures\brick_spec_purplegolden.png">
       <Filter>Resource Files\Textures</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\xml files\Level_2.xml">
+      <Filter>Resource Files\XML</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\xml files\Level_3.xml">
+      <Filter>Resource Files\XML</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\fonts\Cartoon Blocks Christmas.otf">
+      <Filter>Resource Files\Fonts</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="resources\textures\ball_golden.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\heart_empty.png">
+      <Filter>Resource Files\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\heart_full.png">
+      <Filter>Resource Files\Textures</Filter>
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +184,16 @@
     <ClInclude Include="src/Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Observer.h">
+    <ClInclude Include="src\IObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GridData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ISubject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

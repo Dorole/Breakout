@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <limits>
 #include "pugixml.hpp"
 
 using namespace pugi;
@@ -134,7 +135,25 @@ private:
 	{
 		const char* attributeName = attributeToRetrieve.c_str();
 		xml_attribute attribute = node.attribute(attributeName);
-		return attribute.as_int();
+
+		if (attribute)
+		{
+			if (std::isdigit(attribute.value()[0]) || (attribute.value()[0] == '-' && std::isdigit(attribute.value()[1])))
+				return attribute.as_int();
+			else
+			{
+				int result = std::numeric_limits<int>::max();
+				std::cout << "Attribute value is not an int. Returning special value: " << result << std::endl;
+				return result;
+			}
+		}
+		else
+		{
+			std::cout << "Attribute " << attributeName << " not found." << std::endl;
+			return std::numeric_limits<int>::max();
+		}
+
+
 	}
 
 	bool checkAttributeExists(xml_node node, const std::string& attributeToCheck)

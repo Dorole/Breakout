@@ -15,3 +15,5 @@ void Brick::createBrick(BrickTypeValues values)
 	sprite.setTexture(texture);
 	spriteBounds = sprite.getLocalBounds();
 }
+
+

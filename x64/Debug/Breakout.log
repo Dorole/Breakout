@@ -1,11 +1,18 @@
-﻿  Ball.cpp
-  BrickGridVisual.cpp
-  BrickHard.cpp
-  BrickImpenetrable.cpp
-  BrickMedium.cpp
-  BrickSoft.cpp
-  Brick.cpp
-  Game.cpp
-  main.cpp
+﻿  main.cpp
+  UIManager.cpp
+C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp(34,49): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp(58,47): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
   Generating Code...
   Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe

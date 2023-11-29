@@ -40,6 +40,7 @@ private:
 	static int columnCount;
 	static int columnSpacing;
 	static int rowSpacing;
+	static int levelId;
 
 	static std::string bricksLayout;
 	static std::string platformTexturePath;
@@ -66,6 +67,7 @@ public:
 	static int getColumnCount() { return columnCount; }
 	static int getRowSpacing() { return rowSpacing; }
 	static int getColumnSpacing() { return columnSpacing; }
+	static int getLevel() { return levelId; }
 	static std::string getBricksLayout() { return bricksLayout; }
 	static std::string getPlatformTexturePath() { return platformTexturePath; }
 	static std::string getBackgroundTexturePath() { return backgroundTexturePath; }

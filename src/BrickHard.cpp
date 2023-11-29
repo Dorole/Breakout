@@ -10,10 +10,13 @@ BrickHard::BrickHard(ValueGetter& valueGetter) : Brick(valueGetter)
 
 void BrickHard::onHit()
 {
+	if (hitPoints == 0)
+		return;
+
 	std::cout << "Hard brick hit." << std::endl;
 	hitPoints--;
 	std::cout << "Hp: " << hitPoints << std::endl;
 
-	if (hitPoints <= 0)
+	if (hitPoints == 0)
 		std::cout << "Hard brick destroyed." << std::endl;
 };
