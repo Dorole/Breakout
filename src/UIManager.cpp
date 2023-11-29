@@ -1,10 +1,13 @@
-#include "UIManager.h"
+#include <iostream>
 #include <SFML/Graphics.hpp>
+#include "ValueGetter.h"
+#include "UIManager.h"
+#include "Game.h"
 
 using namespace sf;
 
-UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef)
-	: window(windowRef), valueGetter(valueGetterRef)
+UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game& gameRef) //mozda mu Grid ni ne treba?
+	: window(windowRef), valueGetter(valueGetterRef), game(gameRef)
 {
 	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); //mozda isto iz xml-a? 
 
@@ -15,8 +18,8 @@ UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef)
 	Vector2f posBelowScoreText = scoreText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing);
 
 	levelValueText = createNewText(font, std::to_string(valueGetter.getLevel()), posBelowLevelText, fontSize, TextOrigin::TOP_CENTER);
-	scoreValueText = createNewText(font, "0", posBelowScoreText, fontSize, TextOrigin::TOP_CENTER);
-	
+	scoreValueText = createNewText(font, std::to_string(0), posBelowScoreText, fontSize, TextOrigin::TOP_CENTER);
+
 	texts.push_back(std::move(levelText));
 	texts.push_back(std::move(scoreText));
 
@@ -31,6 +34,8 @@ UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef)
 	emptyHeartSprite.setOrigin(emptyHeartSprite.getLocalBounds().width / 2, emptyHeartSprite.getLocalBounds().height / 2);
 
 	fullHeartSprite.setPosition(window.getSize().x / 2, 10);
+
+	game.attachObserver(this);
 }
 
 std::unique_ptr<Text> UIManager::createNewText(Font& font, std::string textString, TextAlignment alignment, unsigned int charSize)
@@ -101,7 +106,7 @@ void UIManager::setTextOrigin(TextOrigin origin, Text& text)
 }
 
 
-// *********************************************************************
+// ****************************** OVERRIDDEN FUNCTIONS ******************************
 
 void UIManager::update()
 {
@@ -119,4 +124,9 @@ void UIManager::draw()
 	window.draw(*scoreValueText);
 
 	window.draw(fullHeartSprite);
+}
+
+void UIManager::onValueChanged(int value)
+{	
+	scoreValueText->setString(std::to_string(value));
 }

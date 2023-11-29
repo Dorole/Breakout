@@ -18,5 +18,7 @@ void BrickHard::onHit()
 	std::cout << "Hp: " << hitPoints << std::endl;
 
 	if (hitPoints == 0)
+	{
 		std::cout << "Hard brick destroyed." << std::endl;
+	}
 };

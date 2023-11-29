@@ -28,7 +28,7 @@ int main()
 	float deltaTime;
 
 	Game game(window, valueGetter, grid);
-	UIManager uiManager(window, valueGetter);
+	UIManager uiManager(window, valueGetter, game);
 
 	while (window.isOpen())
 	{

@@ -1,14 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "ValueGetter.h"
+#include "Game.h"
+#include "NumValueObserver.h"
 
 using namespace sf;
 
-class UIManager //: class GameObject ??
+class UIManager : public NumValueObserver
 {
 private:
 	RenderWindow& window;
 	ValueGetter& valueGetter;
+	Game& game;
 	
 	Font font;
 	unsigned int fontSize = 50;
@@ -23,7 +26,6 @@ private:
 	Texture emptyHeartTex;
 	Sprite emptyHeartSprite;
 	Sprite fullHeartSprite;
-
 	
 	enum class TextAlignment
 	{
@@ -49,11 +51,12 @@ private:
 
 public:
 
-	UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef);
+	UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game& gameRef);
 
 	void update();
 	void draw();
 
+	void onValueChanged(int value) override;
 };
 
 

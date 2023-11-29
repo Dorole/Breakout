@@ -3,11 +3,11 @@
 #include <vector>
 #include "BrickTypeValues.h"
 #include "ValueGetter.h"
-#include "ISubject.h"
+
 
 using namespace sf;
 
-class Brick //: public ISubject
+class Brick 
 {
 protected:
 
@@ -18,10 +18,10 @@ protected:
 	int hitPoints = 0;
 	int breakScore = 0;
 	//audio
-
-	//std::vector<IObserver*> observers;
-
+	
 	void createBrick(BrickTypeValues values);
+
+
 
 public:
 
@@ -36,26 +36,12 @@ public:
 
 	Sprite& getSprite() { return sprite; }
 	FloatRect& getSpriteBounds() { return spriteBounds; }
+	int getBreakScore() const;
 	
 	void setSpritePosition(Vector2f position) { sprite.setPosition(position); }
 	FloatRect getSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
 
 	bool shouldDestroy() { return hitPoints == 0; }
-
-	/*void Attach(IObserver* observer) override
-	{
-		observers.push_back(observer);
-	}
-
-	void Detach(IObserver* observer) override
-	{
-		observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
-	}
-
-	void Notify() override 
-	{
-		for (const auto& observer : observers)
-			observer->onNotify();
-	}*/
+	
 };
 

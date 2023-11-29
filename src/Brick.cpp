@@ -17,3 +17,7 @@ void Brick::createBrick(BrickTypeValues values)
 }
 
 
+int Brick::getBreakScore() const 
+{ 
+	return breakScore; 
+}

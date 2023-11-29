@@ -19,7 +19,6 @@ void BrickSoft::onHit()
 	if (hitPoints == 0)
 	{
 		std::cout << "Soft brick destroyed." << std::endl;
-		//Notify();
 	}
 
 };

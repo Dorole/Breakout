@@ -3,17 +3,21 @@
 #include <vector>
 #include "ValueGetter.h"
 #include "GridData.h"
-#include "IObserver.h"
+#include "Brick.h"
+#include "BrickObserver.h"
 
-class BrickGrid //: public IObserver
+class BrickGrid 
 {
 private:
 	ValueGetter& valueGetter;
 	int columnCount;
 	int rowCount;
 	std::string bricksLayout;
+
 	std::vector<std::vector<char>> brickSchemeVector {};
 	std::vector<std::vector<GridData>> gridDataVector {};
+
+	std::vector<BrickObserver*> observers;
 
 	/// <summary>
 	/// Stores information in a 2d vector about brick id layout.
@@ -34,14 +38,17 @@ public:
 
 	BrickGrid(ValueGetter& valueGetterRef);
 
+	//make these const?
 	std::vector<std::vector<char>> getBrickSchemeVector() { return brickSchemeVector; }
 	std::vector<std::vector<GridData>>& getGridDataVector() { return gridDataVector; }
+
 	void handleCollision(std::size_t row, std::size_t column);
 	bool allBricksDestroyed();
 	
-	//void onNotify() override;
+	void attachObserver(BrickObserver* observer);
 
 	//debug
 	void setLevelFinished();
+
 };
 

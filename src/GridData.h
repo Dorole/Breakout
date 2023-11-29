@@ -32,4 +32,5 @@ struct GridData
 	{
 		return brickData->shouldDestroy();
 	}
+
 };

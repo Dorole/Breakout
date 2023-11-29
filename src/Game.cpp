@@ -16,6 +16,8 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 {
 	//should be able to change path from constructor!
 
+	grid.attachObserver(this);
+
 	//Create objects
 	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid, grid.getGridDataVector());
 	auto platform = std::make_unique<Platform>(window, valueGetter);	
@@ -63,5 +65,28 @@ void Game::render()
 
 	window.display();
 	window.clear();
+}
+
+int Game::getScore() const
+{
+	return totalScore;
+}
+
+void Game::updateScore(int amount)
+{
+	totalScore += amount;
+}
+
+void Game::attachObserver(NumValueObserver* observer)
+{
+	uiObservers.push_back(observer);
+}
+
+void Game::onBrickDestroyed(Brick& brick)
+{
+	updateScore(brick.getBreakScore());
+
+	for (const auto& observer : uiObservers)
+		observer->onValueChanged(totalScore);
 }
 

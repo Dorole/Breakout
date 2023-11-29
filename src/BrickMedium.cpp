@@ -15,5 +15,8 @@ void BrickMedium::onHit()
 	std::cout << "Hp: " << hitPoints << std::endl;
 
 	if (hitPoints <= 0)
+	{
 		std::cout << "Medium brick destroyed." << std::endl;
+
+	}
 };

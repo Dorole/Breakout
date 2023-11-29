@@ -10,6 +10,8 @@
 #include "BrickHard.h"
 #include "BrickImpenetrable.h"
 
+#include "BrickObserver.h"
+
 
 BrickGrid::BrickGrid(ValueGetter& valueGetterRef)
 	: valueGetter(valueGetterRef)
@@ -72,9 +74,13 @@ void BrickGrid::handleCollision(std::size_t row, std::size_t column)
 {
 	gridDataVector[row][column].brickData->onHit();
 
-	//uzas
 	if (gridDataVector[row][column].shouldDestroy())
+	{
 		gridDataVector[row][column].shouldRender = false;
+
+		for (const auto& observer : observers)
+			observer->onBrickDestroyed(*gridDataVector[row][column].brickData);
+	}
 }
 
 bool BrickGrid::allBricksDestroyed()
@@ -89,8 +95,6 @@ bool BrickGrid::allBricksDestroyed()
 	}
 
 	return true;
-
-	//maybe event instead??
 }
 
 //************************** DEBUG FUNCTIONS **************************
@@ -118,3 +122,7 @@ void BrickGrid::setLevelFinished()
 	}
 }
 
+void BrickGrid::attachObserver(BrickObserver* observer)
+{
+	observers.push_back(observer);
+}
