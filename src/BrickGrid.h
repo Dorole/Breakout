@@ -6,7 +6,7 @@
 #include "Brick.h"
 #include "BrickObserver.h"
 
-class BrickGrid 
+class BrickGrid
 {
 private:
 	ValueGetter& valueGetter;
@@ -18,6 +18,8 @@ private:
 	std::vector<std::vector<GridData>> gridDataVector {};
 
 	std::vector<BrickObserver*> observers;
+
+	float gridOffset = 0;
 
 	/// <summary>
 	/// Stores information in a 2d vector about brick id layout.
@@ -44,8 +46,16 @@ public:
 
 	void handleCollision(std::size_t row, std::size_t column);
 	bool allBricksDestroyed();
-	
+
 	void attachObserver(BrickObserver* observer);
+
+	void setGridOffset(float value)
+	{
+		gridOffset = value;
+	}
+
+	float getGridOffset() { return gridOffset; }
+
 
 	//debug
 	void setLevelFinished();

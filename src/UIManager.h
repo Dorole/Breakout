@@ -20,7 +20,8 @@ private:
 	float textOffsetSide = 70;
 	std::unique_ptr<Text> levelValueText;
 	std::unique_ptr<Text> scoreValueText;
-	std::vector<std::unique_ptr<Text>> texts;
+	std::unique_ptr<Text> currentLivesText;
+	std::vector<std::unique_ptr<Text>> labelTexts;
 
 	Texture fullHeartTex;
 	Texture emptyHeartTex;
@@ -56,7 +57,7 @@ public:
 	void update();
 	void draw();
 
-	void onValueChanged(int value) override;
+	void onValueChanged(int value, ValueType valueType) override;
 };
 
 

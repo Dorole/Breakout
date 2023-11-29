@@ -1,11 +1,7 @@
-﻿  Game.cpp
+﻿  Ball.cpp
+  Game.cpp
   UIManager.cpp
-C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp(36,49): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp(62,47): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp(69,47): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int

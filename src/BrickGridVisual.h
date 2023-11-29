@@ -16,10 +16,11 @@ private:
 	int columnSpacing;
 	int rowSpacing;
 	
-	int gridOffset = 5; //get from value getter/xml because the ball needs this too
+	int gridOffset = 6; //get from value getter/xml because the ball needs this too
 
 	std::vector<std::vector<GridData>>& gridDataVector;
 
+	float getTopRenderBorder();
 
 public:
 
@@ -27,6 +28,5 @@ public:
 
 	void update(float deltaTime) override;
 	void draw() override;
-
 };
 

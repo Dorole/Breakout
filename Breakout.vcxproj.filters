@@ -78,10 +78,10 @@
     <ClCompile Include="src/Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GridData.cpp">
+    <ClCompile Include="src/GridData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\UIManager.cpp">
+    <ClCompile Include="src/UIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -184,16 +184,19 @@
     <ClInclude Include="src/Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\IObserver.h">
+    <ClInclude Include="src/GridData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GridData.h">
+    <ClInclude Include="src\BrickObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ISubject.h">
+    <ClInclude Include="src/UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\UIManager.h">
+    <ClInclude Include="src\NumValueObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -21,7 +21,7 @@ int main()
 
 
 	// WINDOW
-	RenderWindow window(VideoMode(700, 500), "Breakout"); //adjust - SHOULD BE WAY SMALLER
+	RenderWindow window(VideoMode(700, 500), "Breakout"); //adjust 
 	window.setPosition({ 650, 150 });
 
 	Clock clock;
@@ -40,7 +40,7 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			if (Mouse::isButtonPressed(Mouse::Left)) //disable doing this more than once
+			if ( Mouse::isButtonPressed(Mouse::Left)) //trigger event instead?
 				game.startGame();
 
 			if (Mouse::isButtonPressed(Mouse::Right)) //debug only

@@ -195,6 +195,7 @@
     <ClInclude Include="src/GridData.h" />
     <ClInclude Include="src\BrickObserver.h" />
     <ClInclude Include="src/UIManager.h" />
+    <ClInclude Include="src\GameConfig.h" />
     <ClInclude Include="src\NumValueObserver.h" />
   </ItemGroup>
   <ItemGroup>

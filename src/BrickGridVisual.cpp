@@ -13,15 +13,12 @@ BrickGridVisual::BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGett
 	columnSpacing = valueGetter.getColumnSpacing();
 	rowSpacing = valueGetter.getRowSpacing();
 
-	
+	grid.setGridOffset(getTopRenderBorder());
 
 }
 
 
-void BrickGridVisual::update(float deltaTime)
-{
-	//gridDataVector = grid.getGridDataVector(); //ovo se ne bi trebalo updateati svaki frame, nego samo kad se brick unisti
-}
+void BrickGridVisual::update(float deltaTime) { }
 
 void BrickGridVisual::draw()
 {
@@ -40,5 +37,11 @@ void BrickGridVisual::draw()
 		}
 	}
 }
+
+float BrickGridVisual::getTopRenderBorder()
+{
+	return (gridOffset * (gridDataVector[0][0].getBrickSpriteBounds().height + rowSpacing));
+}
+
 
 

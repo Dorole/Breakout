@@ -23,6 +23,8 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 	auto platform = std::make_unique<Platform>(window, valueGetter);	
 	auto ball = std::make_unique<Ball>(window, valueGetter, *platform, grid, grid.getGridDataVector());
 	
+	ball->attachObserver(this);
+
 	//if you change the order here, 
 	gameObjects.push_back(std::move(gridVisual));
 	gameObjects.push_back(std::move(platform)); 
@@ -34,8 +36,12 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 
 void Game::startGame()
 {
+	if (gameStarted || currentLives == 0) return;
+
 	auto ball = static_cast<Ball*>(gameObjects[2].get());
 	ball->toggleBounce();
+
+	gameStarted = true;
 }
 
 void Game::restartGame()
@@ -51,6 +57,9 @@ void Game::update(float deltaTime)
 	{
 		gameObject->update(deltaTime);
 	}
+
+	if (currentLives == 0)
+		std::cout << "GAME OVER" << std::endl;
 
 	if (grid.allBricksDestroyed())
 		std::cout << "LEVEL FINISHED." << std::endl;
@@ -87,6 +96,24 @@ void Game::onBrickDestroyed(Brick& brick)
 	updateScore(brick.getBreakScore());
 
 	for (const auto& observer : uiObservers)
-		observer->onValueChanged(totalScore);
+		observer->onValueChanged(totalScore, ValueType::SCORE);
+}
+
+void Game::updateLives(int amount)
+{
+	currentLives -= amount;
+}
+
+// handles lost life - maybe separate function for that so we know what's up
+void Game::onValueChanged(int value, ValueType valueType)
+{
+	if (valueType != ValueType::LIVES) return;
+
+	gameStarted = false;
+	updateLives(value);
+	restartGame();
+
+	for (const auto& observer : uiObservers)
+		observer->onValueChanged(currentLives, ValueType::LIVES);
 }
 

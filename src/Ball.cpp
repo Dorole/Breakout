@@ -17,6 +17,7 @@ Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platf
     windowSize = window.getSize();
     
     shouldBounce = false;
+    lostLife = false;
 
     setSpriteOriginToCenter();
     setInitialBallPosition();
@@ -67,12 +68,26 @@ void Ball::checkWindowCollision()
     FloatRect globalBallBounds = sprite.getGlobalBounds();
 
     //top
-    if (globalBallBounds.top < 0)
+    if (globalBallBounds.top < grid.getGridOffset()) //cache offset!
+    {
         ballVelocity.y = std::abs(ballVelocity.y);
+        ballVelocity.x += distribution(randomEngine);
+    }
+
 
     //bottom
     if (globalBallBounds.top + globalBallBounds.height > windowSize.y)
-        std::cout << "LOST LIFE / GAME OVER" << std::endl;
+    {
+        if (!lostLife)
+        {
+			notifyObservers(1);
+            lostLife = true;
+        }
+    }
+    else
+    {
+        lostLife = false;
+    }
 
     //left
     if (globalBallBounds.left < 0)
@@ -90,6 +105,7 @@ void Ball::checkPlatformCollision()
     if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()) && ballVelocity.y > 0)
     {
         ballVelocity.y = -ballVelocity.y;
+        ballVelocity.x += distribution(randomEngine);
         return;
     }
 }
@@ -130,10 +146,9 @@ void Ball::update(float deltaTime)
         checkPlatformCollision();
         checkBrickCollision();
         
-        //nekako kao da uvijek udara u ista mjesta?? 
         sprite.move(ballVelocity * ballSpeed * deltaTime);
 
-        if (grid.allBricksDestroyed()) //callback to event??
+        if (grid.allBricksDestroyed()) //callback to event?? Maybe like a stateObserver (true, false)
         {
             shouldBounce = false;
             setInitialBallPosition();
@@ -144,4 +159,15 @@ void Ball::update(float deltaTime)
 void Ball::draw()
 {
     window.draw(sprite);
+}
+
+void Ball::attachObserver(NumValueObserver* observer)
+{
+    observers.push_back(observer);
+}
+
+void Ball::notifyObservers(int value)
+{
+    for (const auto& observer : observers)
+        observer->onValueChanged(value, ValueType::LIVES);
 }

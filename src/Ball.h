@@ -1,10 +1,12 @@
 #pragma once
-#include <vector>
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <random>
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "Platform.h"
 #include "BrickGrid.h"
+#include "NumValueObserver.h"
 
 using namespace sf;
 
@@ -14,7 +16,7 @@ private: //move these to GameObject
     RenderWindow& window;
     ValueGetter& valueGetter;
     Texture texture;
-    Sprite sprite; //circle shape?
+    Sprite sprite; 
     Vector2f initialBallPosition;
     FloatRect spriteBounds;
 
@@ -22,12 +24,19 @@ private: //move these to GameObject
     BrickGrid& grid;
     std::vector<std::vector<GridData>>& gridVector;
 
+    std::vector<NumValueObserver*> observers;
+    void notifyObservers(int value);
 
     Vector2u windowSize;
     bool shouldBounce;
-    sf::Vector2f ballVelocity {-0.8f, -0.8f}; //set from ctr! (from value getter or similar)
-    float ballSpeed = 400.0f; //set from ctr!
-    bool isInCollision = false;
+    bool lostLife;
+    sf::Vector2f ballVelocity {-0.8f, -0.8f}; //set from ctr! (get from gameConfig)
+    float ballSpeed = 300.0f; //set from ctr!
+    bool isInCollision = false; //nepotrebno?
+
+    //introduce some variation to the bounce angle
+    std::default_random_engine randomEngine;
+    std::uniform_real_distribution<float> distribution{-0.2f, 0.2f};
     
 
     //move these to GameObject
@@ -52,5 +61,7 @@ public:
     void checkWindowCollision();
     void checkPlatformCollision();
     void checkBrickCollision();
+
+    void attachObserver(NumValueObserver* observer);
 };
 

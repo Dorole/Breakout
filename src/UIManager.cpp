@@ -3,37 +3,44 @@
 #include "ValueGetter.h"
 #include "UIManager.h"
 #include "Game.h"
+#include "NumValueObserver.h"
 
 using namespace sf;
 
-UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game& gameRef) //mozda mu Grid ni ne treba?
+UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game& gameRef) 
 	: window(windowRef), valueGetter(valueGetterRef), game(gameRef)
 {
-	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); //mozda isto iz xml-a? 
+	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); //get iz gameConfig-a
 
 	auto levelText = createNewText(font, "level:", TextAlignment::TOP_LEFT, fontSize);
 	auto scoreText = createNewText(font, "score:", TextAlignment::TOP_RIGHT, fontSize);
+	auto livesText = createNewText(font, "lives:", TextAlignment::TOP_CENTER, fontSize); //TEMP
 
 	Vector2f posBelowLevelText = levelText->getPosition() + Vector2f(0, levelText->getLocalBounds().height + verticalSpacing);
 	Vector2f posBelowScoreText = scoreText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing);
+	Vector2f posBelowLivesText = livesText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing); //TEMP
 
 	levelValueText = createNewText(font, std::to_string(valueGetter.getLevel()), posBelowLevelText, fontSize, TextOrigin::TOP_CENTER);
 	scoreValueText = createNewText(font, std::to_string(0), posBelowScoreText, fontSize, TextOrigin::TOP_CENTER);
+	currentLivesText = createNewText(font, std::to_string(game.getMaxLives()), posBelowLivesText, fontSize, TextOrigin::TOP_CENTER); //TEMP
 
-	texts.push_back(std::move(levelText));
-	texts.push_back(std::move(scoreText));
+	labelTexts.push_back(std::move(levelText));
+	labelTexts.push_back(std::move(scoreText));
+	labelTexts.push_back(std::move(livesText)); //TEMP
 
 
-	fullHeartTex.loadFromFile("resources/textures/heart_full.png");
-	emptyHeartTex.loadFromFile("resources/textures/heart_empty.png");
+	//fullHeartTex.loadFromFile("resources/textures/heart_full.png");
+	//emptyHeartTex.loadFromFile("resources/textures/heart_empty.png");
 
-	fullHeartSprite.setTexture(fullHeartTex);
-	emptyHeartSprite.setTexture(emptyHeartTex);
+	//fullHeartSprite.setTexture(fullHeartTex);
+	//emptyHeartSprite.setTexture(emptyHeartTex);
 
-	fullHeartSprite.setOrigin(fullHeartSprite.getLocalBounds().width / 2, fullHeartSprite.getLocalBounds().height / 2);
-	emptyHeartSprite.setOrigin(emptyHeartSprite.getLocalBounds().width / 2, emptyHeartSprite.getLocalBounds().height / 2);
+	//fullHeartSprite.setScale(4, 4); //remove
 
-	fullHeartSprite.setPosition(window.getSize().x / 2, 10);
+	//fullHeartSprite.setOrigin(fullHeartSprite.getLocalBounds().width / 2, fullHeartSprite.getLocalBounds().height / 2);
+	//emptyHeartSprite.setOrigin(emptyHeartSprite.getLocalBounds().width / 2, emptyHeartSprite.getLocalBounds().height / 2);
+
+	//fullHeartSprite.setPosition(window.getSize().x / 2, 50); //fix
 
 	game.attachObserver(this);
 }
@@ -115,18 +122,33 @@ void UIManager::update()
 
 void UIManager::draw()
 {
-	for (const auto& txt : texts)
+	for (const auto& txt : labelTexts)
 	{
 		window.draw(*txt);
 	}
 
 	window.draw(*levelValueText);
 	window.draw(*scoreValueText);
+	window.draw(*currentLivesText); //TEMP
 
-	window.draw(fullHeartSprite);
+	//window.draw(fullHeartSprite);
 }
 
-void UIManager::onValueChanged(int value)
+//vjerojatno ce trebati enum ili nesto da se odredi koji valueChange se gleda
+void UIManager::onValueChanged(int value, ValueType valueType)
 {	
-	scoreValueText->setString(std::to_string(value));
+	switch (valueType)
+	{
+	case ValueType::SCORE:
+		scoreValueText->setString(std::to_string(value));
+		std::cout << "Score: " << value << std::endl;
+		break;
+	case ValueType::LIVES:
+		currentLivesText->setString(std::to_string(value));
+		std::cout << "Lives: " << value << std::endl;
+		break;
+	default:
+		break;
+	}
+	
 }
