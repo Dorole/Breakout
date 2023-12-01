@@ -5,6 +5,7 @@
 #include "XmlParser.h"
 #include "ValueGetter.h"
 #include "BrickGrid.h"
+#include "BrickPool.h"
 
 #include "UIManager.h"
 
@@ -17,7 +18,8 @@ int main()
 	XmlParser parser;
 	std::string fileName = "Level_1";
 	ValueGetter valueGetter(parser, fileName);
-	BrickGrid grid(valueGetter);
+	BrickPool brickPool(valueGetter);
+	BrickGrid grid(valueGetter, brickPool);
 
 
 	// WINDOW

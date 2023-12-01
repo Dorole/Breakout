@@ -22,3 +22,8 @@ void BrickHard::onHit()
 		std::cout << "Hard brick destroyed." << std::endl;
 	}
 };
+
+void BrickHard::reloadBrickValues(ValueGetter& valueGetter)
+{
+	createBrick(valueGetter.getBrickValuesById("H"));
+}

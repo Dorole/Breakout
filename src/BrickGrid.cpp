@@ -3,18 +3,12 @@
 #include "BrickGrid.h"
 #include "ValueGetter.h"
 #include "GridData.h"
-
-#include "Brick.h"
-#include "BrickSoft.h"
-#include "BrickMedium.h"
-#include "BrickHard.h"
-#include "BrickImpenetrable.h"
-
+#include "BrickPool.h"
 #include "BrickObserver.h"
 
 
-BrickGrid::BrickGrid(ValueGetter& valueGetterRef)
-	: valueGetter(valueGetterRef)
+BrickGrid::BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef)
+	: valueGetter(valueGetterRef), brickPool(brickPoolRef)
 {
 	bricksLayout = valueGetter.getBricksLayout();
 	columnCount = valueGetter.getColumnCount();
@@ -52,16 +46,12 @@ void BrickGrid::setGridDataVector()
 		{
 			GridData gridData;
 
-			if (brickSchemeVector[i][j] == 'S')
-				gridData.brickData = std::make_shared<BrickSoft>(valueGetter);
-			else if (brickSchemeVector[i][j] == 'M')
-				gridData.brickData = std::make_shared<BrickMedium>(valueGetter);
-			else if (brickSchemeVector[i][j] == 'H')
-				gridData.brickData = std::make_shared<BrickHard>(valueGetter);
-			else if (brickSchemeVector[i][j] == 'I')
-				gridData.brickData = std::make_shared<BrickImpenetrable>(valueGetter);
+			if (brickSchemeVector[i][j] != '_')
+			{
+				gridData = brickPool.getDataFromPool(std::string(1, brickSchemeVector[i][j]));
+			}
 			else
-				gridData.brickData = std::make_shared<BrickImpenetrable>(valueGetter); //PLACEHOLDER
+				gridData = brickPool.getDataFromPool("I"); //PLACEHOLDER
 
 			gridData.shouldRender = brickSchemeVector[i][j] != '_';
 
@@ -79,7 +69,7 @@ void BrickGrid::handleCollision(std::size_t row, std::size_t column)
 		gridDataVector[row][column].shouldRender = false;
 
 		for (const auto& observer : observers)
-			observer->onBrickDestroyed(*gridDataVector[row][column].brickData);
+			observer->onBrickDestroyed(*gridDataVector[row][column].brickData);	
 	}
 }
 
@@ -94,8 +84,24 @@ bool BrickGrid::allBricksDestroyed()
 		}
 	}
 
+	//if level is cleared, return all gridData to pool
+	for (auto& row : gridDataVector)
+	{
+		for (auto& gridData : row)
+			brickPool.returnDataToPool(gridData);
+
+		row.clear();
+	}
+
 	return true;
 }
+
+void BrickGrid::attachObserver(BrickObserver* observer)
+{
+	observers.push_back(observer);
+}
+
+
 
 //************************** DEBUG FUNCTIONS **************************
 
@@ -122,7 +128,3 @@ void BrickGrid::setLevelFinished()
 	}
 }
 
-void BrickGrid::attachObserver(BrickObserver* observer)
-{
-	observers.push_back(observer);
-}

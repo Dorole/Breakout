@@ -13,3 +13,8 @@ void BrickImpenetrable::onHit()
 	std::cout << "Impenetrable brick hit." << std::endl;
 	return;
 };
+
+void BrickImpenetrable::reloadBrickValues(ValueGetter& valueGetter)
+{
+	createBrick(valueGetter.getBrickValuesById("I"));
+}

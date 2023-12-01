@@ -12,5 +12,6 @@ public:
 	BrickHard(ValueGetter& valueGetter);
 
 	void onHit() override;
+	void reloadBrickValues(ValueGetter& valueGetter) override;
 };
 

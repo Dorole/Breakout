@@ -63,6 +63,7 @@ private:
 public:
 	ValueGetter(XmlParser& parserRef, std::string& levelFileName);
 
+	//should probably make all these const!
 	static int getRowCount() { return rowCount; }
 	static int getColumnCount() { return columnCount; }
 	static int getRowSpacing() { return rowSpacing; }
@@ -72,6 +73,7 @@ public:
 	static std::string getPlatformTexturePath() { return platformTexturePath; }
 	static std::string getBackgroundTexturePath() { return backgroundTexturePath; }
 	static std::string getBallTexturePath() { return ballTexturePath; }
+	static std::vector<std::string> getBricksIds() { return bricksIds; }
 
 	BrickTypeValues getBrickValuesById(const std::string& brickId);
 

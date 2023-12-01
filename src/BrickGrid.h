@@ -5,11 +5,13 @@
 #include "GridData.h"
 #include "Brick.h"
 #include "BrickObserver.h"
+#include "BrickPool.h"
 
 class BrickGrid
 {
 private:
 	ValueGetter& valueGetter;
+	BrickPool& brickPool;
 	int columnCount;
 	int rowCount;
 	std::string bricksLayout;
@@ -38,7 +40,7 @@ private:
 
 public:
 
-	BrickGrid(ValueGetter& valueGetterRef);
+	BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef);
 
 	//make these const?
 	std::vector<std::vector<char>> getBrickSchemeVector() { return brickSchemeVector; }

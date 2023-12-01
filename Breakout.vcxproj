@@ -151,6 +151,7 @@
     <ClCompile Include="src/ValueGetter.cpp" />
     <ClCompile Include="src/GridData.cpp" />
     <ClCompile Include="src/UIManager.cpp" />
+    <ClCompile Include="src\BrickPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -195,6 +196,7 @@
     <ClInclude Include="src/GridData.h" />
     <ClInclude Include="src\BrickObserver.h" />
     <ClInclude Include="src/UIManager.h" />
+    <ClInclude Include="src\BrickPool.h" />
     <ClInclude Include="src\GameConfig.h" />
     <ClInclude Include="src\NumValueObserver.h" />
   </ItemGroup>

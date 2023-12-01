@@ -20,5 +20,9 @@ void BrickSoft::onHit()
 	{
 		std::cout << "Soft brick destroyed." << std::endl;
 	}
-
 };
+
+void BrickSoft::reloadBrickValues(ValueGetter& valueGetter) 
+{
+	createBrick(valueGetter.getBrickValuesById("S"));
+}

@@ -33,15 +33,18 @@ public:
 	/// Send event if hitPoints are 0 --> change state of renderVector in BrickGrid
 	/// </summary>
 	virtual void onHit() = 0;
+	virtual void reloadBrickValues(ValueGetter& valueGetter) = 0;
 
 	Sprite& getSprite() { return sprite; }
 	FloatRect& getSpriteBounds() { return spriteBounds; }
 	int getBreakScore() const;
+	std::string getBrickId() { return id; }
 	
 	void setSpritePosition(Vector2f position) { sprite.setPosition(position); }
 	FloatRect getSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
 
 	bool shouldDestroy() { return hitPoints == 0; }
+
 	
 };
 

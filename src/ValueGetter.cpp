@@ -1,5 +1,6 @@
 #include <filesystem>
 #include <iostream>
+#include <stdexcept>
 #include "ValueGetter.h"
 #include "XmlParser.h"
 #include "BrickTypeValues.h"
@@ -104,5 +105,5 @@ BrickTypeValues ValueGetter::getBrickValuesById(const std::string& brickId)
 	if (brickTypesMap.find(brickId) != brickTypesMap.end())
 		return brickTypesMap.at(brickId);
 	else
-		return BrickTypeValues();
+		throw std::out_of_range("Key not found.");
 }

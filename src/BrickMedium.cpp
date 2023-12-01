@@ -20,3 +20,8 @@ void BrickMedium::onHit()
 
 	}
 };
+
+void BrickMedium::reloadBrickValues(ValueGetter& valueGetter)
+{
+	createBrick(valueGetter.getBrickValuesById("M"));
+}

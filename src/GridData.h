@@ -33,4 +33,9 @@ struct GridData
 		return brickData->shouldDestroy();
 	}
 
+	std::string getBrickId()
+	{
+		return brickData->getBrickId();
+	}
+
 };

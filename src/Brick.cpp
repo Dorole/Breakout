@@ -14,6 +14,7 @@ void Brick::createBrick(BrickTypeValues values)
 	texture.loadFromFile(values.texture);
 	sprite.setTexture(texture);
 	spriteBounds = sprite.getLocalBounds();
+	//audio
 }
 
 
