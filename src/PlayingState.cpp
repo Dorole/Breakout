@@ -62,14 +62,17 @@ void PlayingState::update(float deltaTime)
 	{
 		std::cout << "GAME OVER" << std::endl;
 		//cleanup();
-		//game.changeStete(std::make_shared<GameOverState>(this, window, valueGetter, grid));
+		
+		for (const auto& observer : stateObservers)
+			observer->onStateChanged(State::GAME_OVER);
 	}
 
 	if (grid.allBricksDestroyed())
 	{
-		std::cout << "LEVEL FINISHED." << std::endl; //switch to level clear state
+		std::cout << "LEVEL FINISHED." << std::endl; 
 		//cleanup();
-		//game.changeStete(std::make_shared<LevelClearState>(this, window, valueGetter, grid));
+		for (const auto& observer : stateObservers)
+			observer->onStateChanged(State::LEVEL_CLEAR);
 	}
 }
 
@@ -121,16 +124,21 @@ void PlayingState::updateLives(int amount)
 }
 
 
-void PlayingState::attachObserver(NumValueObserver* observer)
+void PlayingState::attachValueObserver(NumValueObserver* observer)
 {
-	observers.push_back(observer);
+	valueObservers.push_back(observer);
+}
+
+void PlayingState::attachStateObserver(StateObserver* observer)
+{
+	stateObservers.push_back(observer);
 }
 
 void PlayingState::onBrickDestroyed(Brick& brick)
 {
 	updateScore(brick.getBreakScore());
 
-	for (const auto& observer : observers)
+	for (const auto& observer : valueObservers)
 		observer->onValueChanged(totalScore, ValueType::SCORE);
 }
 
@@ -144,6 +152,6 @@ void PlayingState::onValueChanged(int value, ValueType valueType)
 	updateLives(value);
 	restartGame();
 
-	for (const auto& observer : observers)
+	for (const auto& observer : valueObservers)
 		observer->onValueChanged(currentLives, ValueType::LIVES);
 }

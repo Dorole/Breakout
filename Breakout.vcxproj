@@ -199,6 +199,7 @@
     <ClInclude Include="src\BrickObserver.h" />
     <ClInclude Include="src/UIManager.h" />
     <ClInclude Include="src\BrickPool.h" />
+    <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\GameConfig.h" />
     <ClInclude Include="src\GameOverState.h" />
     <ClInclude Include="src\GameState.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="src\MainMenuState.h" />
     <ClInclude Include="src\NumValueObserver.h" />
     <ClInclude Include="src\PlayingState.h" />
+    <ClInclude Include="src\StateObserver.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\textures\platform_purple.png">

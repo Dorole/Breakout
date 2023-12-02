@@ -5,9 +5,10 @@
 
 #include "ValueGetter.h"
 #include "BrickGrid.h"
-#include "BrickObserver.h"
 #include "GameObject.h"
+#include "BrickObserver.h"
 #include "NumValueObserver.h"
+#include "StateObserver.h"
 
 class PlayingState : public GameState, public BrickObserver, public NumValueObserver
 {
@@ -16,7 +17,8 @@ private:
 	BrickGrid& grid;
 
 	std::vector<std::unique_ptr<GameObject>> gameObjects;
-	std::vector<NumValueObserver*> observers;
+	std::vector<NumValueObserver*> valueObservers;
+	std::vector<StateObserver*> stateObservers;
 
 	int totalScore = 0;
 	int maxLives = 3; //to gameConfig
@@ -39,12 +41,12 @@ public:
 	virtual void cleanup() override;
 
 
-	virtual void attachObserver(NumValueObserver* observer) override;
+	virtual void attachValueObserver(NumValueObserver* observer) override;
+	virtual void attachStateObserver(StateObserver* observer) override;
 
 	void onBrickDestroyed(Brick& brick) override;
 	void onValueChanged(int value, ValueType valueType) override;
 
 };
 
-//mozda da salje u Game ili nekamo, i onda od tamo u UI?
 //unsubscribe

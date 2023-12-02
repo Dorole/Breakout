@@ -43,6 +43,9 @@ UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game&
 	//fullHeartSprite.setPosition(window.getSize().x / 2, 50); //fix
 
 	game.attachObserver(this);
+
+	createButton(); //TEST
+
 }
 
 std::unique_ptr<Text> UIManager::createNewText(Font& font, std::string textString, TextAlignment alignment, unsigned int charSize)
@@ -115,6 +118,20 @@ void UIManager::setTextOrigin(TextOrigin origin, Text& text)
 
 // ****************************** OVERRIDDEN FUNCTIONS ******************************
 
+
+void UIManager::handleInput()
+{
+	if (button.isMouseOverButton(window))
+	{
+		button.setButtonTransparency(AlphaChannel::HALF_TRANSPARENT);
+
+		if (Mouse::isButtonPressed(Mouse::Left))
+			std::cout << "Button pressed." << std::endl;
+	}
+	else
+		button.setButtonTransparency(AlphaChannel::OPAQUE);
+}
+
 void UIManager::update()
 {
 
@@ -132,6 +149,8 @@ void UIManager::draw()
 	window.draw(*currentLivesText); //TEMP
 
 	//window.draw(fullHeartSprite);
+
+	button.drawButton(window); //TEST
 }
 
 //vjerojatno ce trebati enum ili nesto da se odredi koji valueChange se gleda

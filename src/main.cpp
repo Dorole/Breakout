@@ -40,10 +40,16 @@ int main()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			switch (event.type)
+			{
+			case sf::Event::Closed:
 				window.close();
+			default:
+				break;
+			}
 
 			game.handleInput();
+			uiManager.handleInput();
 
 			if (Keyboard::isKeyPressed(Keyboard::Key::G)) //testing only
 				grid.setLevelFinished();
@@ -53,6 +59,7 @@ int main()
 		game.update(deltaTime);
 		game.draw();
 
+		uiManager.update();
 		uiManager.draw();
 	}
 }

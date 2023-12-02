@@ -9,6 +9,9 @@ using namespace sf;
 class GameConfig
 {
 private:
+
+	//Levels vector
+
 	//Game general
 	int maxLives = 3; //make all static const?
 	

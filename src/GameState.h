@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "ValueGetter.h"
 #include "NumValueObserver.h"
+#include "StateObserver.h"
 
 class GameState
 {
@@ -21,7 +22,8 @@ public:
 	virtual void draw() = 0;
 	virtual void cleanup() = 0;
 
-	virtual void attachObserver(NumValueObserver* observer) = 0;
+	virtual void attachValueObserver(NumValueObserver* observer) = 0;
+	virtual void attachStateObserver(StateObserver* observer) = 0;
 
 	virtual ~GameState() = default;
 

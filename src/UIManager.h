@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "ValueGetter.h"
 #include "Game.h"
+#include "Button.h"
 #include "NumValueObserver.h"
 
 using namespace sf;
@@ -27,6 +28,8 @@ private:
 	Texture emptyHeartTex;
 	Sprite emptyHeartSprite;
 	Sprite fullHeartSprite;
+
+	Button button; //TEST
 	
 	enum class TextAlignment
 	{
@@ -50,10 +53,18 @@ private:
 
 	void setTextOrigin(TextOrigin origin, Text& text);
 
+	//*********************************
+	void createButton()
+	{
+		button = Button("TEXT", { 200, 50 }, font, 50, Color::White, Color::Black);
+		button.SetButtonPosition({ window.getSize().x / 2.0f, window.getSize().y / 2.0f }, { 0, 15 });
+	}
+
 public:
 
 	UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game& gameRef);
 
+	void handleInput();
 	void update();
 	void draw();
 

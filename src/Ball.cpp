@@ -112,7 +112,8 @@ void Ball::checkPlatformCollision()
 }
 
 //should return bool?
-//cache values
+//cache previous brick and check if it's the same - if it is return - idk how else to prevent multiple hits at the same time :(
+//if it hits anything else (like, platform or window) set previous brick to null or something
 void Ball::checkBrickCollision()
 {     
     for (size_t i = 0; i < valueGetter.getRowCount(); i++)
