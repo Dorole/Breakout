@@ -61,6 +61,7 @@ private:
 
 	//********************************* PUBLIC FUNCTIONS *********************************
 public:
+	ValueGetter();
 	ValueGetter(XmlParser& parserRef, std::string& levelFileName);
 
 	//should probably make all these const!

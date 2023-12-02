@@ -5,6 +5,7 @@
 #include "BrickGrid.h"
 #include "GameState.h"
 #include "PlayingState.h"
+#include "MainMenuState.h"
 
 using namespace sf;
 
@@ -13,15 +14,17 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 {
 	std::cout << "Game constructor" << std::endl;
 
+	mainMenuState = std::make_shared<MainMenuState>(window, valueGetter);
 	playingState = std::make_shared<PlayingState>(window, valueGetter, grid);
 
 
 
-	currentState = playingState;
+	currentState = mainMenuState;
 
 	//save states in a local vector (?)
 	//loop through all states and attach itself
-	playingState->attachValueObserver(this);
+
+	mainMenuState->attachStateObserver(this);
 	playingState->attachStateObserver(this);
 }
 
@@ -66,6 +69,7 @@ void Game::onStateChanged(State state)
 	switch (state)
 	{
 	case State::MAIN_MENU:
+		changeState(mainMenuState);
 		break;
 	case State::PLAYING_STATE:
 		changeState(playingState);

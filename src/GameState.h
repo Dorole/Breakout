@@ -14,7 +14,6 @@ protected:
 	ValueGetter& valueGetter;
 
 public:
-
 	GameState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef);
 	
 	virtual void handleInput() = 0;

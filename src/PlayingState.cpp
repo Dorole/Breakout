@@ -5,6 +5,7 @@
 
 #include "ValueGetter.h"
 #include "BrickGrid.h"
+#include "UIManager.h"
 
 #include "GameObject.h"
 #include "BrickGridVisual.h"
@@ -39,6 +40,10 @@ void PlayingState::init()
 	gameObjects.push_back(std::move(gridVisual));
 	gameObjects.push_back(std::move(platform));
 	gameObjects.push_back(std::move(ball));	
+
+	uiManager = std::make_unique<UIManager>(window, valueGetter);
+	attachValueObserver(uiManager.get());
+	
 }
 
 void PlayingState::handleInput()
@@ -48,6 +53,8 @@ void PlayingState::handleInput()
 
 	if (Mouse::isButtonPressed(Mouse::Right)) //DEBUG ONLY
 		restartGame();
+
+	uiManager->handleInput();
 
 }
 
@@ -74,6 +81,8 @@ void PlayingState::update(float deltaTime)
 		for (const auto& observer : stateObservers)
 			observer->onStateChanged(State::LEVEL_CLEAR);
 	}
+
+	uiManager->update();
 }
 
 void PlayingState::draw()
@@ -83,8 +92,8 @@ void PlayingState::draw()
 		gameObject->draw();
 	}
 
-	window.display();
-	window.clear();
+	uiManager->draw();
+
 }
 
 void PlayingState::cleanup()

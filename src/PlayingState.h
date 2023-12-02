@@ -7,6 +7,8 @@
 #include "BrickGrid.h"
 #include "GameObject.h"
 #include "BrickObserver.h"
+#include "UIManager.h"
+
 #include "NumValueObserver.h"
 #include "StateObserver.h"
 
@@ -15,6 +17,7 @@ class PlayingState : public GameState, public BrickObserver, public NumValueObse
 private:
 
 	BrickGrid& grid;
+	std::unique_ptr<UIManager> uiManager;
 
 	std::vector<std::unique_ptr<GameObject>> gameObjects;
 	std::vector<NumValueObserver*> valueObservers;

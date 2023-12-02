@@ -54,12 +54,21 @@ void Button::setTextColor(Color color)
 	text.setFillColor(color);
 }
 
-void Button::SetButtonPosition(Vector2f position, Vector2f textOffset)
+void Button::setButtonPosition(Vector2f position, Vector2f textOffset)
 {
 	button.setPosition(position);
 	text.setPosition(button.getPosition() - textOffset);
 }
 
+Vector2f Button::getButtonPosition()
+{
+	return button.getPosition();
+}
+
+Vector2f Button::getButtonSize()
+{
+	return button.getSize();
+}
 
 bool Button::isMouseOverButton(RenderWindow& window)
 {

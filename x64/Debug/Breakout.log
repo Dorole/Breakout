@@ -1,15 +1,2 @@
-﻿  UIManager.cpp
-C:\Users\dorot\Desktop\C++\Breakout\src\Button.h(67,71): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
-C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp(72,47): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-  main.cpp
-C:\Users\dorot\Desktop\C++\Breakout\src\Button.h(67,71): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
-  Generating Code...
+﻿  Game.cpp
   Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe

@@ -2,11 +2,10 @@
 #include "GameState.h"
 #include "ValueGetter.h"
 
-
 GameState::GameState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef)
 	: window(windowRef), valueGetter(valueGetterRef)
 {
-	std::cout << "GameState non empty constructor" << std::endl;
+	std::cout << "GameState non empty ctr - window and valueGetter" << std::endl;
 	baseInit();
 }
 

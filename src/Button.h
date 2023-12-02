@@ -25,7 +25,10 @@ public:
 	void setButtonColor(Color color);
 	void setButtonTransparency(AlphaChannel alphaChannel);
 	void setTextColor(Color color);
-	void SetButtonPosition(Vector2f position, Vector2f textOffset);
+	void setButtonPosition(Vector2f position, Vector2f textOffset);
+	Vector2f getButtonPosition();
+	Vector2f getButtonSize();
+
 	bool isMouseOverButton(RenderWindow& window);
 	void drawButton(RenderWindow& window);
 };

@@ -19,9 +19,9 @@ private:
 	BrickGrid& grid;
 
 	std::shared_ptr<GameState> currentState;
-	std::vector<NumValueObserver*> observers;
+	std::vector<NumValueObserver*> observers; //nepotrebno sad kad je ui samo u playingState?
 
-	//std::shared_ptr<GameState> mainMenuState;
+	std::shared_ptr<GameState> mainMenuState;
 	std::shared_ptr<GameState> playingState;
 	//std::shared_ptr<GameState> gameOverState;
 	//std::shared_ptr<GameState> levelClearState;

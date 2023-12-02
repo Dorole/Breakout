@@ -8,7 +8,6 @@
 #include "BrickGrid.h"
 #include "BrickPool.h"
 
-#include "UIManager.h"
 
 
 using namespace sf;
@@ -31,7 +30,6 @@ int main()
 	float deltaTime;
 
 	Game game(window, valueGetter, grid);
-	UIManager uiManager(window, valueGetter, game);
 
 	while (window.isOpen())
 	{
@@ -49,7 +47,7 @@ int main()
 			}
 
 			game.handleInput();
-			uiManager.handleInput();
+
 
 			if (Keyboard::isKeyPressed(Keyboard::Key::G)) //testing only
 				grid.setLevelFinished();
@@ -59,7 +57,8 @@ int main()
 		game.update(deltaTime);
 		game.draw();
 
-		uiManager.update();
-		uiManager.draw();
+		window.display();
+		window.clear();
+
 	}
 }
