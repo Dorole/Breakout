@@ -7,7 +7,7 @@
 
 using namespace sf;
 
-UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game& gameRef) 
+UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game& gameRef)  //unsubscribe
 	: window(windowRef), valueGetter(valueGetterRef), game(gameRef)
 {
 	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); //get iz gameConfig-a
@@ -22,7 +22,7 @@ UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef, Game&
 
 	levelValueText = createNewText(font, std::to_string(valueGetter.getLevel()), posBelowLevelText, fontSize, TextOrigin::TOP_CENTER);
 	scoreValueText = createNewText(font, std::to_string(0), posBelowScoreText, fontSize, TextOrigin::TOP_CENTER);
-	currentLivesText = createNewText(font, std::to_string(game.getMaxLives()), posBelowLivesText, fontSize, TextOrigin::TOP_CENTER); //TEMP
+	currentLivesText = createNewText(font, "3", posBelowLivesText, fontSize, TextOrigin::TOP_CENTER); //TEMP - get from config
 
 	labelTexts.push_back(std::move(levelText));
 	labelTexts.push_back(std::move(scoreText));

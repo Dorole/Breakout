@@ -17,3 +17,5 @@ C:\Users\dorot\Desktop\C++\Breakout\src\ValueGetter.cpp;C:\Users\dorot\Desktop\C
 C:\Users\dorot\Desktop\C++\Breakout\src\GridData.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GridData.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\UIManager.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\BrickPool.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\BrickPool.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\GameState.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GameState.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\PlayingState.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\PlayingState.obj

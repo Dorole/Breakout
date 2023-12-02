@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+
 #include "Ball.h"
 #include "GameObject.h"
 #include "ValueGetter.h"

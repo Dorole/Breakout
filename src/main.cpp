@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+
 #include "Game.h"
 #include "XmlParser.h"
 #include "ValueGetter.h"
@@ -42,11 +43,7 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			if ( Mouse::isButtonPressed(Mouse::Left)) //trigger event instead?
-				game.startGame();
-
-			if (Mouse::isButtonPressed(Mouse::Right)) //debug only
-				game.restartGame();
+			game.handleInput();
 
 			if (Keyboard::isKeyPressed(Keyboard::Key::G)) //testing only
 				grid.setLevelFinished();
@@ -54,7 +51,7 @@ int main()
 
 
 		game.update(deltaTime);
-		game.render();
+		game.draw();
 
 		uiManager.draw();
 	}

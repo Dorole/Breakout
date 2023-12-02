@@ -1,119 +1,55 @@
-#include <SFML/Graphics.hpp>
 #include "Game.h"
-#include "XmlParser.h"
-#include "GameObject.h"
-#include "Platform.h"
-#include "Ball.h"
-#include "BrickGrid.h"
-#include "BrickGridVisual.h"
-#include "ValueGetter.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include "ValueGetter.h"
+#include "BrickGrid.h"
+#include "GameState.h"
+#include "PlayingState.h"
 
 using namespace sf;
 
 Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef)
 	: window(windowRef), valueGetter(valueGetterRef), grid(gridRef)
 {
-	//should be able to change path from constructor!
+	std::cout << "Game constructor" << std::endl;
+	currentState = std::make_shared<PlayingState>(window, valueGetter, grid);
 
-	grid.attachObserver(this);
-
-	//Create objects
-	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid, grid.getGridDataVector());
-	auto platform = std::make_unique<Platform>(window, valueGetter);	
-	auto ball = std::make_unique<Ball>(window, valueGetter, *platform, grid, grid.getGridDataVector());
-	
-	ball->attachObserver(this);
-
-	//if you change the order here, 
-	gameObjects.push_back(std::move(gridVisual));
-	gameObjects.push_back(std::move(platform)); 
-	gameObjects.push_back(std::move(ball));
-
+	currentState->attachObserver(this);
 }
 
-//destructor needed I think, if you will use new Game for each level?
-
-void Game::startGame()
+void Game::changeStete(std::shared_ptr<GameState> newState)
 {
-	if (gameStarted || currentLives == 0) return;
-
-	auto ball = static_cast<Ball*>(gameObjects[2].get());
-	ball->toggleBounce();
-
-	gameStarted = true;
+	currentState = newState;
 }
 
-void Game::restartGame()
+void Game::handleInput()
 {
-	auto ball = static_cast<Ball*>(gameObjects[2].get());
-	ball->toggleBounce();
-	ball->setInitialBallPosition();
+	currentState->handleInput();
 }
 
 void Game::update(float deltaTime)
 {
-	for (auto& gameObject : gameObjects)
-	{
-		gameObject->update(deltaTime);
-	}
-
-	if (currentLives == 0)
-		std::cout << "GAME OVER" << std::endl;
-
-	if (grid.allBricksDestroyed())
-		std::cout << "LEVEL FINISHED." << std::endl;
+	currentState->update(deltaTime);
 }
 
-void Game::render()
+void Game::draw()
 {
-	for (auto& gameObject : gameObjects)
-	{
-		gameObject->draw();
-	}
-
-	window.display();
-	window.clear();
+	currentState->draw();
 }
 
-int Game::getScore() const
-{
-	return totalScore;
-}
 
-void Game::updateScore(int amount)
-{
-	totalScore += amount;
-}
+
 
 void Game::attachObserver(NumValueObserver* observer)
 {
-	uiObservers.push_back(observer);
+	observers.push_back(observer);
 }
 
-void Game::onBrickDestroyed(Brick& brick)
-{
-	updateScore(brick.getBreakScore());
-
-	for (const auto& observer : uiObservers)
-		observer->onValueChanged(totalScore, ValueType::SCORE);
-}
-
-void Game::updateLives(int amount)
-{
-	currentLives -= amount;
-}
-
-// handles lost life - maybe separate function for that so we know what's up
 void Game::onValueChanged(int value, ValueType valueType)
 {
-	if (valueType != ValueType::LIVES) return;
-
-	gameStarted = false;
-	updateLives(value);
-	restartGame();
-
-	for (const auto& observer : uiObservers)
-		observer->onValueChanged(currentLives, ValueType::LIVES);
+	for (const auto& observer : observers)
+	{
+		observer->onValueChanged(value, valueType);
+	}
 }
 

@@ -3,49 +3,32 @@
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "BrickGrid.h"
-#include "BrickGridVisual.h"
-#include "Platform.h"
-#include "Ball.h"
-#include "Brick.h"
-#include "BrickObserver.h"
+#include "GameState.h"
 #include "NumValueObserver.h"
+#include "BrickObserver.h"
+
 
 using namespace sf;
 
-class Game : public BrickObserver, public NumValueObserver
+class Game : public NumValueObserver
 {
 private:
 	RenderWindow& window;
 	ValueGetter& valueGetter;
 	BrickGrid& grid;
 
-	std::vector<std::unique_ptr<GameObject>> gameObjects;
-	std::vector<NumValueObserver*> uiObservers;
-
-	int totalScore = 0;
-	int maxLives = 3; //to gameConfig
-	int currentLives = maxLives;
-
-	bool gameStarted = false;
-
-	void updateScore(int amount);
-	void updateLives(int amount);
+	std::shared_ptr<GameState> currentState;
+	std::vector<NumValueObserver*> observers;
 
 public:
 	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid);
 
+	void changeStete(std::shared_ptr<GameState> newState);
+	void handleInput();
 	void update(float deltaTime);
-	void render();
-
-	void startGame();
-	void restartGame();
-
-	int getScore() const;
-	int getMaxLives() { return maxLives; }
+	void draw();
 
 	void attachObserver(NumValueObserver* observer);
-
-	void onBrickDestroyed(Brick& brick) override;
 	void onValueChanged(int value, ValueType valueType) override;
 };
 
