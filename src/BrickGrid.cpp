@@ -51,7 +51,7 @@ void BrickGrid::setGridDataVector()
 				gridData = brickPool.getDataFromPool(std::string(1, brickSchemeVector[i][j]));
 			}
 			else
-				gridData = brickPool.getDataFromPool("I"); //PLACEHOLDER
+				gridData = GridData{};
 
 			gridData.shouldRender = brickSchemeVector[i][j] != '_';
 
@@ -79,7 +79,7 @@ bool BrickGrid::allBricksDestroyed()
 	{
 		for (const auto& gridData : row)
 		{			
-			if (gridData.canDestroyBrick()) continue;
+			if (!gridData.canDestroy) continue;
 
 			if (gridData.shouldRender)
 				return false;
@@ -90,7 +90,12 @@ bool BrickGrid::allBricksDestroyed()
 	for (auto& row : gridDataVector)
 	{
 		for (auto& gridData : row)
-			brickPool.returnDataToPool(gridData);
+		{
+			if (gridData.brickData != nullptr)
+				brickPool.returnDataToPool(gridData);
+			else
+				gridData.~GridData();
+		}
 
 		row.clear();
 	}

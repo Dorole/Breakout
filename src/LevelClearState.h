@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include "ValueGetter.h"
+#include "GameConfig.h"
 #include "Button.h"
 #include "StateObserver.h"
 #include "NumValueObserver.h"
@@ -11,6 +12,7 @@ using namespace sf;
 class LevelClearState : public GameState, public NumValueObserver
 {
 private:
+	GameConfig& gameConfig;
 	std::vector<StateObserver*> stateObservers;;
 
 	int totalScore{ 0 };
@@ -45,7 +47,7 @@ private:
 
 public:
 
-	LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef);
+	LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef);
 
 	void init();
 

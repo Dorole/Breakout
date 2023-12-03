@@ -3,7 +3,8 @@
 enum class ValueType
 {
 	SCORE,
-	LIVES
+	LIVES,
+	LEVEL
 };
 
 class NumValueObserver

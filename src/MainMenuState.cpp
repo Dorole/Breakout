@@ -11,8 +11,6 @@
 MainMenuState::MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGetter)
 	: GameState(windowRef, valueGetter)
 {
-	std::cout << "MainMenu state ctr" << std::endl;
-
 	init();
 }
 

@@ -3,10 +3,11 @@
 #include "Brick.h"
 
 
-struct GridData 
+struct GridData
 {
-	std::shared_ptr<Brick> brickData;
-	bool shouldRender;
+	std::shared_ptr<Brick> brickData {};
+	bool shouldRender{ false };
+	bool canDestroy{ false };
 
 	Sprite& getBrickSprite()
 	{
@@ -22,7 +23,7 @@ struct GridData
 	{
 		brickData->setSpritePosition(position);
 	}
-	
+
 	FloatRect getSpriteGlobalBounds()
 	{
 		return brickData->getSpriteGlobalBounds();
@@ -38,8 +39,5 @@ struct GridData
 		return brickData->getBrickId();
 	}
 
-	bool canDestroyBrick() const
-	{
-		return (brickData->getBrickId() != "I");
-	}
+	~GridData() {};
 };

@@ -7,8 +7,6 @@
 GameOverState::GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef)
 	: GameState(windowRef, valueGetterRef)
 {
-	std::cout << "GameOver state ctr" << std::endl;
-
 	init();
 }
 

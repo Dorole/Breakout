@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "ValueGetter.h"
 #include "BrickGrid.h"
+#include "GameConfig.h"
 #include "GameState.h"
 #include "PlayingState.h"
 #include "MainMenuState.h"
@@ -11,15 +12,13 @@
 
 using namespace sf;
 
-Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef)
-	: window(windowRef), valueGetter(valueGetterRef), grid(gridRef)
+Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, GameConfig& gameConfigRef)
+	: window(windowRef), valueGetter(valueGetterRef), grid(gridRef), gameConfig(gameConfigRef)
 {
-	std::cout << "Game constructor" << std::endl;
-
 	mainMenuState = std::make_shared<MainMenuState>(window, valueGetter);
 	playingState = std::make_shared<PlayingState>(window, valueGetter, grid);
 	gameOverState = std::make_shared<GameOverState>(window, valueGetter);
-	levelClearState = std::make_shared<LevelClearState>(window, valueGetter);
+	levelClearState = std::make_shared<LevelClearState>(window, valueGetter, gameConfig);
 
 	currentState = mainMenuState;
 

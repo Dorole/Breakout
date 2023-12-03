@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "ValueGetter.h"
+#include "GameConfig.h"
 #include "BrickGrid.h"
 #include "GameState.h"
 #include "NumValueObserver.h"
@@ -17,6 +18,7 @@ private:
 	RenderWindow& window;
 	ValueGetter& valueGetter;
 	BrickGrid& grid;
+	GameConfig& gameConfig;
 
 	std::shared_ptr<GameState> currentState;
 	std::vector<NumValueObserver*> observers; 
@@ -29,7 +31,7 @@ private:
 	//gameEndState?
 
 public:
-	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid);
+	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid, GameConfig& gameConfigRef);
 
 	void changeState(std::shared_ptr<GameState> newState);
 	void handleInput();

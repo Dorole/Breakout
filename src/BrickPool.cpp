@@ -52,18 +52,19 @@ GridData BrickPool::createGridData(std::string id)
 {
 	GridData gridData;
 
-	if (id == 'S')
+	if (id == "S")
 		gridData.brickData = std::make_shared<BrickSoft>(valueGetter);
-	else if (id == 'M')
+	else if (id == "M")
 		gridData.brickData = std::make_shared<BrickMedium>(valueGetter);
-	else if (id == 'H')
+	else if (id == "H")
 		gridData.brickData = std::make_shared<BrickHard>(valueGetter);
-	else if (id == 'I')
+	else if (id == "I")
 		gridData.brickData = std::make_shared<BrickImpenetrable>(valueGetter);
-	else
-		gridData.brickData = std::make_shared<BrickImpenetrable>(valueGetter); //PLACEHOLDER
+	//else
+	//	gridData.brickData = std::make_shared<BrickImpenetrable>(valueGetter); //PLACEHOLDER
 
 	gridData.shouldRender = false;
+	gridData.canDestroy = id != "I";
 
 	return gridData;
 }

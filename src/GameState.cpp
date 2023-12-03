@@ -5,13 +5,11 @@
 GameState::GameState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef)
 	: window(windowRef), valueGetter(valueGetterRef)
 {
-	std::cout << "GameState non empty ctr - window and valueGetter" << std::endl;
 	baseInit();
 }
 
 
 void GameState::baseInit()
 {
-	std::cout << "GameState base init" << std::endl;
 	//init stuff common to all game states
 }

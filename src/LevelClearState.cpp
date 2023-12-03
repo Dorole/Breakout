@@ -4,12 +4,11 @@
 #include "GameState.h"
 #include "TextCreator.h"
 #include "Button.h"
+#include "GameConfig.h"
 
-LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef)
-	: GameState(windowRef, valueGetterRef)
+LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef)
+	: GameState(windowRef, valueGetterRef), gameConfig(gameConfigRef)
 {
-	std::cout << "LevelClear state ctr" << std::endl;
-
 	init();
 }
 
@@ -41,10 +40,14 @@ void LevelClearState::handleInput()
 {
 	if (nextButton.buttonInteract(window))
 	{
-		//go to next level (game config -> valueGetter)
+		if (gameConfig.nextLevelExists())
+		{
+			gameConfig.progressLevel();
+		}
+		else
+			std::cout << "Next level doesn't exist" << std::endl;
+			//move to final state or main menu
 
-		for (const auto& observer : stateObservers)
-			observer->onStateChanged(State::PLAYING_STATE);
 	}
 
 	if (restartButton.buttonInteract(window))
@@ -62,6 +65,9 @@ void LevelClearState::handleInput()
 
 void LevelClearState::update(float deltaTime)
 {
+	//shoul probably listen for an event from gameConfig
+	/*for (const auto& observer : stateObservers)
+	observer->onStateChanged(State::PLAYING_STATE);*/
 }
 
 void LevelClearState::draw()

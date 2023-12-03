@@ -2,9 +2,10 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "Game.h"
+#include "GameConfig.h"
 #include "XmlParser.h"
 #include "ValueGetter.h"
+#include "Game.h"
 #include "BrickGrid.h"
 #include "BrickPool.h"
 
@@ -15,9 +16,10 @@ using namespace sf;
 
 int main()
 {
+	GameConfig gameConfig;
 	XmlParser parser;
-	std::string fileName = "Level_1";
-	ValueGetter valueGetter(parser, fileName);
+
+	ValueGetter valueGetter(parser, gameConfig.getFileName(0));
 	BrickPool brickPool(valueGetter);
 	BrickGrid grid(valueGetter, brickPool);
 
@@ -29,7 +31,7 @@ int main()
 	Clock clock;
 	float deltaTime;
 
-	Game game(window, valueGetter, grid);
+	Game game(window, valueGetter, grid, gameConfig);
 
 	while (window.isOpen())
 	{

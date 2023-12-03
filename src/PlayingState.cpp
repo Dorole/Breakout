@@ -15,16 +15,12 @@
 PlayingState::PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef)
 	: GameState(windowRef, valueGetterRef), grid(gridRef)
 {
-	std::cout << "PlayingState ctr" << std::endl;
-
 	init();
 }
 
 
 void PlayingState::init()
 {
-	std::cout << "PlayingState init" << std::endl;
-
 	grid.attachObserver(this);
 
 	//Create objects
