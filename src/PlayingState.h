@@ -1,14 +1,12 @@
 #pragma once
-#include "GameState.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
-
+#include "GameState.h"
 #include "ValueGetter.h"
 #include "BrickGrid.h"
 #include "GameObject.h"
 #include "BrickObserver.h"
 #include "UIManager.h"
-
 #include "NumValueObserver.h"
 #include "StateObserver.h"
 
@@ -38,16 +36,20 @@ public:
 	PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef);
 
 	void init();
+
+	// Inherited via GameState
+	virtual void onStateEnter() override;
 	virtual void handleInput() override;
 	virtual void update(float deltaTime) override;
 	virtual void draw() override;
-	virtual void cleanup() override;
-
-
+	virtual void onStateExit() override;
 	virtual void attachValueObserver(NumValueObserver* observer) override;
 	virtual void attachStateObserver(StateObserver* observer) override;
 
+	// Inherited via BrickObserver
 	void onBrickDestroyed(Brick& brick) override;
+
+	// Inherited via NumValueObserver
 	void onValueChanged(int value, ValueType valueType) override;
 
 };

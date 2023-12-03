@@ -38,4 +38,8 @@ struct GridData
 		return brickData->getBrickId();
 	}
 
+	bool canDestroyBrick() const
+	{
+		return (brickData->getBrickId() != "I");
+	}
 };

@@ -30,5 +30,6 @@ public:
 	Vector2f getButtonSize();
 
 	bool isMouseOverButton(RenderWindow& window);
+	bool buttonInteract(RenderWindow& window);
 	void drawButton(RenderWindow& window);
 };

@@ -50,6 +50,8 @@ std::string ValueGetter::getXmlFilePath(std::string& fileName) const
 	return fullPath.string();
 }
 
+//separate the getting of everything into a public method --> check what's happening in BrickGrid and visual
+//consts for brick IDs!!
 ValueGetter::ValueGetter(XmlParser& parserRef, std::string& levelFileName)
 	: parser{ parserRef }
 {
@@ -70,9 +72,6 @@ ValueGetter::ValueGetter(XmlParser& parserRef, std::string& levelFileName)
 	bricksIds = parser.getSiblingAttributesValuesByType(ID, LEVEL, BRICK_TYPES);
 
 	mapBrickValuesToIds();
-
-
-
 }
 
 BrickTypeValues ValueGetter::getBrickTypeValues(const std::string& brickId)

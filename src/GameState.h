@@ -16,10 +16,11 @@ protected:
 public:
 	GameState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef);
 	
+	virtual void onStateEnter() = 0;
 	virtual void handleInput() = 0;
 	virtual void update(float deltaTime) = 0;
 	virtual void draw() = 0;
-	virtual void cleanup() = 0;
+	virtual void onStateExit() = 0;
 
 	virtual void attachValueObserver(NumValueObserver* observer) = 0;
 	virtual void attachStateObserver(StateObserver* observer) = 0;

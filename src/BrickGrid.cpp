@@ -78,7 +78,9 @@ bool BrickGrid::allBricksDestroyed()
 	for (const auto& row : gridDataVector)
 	{
 		for (const auto& gridData : row)
-		{
+		{			
+			if (gridData.canDestroyBrick()) continue;
+
 			if (gridData.shouldRender)
 				return false;
 		}

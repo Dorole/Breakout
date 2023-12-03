@@ -78,6 +78,22 @@ bool Button::isMouseOverButton(RenderWindow& window)
 	return button.getGlobalBounds().contains(mouseWorldPosition);
 }
 
+bool Button::buttonInteract(RenderWindow& window)
+{
+	if (isMouseOverButton(window))
+	{
+		setButtonTransparency(AlphaChannel::HALF_TRANSPARENT);
+
+		if (Mouse::isButtonPressed(Mouse::Left))
+			return true;
+	}
+	else
+	{
+		setButtonTransparency(AlphaChannel::OPAQUE);
+		return false;
+	}
+}
+
 void Button::drawButton(RenderWindow& window)
 {
 	window.draw(button);

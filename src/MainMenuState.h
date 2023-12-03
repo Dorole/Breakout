@@ -5,7 +5,7 @@
 #include "ValueGetter.h"
 #include "NumValueObserver.h"
 #include "StateObserver.h"
-#include "TextCreator.h"
+
 #include "Button.h"
 
 
@@ -41,10 +41,13 @@ public:
 	MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGetter);
 
 	void init();
+
+	// Inherited via GameState
+	virtual void onStateEnter() override;
 	virtual void handleInput() override;
 	virtual void update(float deltaTime) override;
 	virtual void draw() override;
-	virtual void cleanup() override;
+	virtual void onStateExit() override;
 	virtual void attachValueObserver(NumValueObserver* observer) override;
 	virtual void attachStateObserver(StateObserver* observer) override;
 

@@ -1,17 +1,14 @@
-#include "PlayingState.h"
-#include "GameState.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
+#include "PlayingState.h"
+#include "GameState.h"
 #include "ValueGetter.h"
 #include "BrickGrid.h"
 #include "UIManager.h"
-
 #include "GameObject.h"
 #include "BrickGridVisual.h"
 #include "Platform.h"
 #include "Ball.h"
-
 #include "NumValueObserver.h"
 
 
@@ -46,6 +43,19 @@ void PlayingState::init()
 	
 }
 
+void PlayingState::onStateEnter()
+{
+	totalScore = 0;
+	currentLives = maxLives;
+	gameStarted = false;
+
+	for (const auto& observer : valueObservers)
+	{
+		observer->onValueChanged(totalScore, ValueType::SCORE);
+		observer->onValueChanged(currentLives, ValueType::LIVES);
+	}
+}
+
 void PlayingState::handleInput()
 {
 	if (Mouse::isButtonPressed(Mouse::Left)) 
@@ -68,7 +78,6 @@ void PlayingState::update(float deltaTime)
 	if (currentLives == 0)
 	{
 		std::cout << "GAME OVER" << std::endl;
-		//cleanup();
 		
 		for (const auto& observer : stateObservers)
 			observer->onStateChanged(State::GAME_OVER);
@@ -77,7 +86,7 @@ void PlayingState::update(float deltaTime)
 	if (grid.allBricksDestroyed())
 	{
 		std::cout << "LEVEL FINISHED." << std::endl; 
-		//cleanup();
+
 		for (const auto& observer : stateObservers)
 			observer->onStateChanged(State::LEVEL_CLEAR);
 	}
@@ -96,11 +105,8 @@ void PlayingState::draw()
 
 }
 
-void PlayingState::cleanup()
+void PlayingState::onStateExit()
 {
-	totalScore = 0;
-	currentLives = maxLives;
-	gameStarted = false;
 }
 
 void PlayingState::startGame()

@@ -31,35 +31,22 @@ void MainMenuState::init()
 
 }
 
+void MainMenuState::onStateEnter()
+{
+}
+
 void MainMenuState::handleInput()
 {
-	if (startButton.isMouseOverButton(window))
+	if (startButton.buttonInteract(window))
 	{
-		startButton.setButtonTransparency(AlphaChannel::HALF_TRANSPARENT);
-
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-			std::cout << "StartButton pressed" << std::endl;
-			for (const auto& observer : stateObservers)
-				observer->onStateChanged(State::PLAYING_STATE);
-		}
+		for (const auto& observer : stateObservers)
+			observer->onStateChanged(State::PLAYING_STATE);
 	}
-	else
-		startButton.setButtonTransparency(AlphaChannel::OPAQUE);
-	
-	if (quitButton.isMouseOverButton(window))
+
+	if (quitButton.buttonInteract(window))
 	{
-		quitButton.setButtonTransparency(AlphaChannel::HALF_TRANSPARENT);
-
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-			std::cout << "QuitButton pressed" << std::endl;
-			window.close();
-		}
+		window.close();
 	}
-	else
-		quitButton.setButtonTransparency(AlphaChannel::OPAQUE);
-
 }
 
 void MainMenuState::update(float deltaTime)
@@ -74,7 +61,7 @@ void MainMenuState::draw()
 	quitButton.drawButton(window);
 }
 
-void MainMenuState::cleanup()
+void MainMenuState::onStateExit()
 {
 
 }

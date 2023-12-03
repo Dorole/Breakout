@@ -35,24 +35,26 @@ int main()
 	{
 		deltaTime = clock.restart().asSeconds();
 
-		sf::Event event;
+		Event event;
 		while (window.pollEvent(event))
 		{
 			switch (event.type)
 			{
-			case sf::Event::Closed:
+			case Event::Closed:
 				window.close();
+			case Event::KeyPressed:
+				if (event.key.code == Keyboard::Key::G && event.key.control && event.key.alt)
+				{
+					std::cout << "Cheat code for level clearing used." << std::endl;
+					grid.setLevelFinished();
+				}
+				break;
 			default:
 				break;
 			}
 
 			game.handleInput();
-
-
-			if (Keyboard::isKeyPressed(Keyboard::Key::G)) //testing only
-				grid.setLevelFinished();
 		}
-
 
 		game.update(deltaTime);
 		game.draw();
