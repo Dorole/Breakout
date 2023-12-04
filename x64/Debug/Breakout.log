@@ -1,12 +1,2 @@
-﻿  Ball.cpp
-  BrickGrid.cpp
-  BrickGridVisual.cpp
-  Game.cpp
-  main.cpp
-  BrickPool.cpp
-  GameConfig.cpp
-C:\Users\dorot\Desktop\C++\Breakout\src\GameConfig.cpp(16,13): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  LevelClearState.cpp
-  PlayingState.cpp
-  Generating Code...
+﻿  PlayingState.cpp
   Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe

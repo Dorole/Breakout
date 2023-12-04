@@ -7,10 +7,11 @@
 #include "Platform.h"
 #include "BrickGrid.h"
 #include "NumValueObserver.h"
+#include "LevelDataObserver.h"
 
 using namespace sf;
 
-class Ball : public GameObject
+class Ball : public GameObject, public LevelDataObserver
 {
 private: //move these to GameObject
     RenderWindow& window;
@@ -33,11 +34,8 @@ private: //move these to GameObject
     sf::Vector2f ballVelocity {-0.8f, -0.8f}; //set from ctr! (get from gameConfig)
     float ballSpeed = 300.0f; //set from ctr!
     bool isInCollision = false; //nepotrebno?
-
-    //introduce some variation to the bounce angle
-    std::default_random_engine randomEngine;
-    std::uniform_real_distribution<float> distribution{-0.2f, 0.2f};
     
+    void init();
 
     //move these to GameObject
     void setSpriteOriginToCenter();
@@ -58,10 +56,14 @@ public:
 
     void setInitialBallPosition();
     void toggleBounce();
+    bool getShouldBounce() { return shouldBounce; }
     void checkWindowCollision();
     void checkPlatformCollision();
     void checkBrickCollision();
 
     void attachObserver(NumValueObserver* observer);
+
+    // Inherited via LevelDataObserver
+    virtual void onLevelChanged() override;
 };
 

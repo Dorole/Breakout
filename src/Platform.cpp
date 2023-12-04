@@ -6,8 +6,14 @@
 
 using namespace sf;
 
-Platform::Platform(RenderWindow& windowRef, ValueGetter& valueGetter)
-    : window(windowRef)
+Platform::Platform(RenderWindow& windowRef, ValueGetter& valueGetterRef)
+    : window(windowRef), valueGetter(valueGetterRef)
+{   
+    valueGetter.attachLevelDataObserver(this);
+    init();
+}
+
+void Platform::init()
 {
     texture.loadFromFile(valueGetter.getPlatformTexturePath());
     sprite.setTexture(texture);
@@ -67,5 +73,10 @@ void Platform::update(float deltaTime)
 void Platform::draw()
 {
     window.draw(sprite);
+}
+
+void Platform::onLevelChanged()
+{
+    init();
 }
 

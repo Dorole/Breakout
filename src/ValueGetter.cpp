@@ -4,6 +4,7 @@
 #include "ValueGetter.h"
 #include "XmlParser.h"
 #include "BrickTypeValues.h"
+#include "GameConfig.h"
 
 const std::string ValueGetter::LEVEL = "Level";
 const std::string ValueGetter::ID = "Id";
@@ -40,6 +41,7 @@ std::string ValueGetter::ballTexturePath = "";
 
 std::vector<std::string> ValueGetter::bricksIds{};
 std::map<std::string, BrickTypeValues> ValueGetter::brickTypesMap{};
+std::vector<LevelDataObserver*> ValueGetter::levelDataObservers{};
 
 std::string ValueGetter::getXmlFilePath(std::string& fileName) const
 {
@@ -50,28 +52,12 @@ std::string ValueGetter::getXmlFilePath(std::string& fileName) const
 	return fullPath.string();
 }
 
-//separate the getting of everything into a public method --> check what's happening in BrickGrid and visual
 //consts for brick IDs!!
-ValueGetter::ValueGetter(XmlParser& parserRef, std::string& levelFileName)
-	: parser{ parserRef }
+ValueGetter::ValueGetter(XmlParser& parserRef, GameConfig& gameConfigRef)
+	: parser(parserRef), gameConfig(gameConfigRef)
 {
-	parser.loadDocument(getXmlFilePath(levelFileName).c_str());
-
-	rowCount = parser.getNodeAttributeAsInt(ROW_COUNT, LEVEL);
-	columnCount = parser.getNodeAttributeAsInt(COLUMN_COUNT, LEVEL);
-	rowSpacing = parser.getNodeAttributeAsInt(ROW_SPACING, LEVEL);
-	columnSpacing = parser.getNodeAttributeAsInt(COLUMN_SPACING, LEVEL);
-	levelId = parser.getNodeAttributeAsInt(ID, LEVEL);
-
-
-	bricksLayout = parser.getTextFromNode(LEVEL, BRICKS);
-	backgroundTexturePath = parser.getNodeAttributeAsString(BACKGROUND_TEXTURE, LEVEL);
-	platformTexturePath = parser.getNodeAttributeAsString(PLATFORM_TEXTURE, LEVEL);
-	ballTexturePath = parser.getNodeAttributeAsString(BALL_TEXTURE, LEVEL);
-
-	bricksIds = parser.getSiblingAttributesValuesByType(ID, LEVEL, BRICK_TYPES);
-
-	mapBrickValuesToIds();
+	gameConfig.attachLevelObserver(this);
+	getLevelValues(0);
 }
 
 BrickTypeValues ValueGetter::getBrickTypeValues(const std::string& brickId)
@@ -105,4 +91,42 @@ BrickTypeValues ValueGetter::getBrickValuesById(const std::string& brickId)
 		return brickTypesMap.at(brickId);
 	else
 		throw std::out_of_range("Key not found.");
+}
+
+void ValueGetter::getLevelValues(int levelIndex)
+{
+	std::string levelFileName = gameConfig.getFileName(levelIndex);
+	parser.loadDocument(getXmlFilePath(levelFileName).c_str());
+
+	rowCount = parser.getNodeAttributeAsInt(ROW_COUNT, LEVEL);
+	columnCount = parser.getNodeAttributeAsInt(COLUMN_COUNT, LEVEL);
+	rowSpacing = parser.getNodeAttributeAsInt(ROW_SPACING, LEVEL);
+	columnSpacing = parser.getNodeAttributeAsInt(COLUMN_SPACING, LEVEL);
+	levelId = parser.getNodeAttributeAsInt(ID, LEVEL);
+
+
+	bricksLayout = parser.getTextFromNode(LEVEL, BRICKS);
+	backgroundTexturePath = parser.getNodeAttributeAsString(BACKGROUND_TEXTURE, LEVEL);
+	platformTexturePath = parser.getNodeAttributeAsString(PLATFORM_TEXTURE, LEVEL);
+	ballTexturePath = parser.getNodeAttributeAsString(BALL_TEXTURE, LEVEL);
+
+	bricksIds = parser.getSiblingAttributesValuesByType(ID, LEVEL, BRICK_TYPES);
+
+	mapBrickValuesToIds();
+}
+
+void ValueGetter::onValueChanged(int value, ValueType valueType)
+{
+	if (valueType == ValueType::LEVEL)
+	{
+		getLevelValues(value);
+
+		for (const auto& observer : levelDataObservers)
+			observer->onLevelChanged();
+	}
+}
+
+void ValueGetter::attachLevelDataObserver(LevelDataObserver* observer)
+{
+	levelDataObservers.push_back(observer);
 }

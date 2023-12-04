@@ -3,10 +3,12 @@
 #include "GameOverState.h"
 #include "GameState.h"
 #include "TextCreator.h"
+#include "GameConfig.h"
 
-GameOverState::GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef)
-	: GameState(windowRef, valueGetterRef)
+GameOverState::GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef)
+	: GameState(windowRef, valueGetterRef), gameConfig(gameConfigRef)
 {
+	valueGetter.attachLevelDataObserver(this);
 	init();
 }
 
@@ -38,14 +40,16 @@ void GameOverState::handleInput()
 {
 	if (restartButton.buttonInteract(window))
 	{
-		for (const auto& observer : stateObservers)
-			observer->onStateChanged(State::PLAYING_STATE);
+		currentMode = LoadLevelMode::RESET_LEVEL;
+		nextState = State::PLAYING_STATE;
+		gameConfig.setLevel(currentMode);
 	}
 
 	if (menuButton.buttonInteract(window))
 	{
-		for (const auto& observer : stateObservers)
-			observer->onStateChanged(State::MAIN_MENU);
+		currentMode = LoadLevelMode::RESET_LEVEL;
+		nextState = State::MAIN_MENU;
+		gameConfig.setLevel(currentMode);
 	}
 }
 
@@ -82,4 +86,33 @@ void GameOverState::onValueChanged(int value, ValueType valueType)
 	{
 		totalScore = value;
 	}
+}
+
+void GameOverState::onLevelChanged()
+{
+	switch (currentMode)
+	{
+	case LoadLevelMode::PROGRESS:
+		break;
+
+	case LoadLevelMode::RESET_LEVEL:
+		if (nextState == State::PLAYING_STATE)
+		{
+			for (const auto& observer : stateObservers)
+				observer->onStateChanged(State::PLAYING_STATE);
+		}
+		else
+		{
+			for (const auto& observer : stateObservers)
+				observer->onStateChanged(State::MAIN_MENU);
+		}
+		break;
+
+	case LoadLevelMode::RESET_GAME:
+		break;
+
+	default:
+		break;
+	}
+	
 }

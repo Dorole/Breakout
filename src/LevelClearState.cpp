@@ -9,6 +9,7 @@
 LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef)
 	: GameState(windowRef, valueGetterRef), gameConfig(gameConfigRef)
 {
+	valueGetter.attachLevelDataObserver(this);
 	init();
 }
 
@@ -40,34 +41,32 @@ void LevelClearState::handleInput()
 {
 	if (nextButton.buttonInteract(window))
 	{
-		if (gameConfig.nextLevelExists())
-		{
-			gameConfig.progressLevel();
-		}
-		else
-			std::cout << "Next level doesn't exist" << std::endl;
-			//move to final state or main menu
-
+		currentMode = LoadLevelMode::PROGRESS;
+		nextState = State::PLAYING_STATE;
+		gameConfig.setLevel(currentMode);
 	}
 
 	if (restartButton.buttonInteract(window))
 	{
-		for (const auto& observer : stateObservers)
-			observer->onStateChanged(State::PLAYING_STATE);
+		currentMode = LoadLevelMode::RESET_LEVEL;
+		nextState = State::PLAYING_STATE;
+		gameConfig.setLevel(currentMode);
 	}
 
 	if (menuButton.buttonInteract(window))
 	{
-		for (const auto& observer : stateObservers)
-			observer->onStateChanged(State::MAIN_MENU);
+		if (gameConfig.nextLevelExists())
+			currentMode = LoadLevelMode::RESET_LEVEL;
+		else
+			currentMode = LoadLevelMode::RESET_GAME;
+
+		nextState = State::MAIN_MENU;
+		gameConfig.setLevel(currentMode);
 	}
 }
 
 void LevelClearState::update(float deltaTime)
 {
-	//shoul probably listen for an event from gameConfig
-	/*for (const auto& observer : stateObservers)
-	observer->onStateChanged(State::PLAYING_STATE);*/
 }
 
 void LevelClearState::draw()
@@ -75,7 +74,11 @@ void LevelClearState::draw()
 	window.draw(*levelClearText);
 	window.draw(*totalScoreText);
 
-	nextButton.drawButton(window);
+	if (gameConfig.nextLevelExists())
+	{
+		nextButton.drawButton(window);
+	}
+
 	restartButton.drawButton(window);
 	menuButton.drawButton(window);
 }
@@ -99,5 +102,38 @@ void LevelClearState::onValueChanged(int value, ValueType valueType)
 	if (valueType == ValueType::SCORE)
 	{
 		totalScore = value;
+	}
+}
+
+
+void LevelClearState::onLevelChanged()
+{
+	switch (currentMode)
+	{
+	case LoadLevelMode::PROGRESS:
+		for (const auto& observer : stateObservers)
+			observer->onStateChanged(State::PLAYING_STATE);
+		break;
+
+	case LoadLevelMode::RESET_LEVEL:
+		if (nextState == State::PLAYING_STATE)
+		{
+			for (const auto& observer : stateObservers)
+				observer->onStateChanged(State::PLAYING_STATE);
+		}
+		else
+		{
+			for (const auto& observer : stateObservers)
+				observer->onStateChanged(State::MAIN_MENU);
+		}
+		break;
+
+	case LoadLevelMode::RESET_GAME:
+		for (const auto& observer : stateObservers)
+			observer->onStateChanged(State::MAIN_MENU);
+		break;
+
+	default:
+		break;
 	}
 }

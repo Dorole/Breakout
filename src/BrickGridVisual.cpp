@@ -5,8 +5,15 @@
 #include "GameObject.h"
 #include "GridData.h"
 
-BrickGridVisual::BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetter, BrickGrid& brickGridRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
-	: window(windowRef), grid(brickGridRef), gridDataVector(gridDataVectorRef)
+BrickGridVisual::BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& brickGridRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
+	: window(windowRef), valueGetter(valueGetterRef), grid(brickGridRef), gridDataVector(gridDataVectorRef)
+{
+	valueGetter.attachLevelDataObserver(this);
+	init();
+
+}
+
+void BrickGridVisual::init()
 {
 	columnCount = valueGetter.getColumnCount();
 	rowCount = valueGetter.getRowCount();
@@ -14,9 +21,7 @@ BrickGridVisual::BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGett
 	rowSpacing = valueGetter.getRowSpacing();
 
 	grid.setGridOffset(getTopRenderBorder());
-
 }
-
 
 void BrickGridVisual::update(float deltaTime) { }
 
@@ -36,6 +41,11 @@ void BrickGridVisual::draw()
 			window.draw(gridDataVector[row][column].getBrickSprite());
 		}
 	}
+}
+
+void BrickGridVisual::onLevelChanged()
+{
+	init();
 }
 
 float BrickGridVisual::getTopRenderBorder()

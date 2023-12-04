@@ -3,11 +3,15 @@
 #include <vector>
 #include "BrickTypeValues.h"
 #include "XmlParser.h"
+#include "GameConfig.h"
+#include "NumValueObserver.h"
+#include "LevelDataObserver.h"
 
-class ValueGetter
+class ValueGetter : public NumValueObserver
 {
 private:
 	XmlParser& parser;
+	GameConfig& gameConfig;
 
 	//********************************* STATIC MEMBERS *********************************
 	//************************* REFERENCES TO NODES & ATTRIBUTES ************************
@@ -49,19 +53,18 @@ private:
 
 	static std::vector<std::string> bricksIds;
 	static std::map<std::string, BrickTypeValues> brickTypesMap;
+	static std::vector<LevelDataObserver*> levelDataObservers;
 
 	//********************************* PRIVATE FUNCTIONS *********************************
 
 	std::string getXmlFilePath(std::string& fileName) const;
-
 	BrickTypeValues getBrickTypeValues(const std::string& brickId);
-
 	void mapBrickValuesToIds();
-
+	void getLevelValues(int levelIndex);
 
 	//********************************* PUBLIC FUNCTIONS *********************************
 public:
-	ValueGetter(XmlParser& parserRef, std::string& levelFileName);
+	ValueGetter(XmlParser& parserRef, GameConfig& gameConfigRef);
 
 	//should probably make all these const!
 	static int getRowCount() { return rowCount; }
@@ -77,6 +80,10 @@ public:
 
 	BrickTypeValues getBrickValuesById(const std::string& brickId);
 
+	// Inherited via NumValueObserver
+	void onValueChanged(int value, ValueType valueType) override;
+
+	void attachLevelDataObserver(LevelDataObserver* observer);
 };
 
 

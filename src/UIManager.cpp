@@ -10,6 +10,8 @@ using namespace sf;
 UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef)  //unsubscribe
 	: window(windowRef), valueGetter(valueGetterRef)
 {
+	valueGetter.attachLevelDataObserver(this);
+	
 	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); //get iz gameConfig-a
 
 	textCreator = TextCreator(textOffsetTop, textOffsetSide);
@@ -22,7 +24,7 @@ UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef)  //un
 	Vector2f posBelowScoreText = scoreText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing);
 	Vector2f posBelowLivesText = livesText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing); //TEMP
 
-	levelValueText = textCreator.createNewText(font, std::to_string(valueGetter.getLevel()), posBelowLevelText, fontSize, TextOrigin::TOP_CENTER); //vjerojatno nece trebati valueGetter nego GameConfig ref
+	levelValueText = textCreator.createNewText(font, std::to_string(valueGetter.getLevel()), posBelowLevelText, fontSize, TextOrigin::TOP_CENTER); 
 	scoreValueText = textCreator.createNewText(font, std::to_string(0), posBelowScoreText, fontSize, TextOrigin::TOP_CENTER);
 	currentLivesText = textCreator.createNewText(font, "3", posBelowLivesText, fontSize, TextOrigin::TOP_CENTER); //TEMP - get from config
 
@@ -89,4 +91,9 @@ void UIManager::onValueChanged(int value, ValueType valueType)
 		break;
 	}
 	
+}
+
+void UIManager::onLevelChanged()
+{
+	levelValueText->setString(std::to_string(valueGetter.getLevel()));
 }

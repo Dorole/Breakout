@@ -17,7 +17,7 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 {
 	mainMenuState = std::make_shared<MainMenuState>(window, valueGetter);
 	playingState = std::make_shared<PlayingState>(window, valueGetter, grid);
-	gameOverState = std::make_shared<GameOverState>(window, valueGetter);
+	gameOverState = std::make_shared<GameOverState>(window, valueGetter, gameConfig);
 	levelClearState = std::make_shared<LevelClearState>(window, valueGetter, gameConfig);
 
 	currentState = mainMenuState;

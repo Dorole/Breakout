@@ -13,10 +13,16 @@ using namespace sf;
 Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGrid& gridRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
     : window(windowRef), platform(platformRef), valueGetter(valueGetterRef), grid(gridRef), gridVector(gridDataVectorRef)
 {
-	texture.loadFromFile(valueGetter.getBallTexturePath());
-	sprite.setTexture(texture);
+    valueGetter.attachLevelDataObserver(this);
+    init();
+}
+
+void Ball::init()
+{
+    texture.loadFromFile(valueGetter.getBallTexturePath());
+    sprite.setTexture(texture);
     windowSize = window.getSize();
-    
+
     shouldBounce = false;
     lostLife = false;
 
@@ -61,7 +67,6 @@ void Ball::moveIdle(float deltaTime)
 void Ball::toggleBounce()
 {
     shouldBounce = !shouldBounce;
-    std::cout << shouldBounce << std::endl;
 }
 
 void Ball::checkWindowCollision()
@@ -72,7 +77,6 @@ void Ball::checkWindowCollision()
     if (globalBallBounds.top < grid.getGridOffset()) //cache offset!
     {
         ballVelocity.y = std::abs(ballVelocity.y);
-        ballVelocity.x += distribution(randomEngine);
     }
 
 
@@ -106,7 +110,6 @@ void Ball::checkPlatformCollision()
     if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()) && ballVelocity.y > 0)
     {
         ballVelocity.y = -ballVelocity.y;
-        ballVelocity.x += distribution(randomEngine);
         return;
     }
 }
@@ -172,4 +175,9 @@ void Ball::notifyObservers(int value)
 {
     for (const auto& observer : observers)
         observer->onValueChanged(value, ValueType::LIVES);
+}
+
+void Ball::onLevelChanged()
+{
+    init();
 }

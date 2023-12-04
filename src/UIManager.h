@@ -4,10 +4,11 @@
 #include "TextCreator.h"
 #include "Button.h"
 #include "NumValueObserver.h"
+#include "LevelDataObserver.h"
 
 using namespace sf;
 
-class UIManager : public NumValueObserver
+class UIManager : public NumValueObserver, public LevelDataObserver
 {
 private:
 	RenderWindow& window;
@@ -38,7 +39,11 @@ public:
 	void update();
 	void draw();
 
+	// Inherited via NumValueObserver
 	void onValueChanged(int value, ValueType valueType) override;
+
+	// Inherited via LevelDataObserver
+	virtual void onLevelChanged() override;
 };
 
 

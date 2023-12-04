@@ -3,8 +3,9 @@
 #include <vector>
 #include "ValueGetter.h"
 #include "GridData.h"
+#include "LevelDataObserver.h"
 
-class BrickPool
+class BrickPool : public LevelDataObserver
 {
 private:
 	ValueGetter& valueGetter;
@@ -34,6 +35,9 @@ public:
 	/// <summary>
 	/// Load new values into bricks.
 	/// </summary>
-	//void refreshPool();
+	void refreshPool();
+
+	// Inherited via LevelDataObserver
+	virtual void onLevelChanged() override;
 
 };

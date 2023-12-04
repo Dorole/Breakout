@@ -19,7 +19,7 @@ int main()
 	GameConfig gameConfig;
 	XmlParser parser;
 
-	ValueGetter valueGetter(parser, gameConfig.getFileName(0));
+	ValueGetter valueGetter(parser, gameConfig);
 	BrickPool brickPool(valueGetter);
 	BrickGrid grid(valueGetter, brickPool);
 

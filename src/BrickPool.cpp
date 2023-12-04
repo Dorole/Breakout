@@ -18,6 +18,7 @@ std::map<std::string, std::vector<GridData>> BrickPool::brickDataMap {};
 BrickPool::BrickPool(ValueGetter& valueGetterRef)
 	: valueGetter(valueGetterRef)
 {
+	valueGetter.attachLevelDataObserver(this);
 	initBrickDataMap();
 }
 
@@ -108,14 +109,19 @@ void BrickPool::returnDataToPool(GridData& gridData)
 	}
 }
 
-//void BrickPool::refreshPool()
-//{
-//	for (auto& pair : brickDataMap)
-//	{
-//		const std::string& key = pair.first;
-//		std::vector<GridData>& dataVec = pair.second;
-//
-//		for (GridData& gridData : dataVec)
-//			gridData.brickData->reloadBrickValues(valueGetter);
-//	}
-//}
+void BrickPool::refreshPool()
+{
+	for (auto& pair : brickDataMap)
+	{
+		const std::string& key = pair.first;
+		std::vector<GridData>& dataVec = pair.second;
+
+		for (GridData& gridData : dataVec)
+			gridData.brickData->reloadBrickValues(valueGetter);
+	}
+}
+
+void BrickPool::onLevelChanged()
+{
+	refreshPool();
+}

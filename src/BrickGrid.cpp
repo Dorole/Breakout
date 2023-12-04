@@ -10,6 +10,12 @@
 BrickGrid::BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef)
 	: valueGetter(valueGetterRef), brickPool(brickPoolRef)
 {
+	valueGetter.attachLevelDataObserver(this);
+	init();
+}
+
+void BrickGrid::init()
+{
 	bricksLayout = valueGetter.getBricksLayout();
 	columnCount = valueGetter.getColumnCount();
 	rowCount = valueGetter.getRowCount();
@@ -18,9 +24,10 @@ BrickGrid::BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef)
 	setGridDataVector();
 }
 
-
 void BrickGrid::setBrickSchemeVector()
 {
+	brickSchemeVector.clear();
+
 	bricksLayout.erase(std::remove_if(bricksLayout.begin(), bricksLayout.end(), ::isspace), bricksLayout.end());
 
 	int index = 0;
@@ -38,6 +45,8 @@ void BrickGrid::setBrickSchemeVector()
 
 void BrickGrid::setGridDataVector()
 {
+	gridDataVector.clear();
+
 	for (size_t i = 0; i < rowCount; i++)
 	{
 		gridDataVector.push_back(std::vector<GridData>());
@@ -133,5 +142,10 @@ void BrickGrid::setLevelFinished()
 			gridData.shouldRender = false;
 		}
 	}
+}
+
+void BrickGrid::onLevelChanged()
+{
+	init();
 }
 

@@ -253,5 +253,8 @@
     <ClInclude Include="src\TextCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\LevelDataObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

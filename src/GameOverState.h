@@ -2,16 +2,21 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
 #include "ValueGetter.h"
+#include "GameConfig.h"
 #include "Button.h"
 #include "StateObserver.h"
 #include "NumValueObserver.h"
+#include "LevelDataObserver.h"
 
 using namespace sf;
 
-class GameOverState : public GameState, public NumValueObserver
+class GameOverState : public GameState, public NumValueObserver, public LevelDataObserver
 {
 private:
 
+	GameConfig& gameConfig;
+	LoadLevelMode currentMode;
+	State nextState;
 	std::vector<StateObserver*> stateObservers;;
 
 	int totalScore { 0 };
@@ -43,7 +48,7 @@ private:
 
 public:
 
-	GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef);
+	GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef);
 
 	void init();
 
@@ -58,5 +63,8 @@ public:
 
 	// Inherited via NumValueObserver
 	virtual void onValueChanged(int value, ValueType valueType) override;
+
+	// Inherited via LevelDataObserver
+	virtual void onLevelChanged() override;
 };
 

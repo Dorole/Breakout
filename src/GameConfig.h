@@ -4,6 +4,13 @@
 #include <iostream>
 #include "NumValueObserver.h"
 
+enum class LoadLevelMode
+{
+	PROGRESS,
+	RESET_LEVEL,
+	RESET_GAME
+};
+
 using namespace sf;
 
 /// <summary>
@@ -68,13 +75,26 @@ public:
 		return (levelsMap.find(currentLevel + 1) != levelsMap.end());
 	}
 
-	void progressLevel()
+	void setLevel(LoadLevelMode mode)
 	{
-		currentLevel++;
+		switch (mode)
+		{
+		case LoadLevelMode::PROGRESS:
+			currentLevel++;
+			break;
+		case LoadLevelMode::RESET_LEVEL:
+			break;
+		case LoadLevelMode::RESET_GAME:
+			currentLevel = 0;
+			break;
+		default:
+			break;
+		}
 
 		for (const auto& observer : levelObservers)
 			observer->onValueChanged(currentLevel, ValueType::LEVEL);
 	}
+
 
 	int getCurrentLevel() { return currentLevel; }
 };

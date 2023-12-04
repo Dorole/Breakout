@@ -6,8 +6,9 @@
 #include "Brick.h"
 #include "BrickObserver.h"
 #include "BrickPool.h"
+#include "LevelDataObserver.h"
 
-class BrickGrid
+class BrickGrid : public LevelDataObserver
 {
 private:
 	ValueGetter& valueGetter;
@@ -37,6 +38,7 @@ private:
 	//debug
 	void printBrickScheme();
 
+	void init();
 
 public:
 
@@ -61,6 +63,9 @@ public:
 
 	//debug
 	void setLevelFinished();
+
+	// Inherited via LevelDataObserver
+	virtual void onLevelChanged() override;
 
 };
 

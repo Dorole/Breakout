@@ -6,13 +6,17 @@
 #include "Button.h"
 #include "StateObserver.h"
 #include "NumValueObserver.h"
+#include "LevelDataObserver.h"
 
 using namespace sf;
 
-class LevelClearState : public GameState, public NumValueObserver
+class LevelClearState : public GameState, public NumValueObserver, public LevelDataObserver
 {
 private:
 	GameConfig& gameConfig;
+
+	LoadLevelMode currentMode;
+	State nextState;
 	std::vector<StateObserver*> stateObservers;;
 
 	int totalScore{ 0 };
@@ -62,4 +66,7 @@ public:
 
 	// Inherited via NumValueObserver
 	virtual void onValueChanged(int value, ValueType valueType) override;
+
+	// Inherited via LevelDataObserver
+	virtual void onLevelChanged() override;
 };

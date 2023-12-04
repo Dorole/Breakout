@@ -15,14 +15,13 @@
 PlayingState::PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef)
 	: GameState(windowRef, valueGetterRef), grid(gridRef)
 {
+	grid.attachObserver(this);
 	init();
 }
 
 
 void PlayingState::init()
 {
-	grid.attachObserver(this);
-
 	//Create objects
 	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid, grid.getGridDataVector());
 	auto platform = std::make_unique<Platform>(window, valueGetter);
@@ -36,7 +35,6 @@ void PlayingState::init()
 
 	uiManager = std::make_unique<UIManager>(window, valueGetter);
 	attachValueObserver(uiManager.get());
-	
 }
 
 void PlayingState::onStateEnter()
@@ -50,6 +48,7 @@ void PlayingState::onStateEnter()
 		observer->onValueChanged(totalScore, ValueType::SCORE);
 		observer->onValueChanged(currentLives, ValueType::LIVES);
 	}
+
 }
 
 void PlayingState::handleInput()
@@ -103,6 +102,9 @@ void PlayingState::draw()
 
 void PlayingState::onStateExit()
 {
+	auto ball = static_cast<Ball*>(gameObjects[2].get());
+	if (ball->getShouldBounce())
+		ball->toggleBounce();
 }
 
 void PlayingState::startGame()
@@ -152,7 +154,6 @@ void PlayingState::onBrickDestroyed(Brick& brick)
 	for (const auto& observer : valueObservers)
 		observer->onValueChanged(totalScore, ValueType::SCORE);
 }
-
 
 // handles lost life - maybe separate function for that so we know what's up
 void PlayingState::onValueChanged(int value, ValueType valueType)

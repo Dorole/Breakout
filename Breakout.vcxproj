@@ -210,6 +210,7 @@
     <ClInclude Include="src\GameOverState.h" />
     <ClInclude Include="src\GameState.h" />
     <ClInclude Include="src\LevelClearState.h" />
+    <ClInclude Include="src\LevelDataObserver.h" />
     <ClInclude Include="src\MainMenuState.h" />
     <ClInclude Include="src\NumValueObserver.h" />
     <ClInclude Include="src\PlayingState.h" />

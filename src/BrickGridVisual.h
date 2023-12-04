@@ -5,11 +5,13 @@
 #include "ValueGetter.h"
 #include "BrickGrid.h"
 #include "GridData.h"
+#include "LevelDataObserver.h"
 
-class BrickGridVisual : public GameObject
+class BrickGridVisual : public GameObject, public LevelDataObserver
 {
 private:
 	RenderWindow& window;
+	ValueGetter& valueGetter;
 	BrickGrid& grid;
 	int columnCount;
 	int rowCount;
@@ -21,12 +23,16 @@ private:
 	std::vector<std::vector<GridData>>& gridDataVector;
 
 	float getTopRenderBorder();
+	void init();
 
 public:
 
-	BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetter, BrickGrid& brickGridRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
+	BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& brickGridRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
 
 	void update(float deltaTime) override;
 	void draw() override;
+
+	// Inherited via LevelDataObserver
+	virtual void onLevelChanged() override;
 };
 
