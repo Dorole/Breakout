@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "ValueGetter.h"
+#include "AudioPlayer.h"
 #include "NumValueObserver.h"
 #include "StateObserver.h"
 
@@ -12,9 +13,10 @@ private:
 protected:
 	sf::RenderWindow& window;
 	ValueGetter& valueGetter;
+	AudioPlayer& audioPlayer;
 
 public:
-	GameState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef);
+	GameState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef);
 	
 	virtual void onStateEnter() = 0;
 	virtual void handleInput() = 0;

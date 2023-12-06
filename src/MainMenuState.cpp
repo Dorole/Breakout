@@ -1,22 +1,24 @@
 #include "MainMenuState.h"
 
-#include <iostream>
+#include <functional>
 #include <SFML/Graphics.hpp>
+
 #include "GameState.h"
 #include "TextCreator.h"
+#include "AudioPlayer.h"
 #include "NumValueObserver.h"
 #include "StateObserver.h"
 #include "Button.h"
 
-MainMenuState::MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGetter)
-	: GameState(windowRef, valueGetter)
+MainMenuState::MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGetter, AudioPlayer& audioPlayerRef)
+	: GameState(windowRef, valueGetter, audioPlayerRef)
 {
 	init();
 }
 
 void MainMenuState::init()
 {
-	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); //get iz gameConfig-a
+	font.loadFromFile(valueGetter.getDefaultFontPath()); 
 
 	TextCreator textCreator(50, 0);
 	titleText = textCreator.createNewText(window, font, "BREAKOUT", TextAlignment::TOP_CENTER, 100);
@@ -31,6 +33,7 @@ void MainMenuState::init()
 
 void MainMenuState::onStateEnter()
 {
+	audioPlayer.loadPlayMusic(AudioType::MAIN_MENU_MUSIC);
 }
 
 void MainMenuState::handleInput()
@@ -59,9 +62,10 @@ void MainMenuState::draw()
 	quitButton.drawButton(window);
 }
 
-void MainMenuState::onStateExit()
+void MainMenuState::onStateExit() 
 {
-
+	audioPlayer.stopMusic();
+	
 }
 
 void MainMenuState::attachValueObserver(NumValueObserver* observer)

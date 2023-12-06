@@ -11,7 +11,7 @@
 using namespace sf;
 
 Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGrid& gridRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
-    : window(windowRef), platform(platformRef), valueGetter(valueGetterRef), grid(gridRef), gridVector(gridDataVectorRef)
+    : GameObject(windowRef, valueGetterRef), platform(platformRef), grid(gridRef), gridVector(gridDataVectorRef)
 {
     valueGetter.attachLevelDataObserver(this);
     init();
@@ -22,6 +22,7 @@ void Ball::init()
     texture.loadFromFile(valueGetter.getBallTexturePath());
     sprite.setTexture(texture);
     windowSize = window.getSize();
+    topRenderBound = grid.getGridOffset();
 
     shouldBounce = false;
     lostLife = false;
@@ -69,24 +70,25 @@ void Ball::toggleBounce()
     shouldBounce = !shouldBounce;
 }
 
-void Ball::checkWindowCollision()
+bool Ball::checkWindowCollision()
 {
     FloatRect globalBallBounds = sprite.getGlobalBounds();
 
     //top
-    if (globalBallBounds.top < grid.getGridOffset()) //cache offset!
+    if (globalBallBounds.top < topRenderBound)
     {
-        ballVelocity.y = std::abs(ballVelocity.y);
+        ballVelocity.y = std::abs(ballVelocity.y);       
+        return true;
     }
-
 
     //bottom
     if (globalBallBounds.top + globalBallBounds.height > windowSize.y)
     {
         if (!lostLife)
         {
-			notifyObservers(1);
-            lostLife = true;
+            notifyObservers(1);
+            lostLife = true;    
+            return true;
         }
     }
     else
@@ -96,28 +98,35 @@ void Ball::checkWindowCollision()
 
     //left
     if (globalBallBounds.left < 0)
+    {
         ballVelocity.x = std::abs(ballVelocity.x);
+        return true;
+    }
 
     //right
     if (globalBallBounds.left + globalBallBounds.width > windowSize.x)
+    {
         ballVelocity.x = -std::abs(ballVelocity.x);
+        return true;
+    }
+
+    return false;
 
 }
 
 //should return bool
-void Ball::checkPlatformCollision()
+bool Ball::checkPlatformCollision()
 {
     if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()) && ballVelocity.y > 0)
     {
         ballVelocity.y = -ballVelocity.y;
-        return;
+        return true;
     }
+
+    return false;
 }
 
-//should return bool?
-//cache previous brick and check if it's the same - if it is return - idk how else to prevent multiple hits at the same time :(
-//if it hits anything else (like, platform or window) set previous brick to null or something
-void Ball::checkBrickCollision()
+bool Ball::checkBrickCollision()
 {     
     for (size_t i = 0; i < valueGetter.getRowCount(); i++)
     {
@@ -125,19 +134,30 @@ void Ball::checkBrickCollision()
         {
             if (gridVector[i][j].shouldRender && gridVector[i][j].getSpriteGlobalBounds().intersects(sprite.getGlobalBounds()))
             {
-                if (!isInCollision)
-                {
-					ballVelocity.y = -ballVelocity.y;
-					grid.handleCollision(i, j);
-					isInCollision = true;
-                }
-                return;
+                if (lastCollidedRow == i && lastCollidedColumn == j) 
+                    return false;
+
+                setLastCollided(i, j);
+				ballVelocity.y = -ballVelocity.y;
+				grid.handleCollision(i, j);				
+                return true;
             }
         }
     }
 
+    return false;
+}
 
-    isInCollision = false;
+void Ball::setLastCollided(int row, int col)
+{
+    lastCollidedRow = row;
+    lastCollidedColumn = col;
+}
+
+void Ball::setLastCollidedToNull()
+{
+    lastCollidedRow = -1;
+    lastCollidedColumn = -1;
 }
 
 //***************************************************
@@ -147,13 +167,16 @@ void Ball::update(float deltaTime)
         moveIdle(deltaTime);
     else
     {
-        checkWindowCollision();
-        checkPlatformCollision();
+        if (checkWindowCollision() || checkPlatformCollision())
+        {
+            setLastCollidedToNull();
+        }
+        
         checkBrickCollision();
         
         sprite.move(ballVelocity * ballSpeed * deltaTime);
 
-        if (grid.allBricksDestroyed()) //callback to event?? Maybe like a stateObserver (true, false)
+        if (grid.allBricksDestroyed()) 
         {
             shouldBounce = false;
             setInitialBallPosition();
@@ -177,7 +200,3 @@ void Ball::notifyObservers(int value)
         observer->onValueChanged(value, ValueType::LIVES);
 }
 
-void Ball::onLevelChanged()
-{
-    init();
-}

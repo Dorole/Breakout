@@ -1,12 +1,14 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
 #include "GameOverState.h"
-#include "GameState.h"
-#include "TextCreator.h"
-#include "GameConfig.h"
 
-GameOverState::GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef)
-	: GameState(windowRef, valueGetterRef), gameConfig(gameConfigRef)
+#include <SFML/Graphics.hpp>
+
+#include "GameState.h"
+#include "AudioPlayer.h"
+#include "TextCreator.h"
+#include "LevelLoader.h"
+
+GameOverState::GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, LevelLoader& levelLoaderRef)
+	: GameState(windowRef, valueGetterRef, audioPlayerRef), levelLoader(levelLoaderRef)
 {
 	valueGetter.attachLevelDataObserver(this);
 	init();
@@ -15,7 +17,7 @@ GameOverState::GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRe
 
 void GameOverState::init()
 {
-	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); 
+	font.loadFromFile(valueGetter.getDefaultFontPath()); 
 
 	TextCreator textCreator(50, 0);
 	gameOverText = textCreator.createNewText(window, font, GAME_OVER_LABEL, TextAlignment::TOP_CENTER, gameOverTextSize);
@@ -34,6 +36,8 @@ void GameOverState::init()
 void GameOverState::onStateEnter()
 {
 	totalScoreText->setString(SCORE_LABEL + std::to_string(totalScore));
+
+	audioPlayer.loadPlayMusic(AudioType::GAME_OVER_MUSIC);
 }
 
 void GameOverState::handleInput()
@@ -42,14 +46,14 @@ void GameOverState::handleInput()
 	{
 		currentMode = LoadLevelMode::RESET_LEVEL;
 		nextState = State::PLAYING_STATE;
-		gameConfig.setLevel(currentMode);
+		levelLoader.setLevel(currentMode);
 	}
 
 	if (menuButton.buttonInteract(window))
 	{
 		currentMode = LoadLevelMode::RESET_LEVEL;
 		nextState = State::MAIN_MENU;
-		gameConfig.setLevel(currentMode);
+		levelLoader.setLevel(currentMode);
 	}
 }
 
@@ -69,6 +73,7 @@ void GameOverState::draw()
 void GameOverState::onStateExit()
 {
 	totalScore = 0;
+	audioPlayer.stopMusic();
 }
 
 void GameOverState::attachValueObserver(NumValueObserver* observer)
@@ -90,29 +95,36 @@ void GameOverState::onValueChanged(int value, ValueType valueType)
 
 void GameOverState::onLevelChanged()
 {
-	switch (currentMode)
+	if (currentMode == LoadLevelMode::RESET_LEVEL && nextState == State::PLAYING_STATE)
 	{
-	case LoadLevelMode::PROGRESS:
-		break;
-
-	case LoadLevelMode::RESET_LEVEL:
-		if (nextState == State::PLAYING_STATE)
-		{
-			for (const auto& observer : stateObservers)
-				observer->onStateChanged(State::PLAYING_STATE);
-		}
-		else
-		{
-			for (const auto& observer : stateObservers)
-				observer->onStateChanged(State::MAIN_MENU);
-		}
-		break;
-
-	case LoadLevelMode::RESET_GAME:
-		break;
-
-	default:
-		break;
+		for (const auto& observer : stateObservers)
+			observer->onStateChanged(State::PLAYING_STATE);
 	}
+
+
+	//switch (currentMode)
+	//{
+	//case LoadLevelMode::PROGRESS:
+	//	break;
+
+	//case LoadLevelMode::RESET_LEVEL:
+	//	if (nextState == State::PLAYING_STATE)
+	//	{
+	//		for (const auto& observer : stateObservers)
+	//			observer->onStateChanged(State::PLAYING_STATE);
+	//	}
+	//	else
+	//	{
+	//		for (const auto& observer : stateObservers)
+	//			observer->onStateChanged(State::MAIN_MENU);
+	//	}
+	//	break;
+
+	//case LoadLevelMode::RESET_GAME:
+	//	break;
+
+	//default:
+	//	break;
+	//}
 	
 }

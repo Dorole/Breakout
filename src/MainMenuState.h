@@ -2,10 +2,11 @@
 #include "GameState.h"
 
 #include <SFML/Graphics.hpp>
+
 #include "ValueGetter.h"
+#include "AudioPlayer.h"
 #include "NumValueObserver.h"
 #include "StateObserver.h"
-
 #include "Button.h"
 
 
@@ -35,10 +36,12 @@ private:
 	Vector2f startButtonPosition { window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + 10 };
 	Vector2f quitButtonPosition{ window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + buttonSize.y + buttonSpacing};
 	
+	Music music;
+
 
 public:
 
-	MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGetter);
+	MainMenuState(RenderWindow& windowRef, ValueGetter& valueGetter, AudioPlayer& audioPlayerRef);
 
 	void init();
 

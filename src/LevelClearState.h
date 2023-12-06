@@ -1,8 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 #include "GameState.h"
 #include "ValueGetter.h"
-#include "GameConfig.h"
+#include "AudioPlayer.h"
+#include "LevelLoader.h"
 #include "Button.h"
 #include "StateObserver.h"
 #include "NumValueObserver.h"
@@ -13,7 +15,7 @@ using namespace sf;
 class LevelClearState : public GameState, public NumValueObserver, public LevelDataObserver
 {
 private:
-	GameConfig& gameConfig;
+	LevelLoader& levelLoader;
 
 	LoadLevelMode currentMode;
 	State nextState;
@@ -29,6 +31,7 @@ private:
 	int scoreTextSize = 50;
 	int verticalTextSpacing = 50;
 	const std::string LEVEL_CLEAR_LABEL = "LEVEL CLEAR!";
+	const std::string GAME_CLEAR_LABEL = "GAME CLEAR!";
 	const std::string SCORE_LABEL = "TOTAL SCORE: ";
 
 	Button nextButton;
@@ -51,7 +54,7 @@ private:
 
 public:
 
-	LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef);
+	LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, LevelLoader& levelLoaderRef);
 
 	void init();
 

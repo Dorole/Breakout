@@ -2,13 +2,13 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "GameConfig.h"
+#include "LevelLoader.h"
 #include "XmlParser.h"
 #include "ValueGetter.h"
+#include "AudioPlayer.h"
 #include "Game.h"
 #include "BrickGrid.h"
 #include "BrickPool.h"
-
 
 
 using namespace sf;
@@ -16,10 +16,11 @@ using namespace sf;
 
 int main()
 {
-	GameConfig gameConfig;
 	XmlParser parser;
+	LevelLoader levelLoader;
+	ValueGetter valueGetter(parser, levelLoader);
+	AudioPlayer audioPlayer(valueGetter);
 
-	ValueGetter valueGetter(parser, gameConfig);
 	BrickPool brickPool(valueGetter);
 	BrickGrid grid(valueGetter, brickPool);
 
@@ -31,7 +32,7 @@ int main()
 	Clock clock;
 	float deltaTime;
 
-	Game game(window, valueGetter, grid, gameConfig);
+	Game game(window, valueGetter, grid, levelLoader, audioPlayer);
 
 	while (window.isOpen())
 	{

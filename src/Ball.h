@@ -7,37 +7,38 @@
 #include "Platform.h"
 #include "BrickGrid.h"
 #include "NumValueObserver.h"
-#include "LevelDataObserver.h"
 
 using namespace sf;
 
-class Ball : public GameObject, public LevelDataObserver
+class Ball : public GameObject
 {
-private: //move these to GameObject
-    RenderWindow& window;
-    ValueGetter& valueGetter;
+private: 
+
+    // ************************* REFERENCES *************************
+    BrickGrid& grid;
+    Platform& platform;
+    std::vector<std::vector<GridData>>& gridVector;
+    
+    // ************************* OBSERVERS *************************
+    std::vector<NumValueObserver*> observers;
+    void notifyObservers(int value);
+
+    // ************************* PRIVATE STATE ************************
     Texture texture;
     Sprite sprite; 
     Vector2f initialBallPosition;
     FloatRect spriteBounds;
-
-    Platform& platform;
-    BrickGrid& grid;
-    std::vector<std::vector<GridData>>& gridVector;
-
-    std::vector<NumValueObserver*> observers;
-    void notifyObservers(int value);
-
     Vector2u windowSize;
+    int topRenderBound;
+
+    sf::Vector2f ballVelocity{-0.5f, -0.8f}; 
+    float ballSpeed{ 300.0f };
+    int lastCollidedRow{ -1 };
+    int lastCollidedColumn{ -1 };
     bool shouldBounce;
     bool lostLife;
-    sf::Vector2f ballVelocity {-0.8f, -0.8f}; //set from ctr! (get from gameConfig)
-    float ballSpeed = 300.0f; //set from ctr!
-    bool isInCollision = false; //nepotrebno?
-    
-    void init();
 
-    //move these to GameObject
+    // ************************* PRIVATE FUNCTIONS ************************
     void setSpriteOriginToCenter();
     void getSpriteBounds();
   
@@ -47,23 +48,31 @@ private: //move these to GameObject
     /// </summary>
     void moveIdle(float deltaTime);
 
+    /// <summary>
+    /// Used to make sure the same brick is not
+    /// accidentally hit more than once per frame.
+    /// </summary>
+    void setLastCollided(int row, int col);
+    void setLastCollidedToNull();
 
+    bool checkWindowCollision();
+    bool checkPlatformCollision();
+    bool checkBrickCollision();
+
+    // ************************* PUBLIC FUNCTIONS ************************
 public:
     Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGrid& gridRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
 
+    // inherited via GameObject
+    void init() override;
     void update(float deltaTime) override;
     void draw() override;
 
     void setInitialBallPosition();
     void toggleBounce();
     bool getShouldBounce() { return shouldBounce; }
-    void checkWindowCollision();
-    void checkPlatformCollision();
-    void checkBrickCollision();
 
     void attachObserver(NumValueObserver* observer);
 
-    // Inherited via LevelDataObserver
-    virtual void onLevelChanged() override;
 };
 

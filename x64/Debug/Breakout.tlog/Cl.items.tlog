@@ -16,9 +16,10 @@ C:\Users\dorot\Desktop\C++\Breakout\src\XmlParser.cpp;C:\Users\dorot\Desktop\C++
 C:\Users\dorot\Desktop\C++\Breakout\src\ValueGetter.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ValueGetter.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\GridData.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GridData.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\UIManager.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\AudioPlayer.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\AudioPlayer.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\BrickPool.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\BrickPool.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\Button.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Button.obj
-C:\Users\dorot\Desktop\C++\Breakout\src\GameConfig.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GameConfig.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\LevelLoader.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\LevelLoader.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\GameOverState.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GameOverState.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\GameState.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GameState.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\LevelClearState.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\LevelClearState.obj

@@ -1,8 +1,11 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
+
 #include "GameState.h"
 #include "ValueGetter.h"
-#include "GameConfig.h"
+#include "AudioPlayer.h"
+#include "LevelLoader.h"
 #include "Button.h"
 #include "StateObserver.h"
 #include "NumValueObserver.h"
@@ -14,7 +17,7 @@ class GameOverState : public GameState, public NumValueObserver, public LevelDat
 {
 private:
 
-	GameConfig& gameConfig;
+	LevelLoader& levelLoader;
 	LoadLevelMode currentMode;
 	State nextState;
 	std::vector<StateObserver*> stateObservers;;
@@ -48,7 +51,7 @@ private:
 
 public:
 
-	GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef);
+	GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, LevelLoader& levelLoaderRef);
 
 	void init();
 

@@ -3,7 +3,7 @@
 #include <vector>
 #include "BrickTypeValues.h"
 #include "XmlParser.h"
-#include "GameConfig.h"
+#include "LevelLoader.h"
 #include "NumValueObserver.h"
 #include "LevelDataObserver.h"
 
@@ -11,7 +11,7 @@ class ValueGetter : public NumValueObserver
 {
 private:
 	XmlParser& parser;
-	GameConfig& gameConfig;
+	LevelLoader& levelLoader;
 
 	//********************************* STATIC MEMBERS *********************************
 	//************************* REFERENCES TO NODES & ATTRIBUTES ************************
@@ -23,9 +23,11 @@ private:
 	static const std::string COLUMN_COUNT;
 	static const std::string ROW_SPACING;
 	static const std::string COLUMN_SPACING;
+	static const std::string GRID_OFFSET;
 	static const std::string BACKGROUND_TEXTURE;
 	static const std::string PLATFORM_TEXTURE;
 	static const std::string BALL_TEXTURE;
+	static const std::string LEVEL_MUSIC;
 
 	static const std::string BRICK_TYPES;
 	static const std::string BRICK_TYPE;
@@ -44,12 +46,15 @@ private:
 	static int columnCount;
 	static int columnSpacing;
 	static int rowSpacing;
+	static int gridOffset;
 	static int levelId;
 
 	static std::string bricksLayout;
 	static std::string platformTexturePath;
 	static std::string backgroundTexturePath;
 	static std::string ballTexturePath;
+	static std::string defaultFontPath;
+	static std::string levelMusicPath;
 
 	static std::vector<std::string> bricksIds;
 	static std::map<std::string, BrickTypeValues> brickTypesMap;
@@ -64,18 +69,21 @@ private:
 
 	//********************************* PUBLIC FUNCTIONS *********************************
 public:
-	ValueGetter(XmlParser& parserRef, GameConfig& gameConfigRef);
+	ValueGetter(XmlParser& parserRef, LevelLoader& levelLoaderRef);
 
 	//should probably make all these const!
 	static int getRowCount() { return rowCount; }
 	static int getColumnCount() { return columnCount; }
 	static int getRowSpacing() { return rowSpacing; }
 	static int getColumnSpacing() { return columnSpacing; }
+	static int getGridOffset() { return gridOffset; }
 	static int getLevel() { return levelId; }
 	static std::string getBricksLayout() { return bricksLayout; }
 	static std::string getPlatformTexturePath() { return platformTexturePath; }
 	static std::string getBackgroundTexturePath() { return backgroundTexturePath; }
 	static std::string getBallTexturePath() { return ballTexturePath; }
+	static std::string getDefaultFontPath() { return defaultFontPath; }
+	static std::string getLevelMusicPath() { return levelMusicPath; }
 	static std::vector<std::string> getBricksIds() { return bricksIds; }
 
 	BrickTypeValues getBrickValuesById(const std::string& brickId);

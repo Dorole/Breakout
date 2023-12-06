@@ -12,7 +12,7 @@ UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef)  //un
 {
 	valueGetter.attachLevelDataObserver(this);
 	
-	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); //get iz gameConfig-a
+	font.loadFromFile(valueGetter.getDefaultFontPath()); 
 
 	textCreator = TextCreator(textOffsetTop, textOffsetSide);
 
@@ -81,11 +81,9 @@ void UIManager::onValueChanged(int value, ValueType valueType)
 	{
 	case ValueType::SCORE:
 		scoreValueText->setString(std::to_string(value));
-		std::cout << "Score: " << value << std::endl;
 		break;
 	case ValueType::LIVES:
 		currentLivesText->setString(std::to_string(value));
-		std::cout << "Lives: " << value << std::endl;
 		break;
 	default:
 		break;

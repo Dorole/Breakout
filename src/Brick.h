@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "BrickTypeValues.h"
@@ -17,11 +18,12 @@ protected:
 	Texture texture;
 	int hitPoints = 0;
 	int breakScore = 0;
-	//audio
+
+	SoundBuffer hitBuffer;
+	SoundBuffer breakBuffer;
+	Sound brickSound;
 	
 	void createBrick(BrickTypeValues values);
-
-
 
 public:
 

@@ -108,7 +108,10 @@
     <ClCompile Include="src\LevelClearState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameConfig.cpp">
+    <ClCompile Include="src\LevelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AudioPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -163,6 +166,33 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="resources\textures\heart_full.png">
       <Filter>Resource Files\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\brickHit.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\brickDestroyed.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\MenuMusic.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\level_1_music.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\level_2_music.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\level_3_music.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\game_over_music.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\level_clear.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\game_clear.wav">
+      <Filter>Resource Files\Audio</Filter>
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
@@ -223,7 +253,7 @@
     <ClInclude Include="src\NumValueObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameConfig.h">
+    <ClInclude Include="src\LevelLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BrickPool.h">
@@ -254,6 +284,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\LevelDataObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AudioPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

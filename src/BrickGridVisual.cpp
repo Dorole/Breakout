@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <vector>
+#include <cmath>
 #include "BrickGridVisual.h"
 #include "GameObject.h"
 #include "GridData.h"
 
 BrickGridVisual::BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& brickGridRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
-	: window(windowRef), valueGetter(valueGetterRef), grid(brickGridRef), gridDataVector(gridDataVectorRef)
+	: GameObject(windowRef, valueGetterRef), grid(brickGridRef), gridDataVector(gridDataVectorRef)
 {
 	valueGetter.attachLevelDataObserver(this);
 	init();
@@ -19,6 +20,10 @@ void BrickGridVisual::init()
 	rowCount = valueGetter.getRowCount();
 	columnSpacing = valueGetter.getColumnSpacing();
 	rowSpacing = valueGetter.getRowSpacing();
+	topGridOffset = valueGetter.getGridOffset();
+	leftGridOffset = getLeftRenderBorder();
+
+	std::cout << "left grid offset: " << leftGridOffset << std::endl;
 
 	grid.setGridOffset(getTopRenderBorder());
 }
@@ -35,22 +40,27 @@ void BrickGridVisual::draw()
 
 			gridDataVector[row][column].setSpritePosition(
 				Vector2f(
-				column * (gridDataVector[row][column].getBrickSpriteBounds().width + columnSpacing),
-				(row + gridOffset) * (gridDataVector[row][column].getBrickSpriteBounds().height + rowSpacing)));
+				(column + leftGridOffset) * (gridDataVector[row][column].getBrickSpriteBounds().width + columnSpacing),
+				(row + topGridOffset) * (gridDataVector[row][column].getBrickSpriteBounds().height + rowSpacing)));
 				
 			window.draw(gridDataVector[row][column].getBrickSprite());
 		}
 	}
 }
 
-void BrickGridVisual::onLevelChanged()
-{
-	init();
-}
-
 float BrickGridVisual::getTopRenderBorder()
 {
-	return (gridOffset * (gridDataVector[0][0].getBrickSpriteBounds().height + rowSpacing));
+	return (topGridOffset * (gridDataVector[0][0].getBrickSpriteBounds().height + rowSpacing));
+}
+
+float BrickGridVisual::getLeftRenderBorder()
+{
+	float totalWidth = columnCount * (gridDataVector[0][0].getBrickSpriteBounds().width + columnSpacing) - columnSpacing;
+	float leftOffset = (window.getSize().x - totalWidth) / 2.0f;
+
+	leftOffset /= (gridDataVector[0][0].getBrickSpriteBounds().width) + columnSpacing;
+
+	return std::max(leftOffset, 0.0f);
 }
 
 

@@ -2,36 +2,34 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "ValueGetter.h"
-#include "LevelDataObserver.h"
 
 using namespace sf;
 
-//odvojiti vizual od logike
-
-class Platform : public GameObject, public LevelDataObserver
+class Platform : public GameObject
 {
-private: //move these to GameObject
-    RenderWindow& window;
-    ValueGetter& valueGetter;
+private:
 
+    // ************************* PRIVATE STATE ************************
     Texture texture;
     Sprite sprite;
     Vector2f initialPlatformPosition;
     FloatRect spriteLocalBounds;
 
-    float platformSpeed = 400.0f; //set from ctr!
+    float platformSpeed{ 400.0f }; 
     bool windowBoundReached = false;
 
-    void init();
-
-    //move these to GameObject
+    // ************************* PRIVATE FUNCTIONS ************************
     void setSpriteOriginToCenter();
     void getSpriteLocalBounds();
     void setInitialPlatformPosition();
     void movePlatform(float deltaTime);
 
+    // ************************* PUBLIC FUNCTIONS ************************
 public:
     Platform(RenderWindow& windowRef, ValueGetter& valueGetterRef);
+
+    // inherited via GameObject
+    void init() override;
     void update(float deltaTime) override;
     void draw() override;
 
@@ -40,10 +38,6 @@ public:
     FloatRect getPlatformLocalBounds() { return spriteLocalBounds; }
     FloatRect getPlatformGlobalBounds() { return sprite.getGlobalBounds(); }
     bool platformWindowBoundReached() { return windowBoundReached; } 
-
-
-    // Inherited via LevelDataObserver
-    virtual void onLevelChanged() override;
 
 };
 

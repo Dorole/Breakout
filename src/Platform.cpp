@@ -7,7 +7,7 @@
 using namespace sf;
 
 Platform::Platform(RenderWindow& windowRef, ValueGetter& valueGetterRef)
-    : window(windowRef), valueGetter(valueGetterRef)
+    : GameObject(windowRef, valueGetterRef)
 {   
     valueGetter.attachLevelDataObserver(this);
     init();
@@ -75,8 +75,4 @@ void Platform::draw()
     window.draw(sprite);
 }
 
-void Platform::onLevelChanged()
-{
-    init();
-}
 

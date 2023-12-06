@@ -1,13 +1,15 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
 #include "LevelClearState.h"
+
+#include <SFML/Graphics.hpp>
+
 #include "GameState.h"
 #include "TextCreator.h"
+#include "AudioPlayer.h"
+#include "LevelLoader.h"
 #include "Button.h"
-#include "GameConfig.h"
 
-LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, GameConfig& gameConfigRef)
-	: GameState(windowRef, valueGetterRef), gameConfig(gameConfigRef)
+LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, LevelLoader& levelLoaderRef)
+	: GameState(windowRef, valueGetterRef, audioPlayerRef), levelLoader(levelLoaderRef)
 {
 	valueGetter.attachLevelDataObserver(this);
 	init();
@@ -15,7 +17,7 @@ LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGett
 
 void LevelClearState::init()
 {
-	font.loadFromFile("resources/fonts/Cartoon Blocks Christmas.otf"); //from config
+	font.loadFromFile(valueGetter.getDefaultFontPath()); 
 
 	TextCreator textCreator(30, 0);
 	levelClearText = textCreator.createNewText(window, font, LEVEL_CLEAR_LABEL, TextAlignment::TOP_CENTER, levelClearTextSize);
@@ -35,6 +37,14 @@ void LevelClearState::init()
 void LevelClearState::onStateEnter()
 {
 	totalScoreText->setString(SCORE_LABEL + std::to_string(totalScore));
+
+	if (levelLoader.nextLevelExists())
+		audioPlayer.loadPlayMusic(AudioType::LEVEL_CLEAR_MUSIC);
+	else
+	{
+		levelClearText->setString(GAME_CLEAR_LABEL);
+		audioPlayer.loadPlayMusic(AudioType::GAME_FINISHED_MUSIC);
+	}
 }
 
 void LevelClearState::handleInput()
@@ -43,25 +53,25 @@ void LevelClearState::handleInput()
 	{
 		currentMode = LoadLevelMode::PROGRESS;
 		nextState = State::PLAYING_STATE;
-		gameConfig.setLevel(currentMode);
+		levelLoader.setLevel(currentMode);
 	}
 
 	if (restartButton.buttonInteract(window))
 	{
 		currentMode = LoadLevelMode::RESET_LEVEL;
 		nextState = State::PLAYING_STATE;
-		gameConfig.setLevel(currentMode);
+		levelLoader.setLevel(currentMode);
 	}
 
 	if (menuButton.buttonInteract(window))
 	{
-		if (gameConfig.nextLevelExists())
+		if (levelLoader.nextLevelExists())
 			currentMode = LoadLevelMode::RESET_LEVEL;
 		else
 			currentMode = LoadLevelMode::RESET_GAME;
 
 		nextState = State::MAIN_MENU;
-		gameConfig.setLevel(currentMode);
+		levelLoader.setLevel(currentMode);
 	}
 }
 
@@ -74,7 +84,7 @@ void LevelClearState::draw()
 	window.draw(*levelClearText);
 	window.draw(*totalScoreText);
 
-	if (gameConfig.nextLevelExists())
+	if (levelLoader.nextLevelExists())
 	{
 		nextButton.drawButton(window);
 	}
@@ -86,6 +96,9 @@ void LevelClearState::draw()
 void LevelClearState::onStateExit()
 {
 	totalScore = 0;
+
+	audioPlayer.stopMusic();
+
 }
 
 void LevelClearState::attachValueObserver(NumValueObserver* observer)

@@ -1,8 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 #include "GameObject.h"
 #include "ValueGetter.h"
-#include "GameConfig.h"
+#include "LevelLoader.h"
+#include "AudioPlayer.h"
 #include "BrickGrid.h"
 #include "GameState.h"
 #include "NumValueObserver.h"
@@ -18,7 +20,8 @@ private:
 	RenderWindow& window;
 	ValueGetter& valueGetter;
 	BrickGrid& grid;
-	GameConfig& gameConfig;
+	LevelLoader& levelLoader;
+	AudioPlayer& audioPlayer;
 
 	std::shared_ptr<GameState> currentState;
 	std::vector<NumValueObserver*> observers; 
@@ -28,10 +31,10 @@ private:
 	std::shared_ptr<GameState> gameOverState;
 	std::shared_ptr<GameState> levelClearState;
 
-	//gameEndState?
+	bool hasSwitched = false;
 
 public:
-	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid, GameConfig& gameConfigRef);
+	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid, LevelLoader& levelLoaderRef, AudioPlayer& audioPlayerRef);
 
 	void changeState(std::shared_ptr<GameState> newState);
 	void handleInput();

@@ -5,34 +5,43 @@
 #include "ValueGetter.h"
 #include "BrickGrid.h"
 #include "GridData.h"
-#include "LevelDataObserver.h"
 
-class BrickGridVisual : public GameObject, public LevelDataObserver
+using namespace sf;
+
+class BrickGridVisual : public GameObject
 {
 private:
-	RenderWindow& window;
-	ValueGetter& valueGetter;
+
+	// ************************* REFERENCES *************************
 	BrickGrid& grid;
+	std::vector<std::vector<GridData>>& gridDataVector;
+
+	// ************************* PRIVATE STATE ************************
 	int columnCount;
 	int rowCount;
 	int columnSpacing;
-	int rowSpacing;
+	int rowSpacing;	
+	int topGridOffset;
+	float leftGridOffset;
+
+	// ************************* PRIVATE FUNCTIONS ************************
 	
-	int gridOffset = 6; //get from value getter/xml because the ball needs this too
-
-	std::vector<std::vector<GridData>>& gridDataVector;
-
+	/// <summary>
+	/// Defines how low from the window's top border
+	/// the first row of bricks should be rendered.
+	/// </summary>
 	float getTopRenderBorder();
-	void init();
 
+	float getLeftRenderBorder();
+
+	// ************************* PUBLIC FUNCTIONS ************************
 public:
 
 	BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& brickGridRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
 
+	// inherited via GameObject
+	void init() override;
 	void update(float deltaTime) override;
 	void draw() override;
-
-	// Inherited via LevelDataObserver
-	virtual void onLevelChanged() override;
 };
 

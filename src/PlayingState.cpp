@@ -1,8 +1,11 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
 #include "PlayingState.h"
+#include <iostream>
+
+#include <SFML/Graphics.hpp>
+
 #include "GameState.h"
 #include "ValueGetter.h"
+#include "AudioPlayer.h"
 #include "BrickGrid.h"
 #include "UIManager.h"
 #include "GameObject.h"
@@ -12,8 +15,8 @@
 #include "NumValueObserver.h"
 
 
-PlayingState::PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef)
-	: GameState(windowRef, valueGetterRef), grid(gridRef)
+PlayingState::PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, BrickGrid& gridRef)
+	: GameState(windowRef, valueGetterRef, audioPlayerRef), grid(gridRef)
 {
 	grid.attachObserver(this);
 	init();
@@ -49,6 +52,9 @@ void PlayingState::onStateEnter()
 		observer->onValueChanged(currentLives, ValueType::LIVES);
 	}
 
+	audioPlayer.loadPlayMusic(AudioType::LEVEL_MUSIC);
+
+	std::cout << "Entered level" << std::endl;
 }
 
 void PlayingState::handleInput()
@@ -71,17 +77,13 @@ void PlayingState::update(float deltaTime)
 	}
 
 	if (currentLives == 0)
-	{
-		std::cout << "GAME OVER" << std::endl;
-		
+	{	
 		for (const auto& observer : stateObservers)
 			observer->onStateChanged(State::GAME_OVER);
 	}
 
 	if (grid.allBricksDestroyed())
 	{
-		std::cout << "LEVEL FINISHED." << std::endl; 
-
 		for (const auto& observer : stateObservers)
 			observer->onStateChanged(State::LEVEL_CLEAR);
 	}
@@ -102,9 +104,10 @@ void PlayingState::draw()
 
 void PlayingState::onStateExit()
 {
-	auto ball = static_cast<Ball*>(gameObjects[2].get());
-	if (ball->getShouldBounce())
-		ball->toggleBounce();
+	restartGame();
+
+	audioPlayer.stopMusic();
+
 }
 
 void PlayingState::startGame()
@@ -120,7 +123,8 @@ void PlayingState::startGame()
 void PlayingState::restartGame()
 {
 	auto ball = static_cast<Ball*>(gameObjects[2].get());
-	ball->toggleBounce();
+	if (ball->getShouldBounce())
+		ball->toggleBounce();
 	ball->setInitialBallPosition();
 }
 

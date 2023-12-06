@@ -13,7 +13,7 @@ private:
 	//move to config and get from ctr
 	const int softBrickVectorSize = 30;
 	const int defaultBrickVectorSize = 20;
-	const int impenetrableBrickVectorSize = 10;
+	const int impenetrableBrickVectorSize = 20;
 
 	static std::map<std::string, std::vector<GridData>> brickDataMap;
 

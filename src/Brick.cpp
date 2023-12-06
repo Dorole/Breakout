@@ -1,3 +1,4 @@
+#include <SFML/Audio.hpp>
 #include "Brick.h"
 #include "ValueGetter.h"
 
@@ -14,7 +15,13 @@ void Brick::createBrick(BrickTypeValues values)
 	texture.loadFromFile(values.texture);
 	sprite.setTexture(texture);
 	spriteBounds = sprite.getLocalBounds();
-	//audio
+	
+	hitBuffer.loadFromFile(values.hitSound);
+
+	if (!values.breakSound.empty())
+		breakBuffer.loadFromFile(values.breakSound);
+
+	brickSound.setBuffer(hitBuffer);
 }
 
 

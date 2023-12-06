@@ -1,9 +1,11 @@
 #include "Game.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
 #include "ValueGetter.h"
 #include "BrickGrid.h"
-#include "GameConfig.h"
+#include "LevelLoader.h"
+#include "AudioPlayer.h"
 #include "GameState.h"
 #include "PlayingState.h"
 #include "MainMenuState.h"
@@ -12,18 +14,16 @@
 
 using namespace sf;
 
-Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, GameConfig& gameConfigRef)
-	: window(windowRef), valueGetter(valueGetterRef), grid(gridRef), gameConfig(gameConfigRef)
+Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, LevelLoader& levelLoaderRef, AudioPlayer& audioPlayerRef)
+	: window(windowRef), valueGetter(valueGetterRef), grid(gridRef), levelLoader(levelLoaderRef), audioPlayer(audioPlayerRef)
 {
-	mainMenuState = std::make_shared<MainMenuState>(window, valueGetter);
-	playingState = std::make_shared<PlayingState>(window, valueGetter, grid);
-	gameOverState = std::make_shared<GameOverState>(window, valueGetter, gameConfig);
-	levelClearState = std::make_shared<LevelClearState>(window, valueGetter, gameConfig);
+	mainMenuState = std::make_shared<MainMenuState>(window, valueGetter, audioPlayer);
+	playingState = std::make_shared<PlayingState>(window, valueGetter, audioPlayer, grid);
+	gameOverState = std::make_shared<GameOverState>(window, valueGetter, audioPlayer, levelLoader);
+	levelClearState = std::make_shared<LevelClearState>(window, valueGetter, audioPlayer, levelLoader);
 
 	currentState = mainMenuState;
-
-	//save states in a local vector (?)
-	//loop through all states and attach itself
+	mainMenuState->onStateEnter();
 
 	mainMenuState->attachStateObserver(this);
 	playingState->attachStateObserver(this);
@@ -39,6 +39,8 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 
 void Game::changeState(std::shared_ptr<GameState> newState)
 {
+	if (currentState == newState) return;
+	
 	currentState->onStateExit();
 
 	currentState = newState;

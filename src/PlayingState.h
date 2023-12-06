@@ -1,8 +1,11 @@
 #pragma once
+
 #include <vector>
 #include <SFML/Graphics.hpp>
+
 #include "GameState.h"
 #include "ValueGetter.h"
+#include "AudioPlayer.h"
 #include "BrickGrid.h"
 #include "GameObject.h"
 #include "BrickObserver.h"
@@ -33,7 +36,7 @@ private:
 	void updateLives(int amount);
 
 public:
-	PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef);
+	PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, BrickGrid& gridRef);
 
 	void init();
 
@@ -54,4 +57,3 @@ public:
 
 };
 
-//unsubscribe

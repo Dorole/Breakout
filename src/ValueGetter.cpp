@@ -4,7 +4,7 @@
 #include "ValueGetter.h"
 #include "XmlParser.h"
 #include "BrickTypeValues.h"
-#include "GameConfig.h"
+#include "LevelLoader.h"
 
 const std::string ValueGetter::LEVEL = "Level";
 const std::string ValueGetter::ID = "Id";
@@ -13,9 +13,11 @@ const std::string ValueGetter::ROW_COUNT = "RowCount";
 const std::string ValueGetter::COLUMN_COUNT = "ColumnCount";
 const std::string ValueGetter::ROW_SPACING = "RowSpacing";
 const std::string ValueGetter::COLUMN_SPACING = "ColumnSpacing";
+const std::string ValueGetter::GRID_OFFSET = "GridOffsetTop";
 const std::string ValueGetter::BACKGROUND_TEXTURE = "BackgroundTexture";
 const std::string ValueGetter::PLATFORM_TEXTURE = "PlatformTexture";
 const std::string ValueGetter::BALL_TEXTURE = "BallTexture";
+const std::string ValueGetter::LEVEL_MUSIC = "LevelMusic";
 
 const std::string ValueGetter::BRICK_TYPES = "BrickTypes";
 const std::string ValueGetter::BRICK_TYPE = "BrickType";
@@ -32,12 +34,15 @@ int ValueGetter::rowCount = 0;
 int ValueGetter::columnCount = 0;
 int ValueGetter::columnSpacing = 0;
 int ValueGetter::rowSpacing = 0;
+int ValueGetter::gridOffset = 0;
 int ValueGetter::levelId = 0;
 
 std::string ValueGetter::bricksLayout = "";
 std::string ValueGetter::backgroundTexturePath = "";
 std::string ValueGetter::platformTexturePath = "";
 std::string ValueGetter::ballTexturePath = "";
+std::string ValueGetter::defaultFontPath = "resources/fonts/Cartoon Blocks Christmas.otf";
+std::string ValueGetter::levelMusicPath = "";
 
 std::vector<std::string> ValueGetter::bricksIds{};
 std::map<std::string, BrickTypeValues> ValueGetter::brickTypesMap{};
@@ -53,10 +58,10 @@ std::string ValueGetter::getXmlFilePath(std::string& fileName) const
 }
 
 //consts for brick IDs!!
-ValueGetter::ValueGetter(XmlParser& parserRef, GameConfig& gameConfigRef)
-	: parser(parserRef), gameConfig(gameConfigRef)
+ValueGetter::ValueGetter(XmlParser& parserRef, LevelLoader& levelLoaderRef)
+	: parser(parserRef), levelLoader(levelLoaderRef)
 {
-	gameConfig.attachLevelObserver(this);
+	levelLoader.attachLevelObserver(this);
 	getLevelValues(0);
 }
 
@@ -95,13 +100,14 @@ BrickTypeValues ValueGetter::getBrickValuesById(const std::string& brickId)
 
 void ValueGetter::getLevelValues(int levelIndex)
 {
-	std::string levelFileName = gameConfig.getFileName(levelIndex);
+	std::string levelFileName = levelLoader.getFileName(levelIndex);
 	parser.loadDocument(getXmlFilePath(levelFileName).c_str());
 
 	rowCount = parser.getNodeAttributeAsInt(ROW_COUNT, LEVEL);
 	columnCount = parser.getNodeAttributeAsInt(COLUMN_COUNT, LEVEL);
 	rowSpacing = parser.getNodeAttributeAsInt(ROW_SPACING, LEVEL);
 	columnSpacing = parser.getNodeAttributeAsInt(COLUMN_SPACING, LEVEL);
+	gridOffset = parser.getNodeAttributeAsInt(GRID_OFFSET, LEVEL);
 	levelId = parser.getNodeAttributeAsInt(ID, LEVEL);
 
 
@@ -109,6 +115,7 @@ void ValueGetter::getLevelValues(int levelIndex)
 	backgroundTexturePath = parser.getNodeAttributeAsString(BACKGROUND_TEXTURE, LEVEL);
 	platformTexturePath = parser.getNodeAttributeAsString(PLATFORM_TEXTURE, LEVEL);
 	ballTexturePath = parser.getNodeAttributeAsString(BALL_TEXTURE, LEVEL);
+	levelMusicPath = parser.getNodeAttributeAsString(LEVEL_MUSIC, LEVEL);
 
 	bricksIds = parser.getSiblingAttributesValuesByType(ID, LEVEL, BRICK_TYPES);
 
