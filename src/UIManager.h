@@ -25,11 +25,7 @@ private:
 	std::unique_ptr<Text> currentLivesText;
 	std::vector<std::unique_ptr<Text>> labelTexts;
 
-	Texture fullHeartTex;
-	Texture emptyHeartTex;
-	Sprite emptyHeartSprite;
-	Sprite fullHeartSprite;
-
+	Color textColor = Color(0, 0, 102); //deep blue
 
 public:
 
@@ -38,6 +34,7 @@ public:
 	void handleInput();
 	void update();
 	void draw();
+	void setTextElements();
 
 	// Inherited via NumValueObserver
 	void onValueChanged(int value, ValueType valueType) override;

@@ -7,8 +7,8 @@
 	ColumnSpacing="3"
 	GridOffsetTop="7"
 	BackgroundTexture="resources/textures/snowy_purple.png"
-	PlatformTexture="resources/textures/platform_purple.png"
-	BallTexture="resources/textures/ball_golden.png"
+	PlatformTexture="resources/textures/platform_2.png"
+	BallTexture="resources/textures/ball_2.png"
 	LevelMusic="resources/audio/level_2_music.wav">
 	<BrickTypes>
 		<!-- Soft Brick -->

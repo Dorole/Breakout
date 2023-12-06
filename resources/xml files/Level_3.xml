@@ -6,9 +6,9 @@
 	RowSpacing="5"
 	ColumnSpacing="5"
 	GridOffsetTop="6"
-	BackgroundTexture="resources/textures/lake_mountains_reindeer.png"
-	PlatformTexture="resources/textures/platform_purple.png"
-	BallTexture="resources/textures/ball_golden.png"
+	BackgroundTexture="resources/textures/frozen_lake.png"
+	PlatformTexture="resources/textures/platform_3.png"
+	BallTexture="resources/textures/ball_3.png"
 	LevelMusic="resources/audio/level_3_music.wav">
 	<BrickTypes>
 		<!-- Soft Brick -->

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <cmath>
 
 #include "Ball.h"
 #include "GameObject.h"
@@ -22,6 +23,7 @@ void Ball::init()
 {
     texture.loadFromFile(valueGetter.getBallTexturePath());
     sprite.setTexture(texture);
+    sprite.setScale(0.4f, 0.4f); 
     windowSize = window.getSize();
     topRenderBound = grid.getGridOffset();
 
@@ -48,7 +50,7 @@ void Ball::getSpriteBounds()
 
 void Ball::setInitialBallPosition()
 {
-    initialBallPosition = Vector2f(platform.getInitialPlatformPosition().x, platform.getInitialPlatformPosition().y - 15);
+    initialBallPosition = Vector2f(platform.getInitialPlatformPosition().x, platform.getInitialPlatformPosition().y - platform.getPlatformLocalBounds().height - 1);
     sprite.setPosition(initialBallPosition);
 }
 
@@ -76,7 +78,6 @@ void Ball::toggleBounce()
 bool Ball::checkWindowCollision()
 {
     FloatRect globalBallBounds = sprite.getGlobalBounds();
-
     bool collided = false;
 
     //top
@@ -135,7 +136,7 @@ bool Ball::checkPlatformCollision()
 {
     if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()) && ballVelocity.y > 0)
     {
-        ballVelocity.y = -ballVelocity.y;
+        reflectOffPlatform();
         soundPlayer.playSoundRandomPitch(SoundType::BALL_HIT);
         return true;
     }
@@ -156,7 +157,7 @@ bool Ball::checkBrickCollision()
 
                 setLastCollided(i, j);
 				ballVelocity.y = -ballVelocity.y;
-				grid.handleCollision(i, j);				
+				grid.handleCollision(i, j);	
                 return true;
             }
         }
@@ -164,6 +165,22 @@ bool Ball::checkBrickCollision()
 
     return false;
 }
+
+
+void Ball::reflectOffPlatform()
+{
+    float hitPointX = sprite.getPosition().x - platform.getPlatformPosition().x;
+    float reflectionFactor = hitPointX / (platform.getPlatformLocalBounds().width / 2.0f);
+
+    ballVelocity.x = reflectionFactor;
+
+    ballVelocity.y = -ballVelocity.y;
+    float speed = sqrt(ballVelocity.x * ballVelocity.x + ballVelocity.y * ballVelocity.y);
+    ballVelocity /= speed;
+
+    sprite.setPosition(platform.getPlatformPosition().x + hitPointX, platform.getPlatformPosition().y - platform.getPlatformLocalBounds().height / 2.0f);
+}
+
 
 void Ball::setLastCollided(int row, int col)
 {
@@ -177,22 +194,22 @@ void Ball::setLastCollidedToNull()
     lastCollidedColumn = -1;
 }
 
-//***************************************************sno
+// ******************** OVERRIDDEN FUNCTIONS ********************
+
 void Ball::update(float deltaTime)
 {
     if (!shouldBounce)
+    {
         moveIdle(deltaTime);
+    }
     else
     {
+        if (checkWindowCollision() || checkBrickCollision())
+            setLastCollidedToNull();
+        
+        checkPlatformCollision();
         sprite.move(ballVelocity * ballSpeed * deltaTime);
         
-        if (checkWindowCollision() || checkPlatformCollision())
-        {
-            setLastCollidedToNull();
-        }
-        
-        checkBrickCollision();      
-
         if (grid.allBricksDestroyed()) 
         {
             shouldBounce = false;
@@ -200,6 +217,7 @@ void Ball::update(float deltaTime)
         }
     }
 }
+
 
 void Ball::draw()
 {

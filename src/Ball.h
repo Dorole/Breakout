@@ -1,6 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <vector>
+
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "Platform.h"
@@ -31,8 +32,8 @@ private:
     Vector2u windowSize;
     int topRenderBound;
 
-    sf::Vector2f ballVelocity{-0.5f, -0.8f}; 
-    float ballSpeed{ 300.0f };
+    sf::Vector2f ballVelocity{-0.5f, -0.8f}; //starting values 
+    float ballSpeed{ 500.0f };
     int lastCollidedRow{ -1 };
     int lastCollidedColumn{ -1 };
     bool shouldBounce;
@@ -60,6 +61,7 @@ private:
     bool checkWindowCollision();
     bool checkPlatformCollision();
     bool checkBrickCollision();
+    void reflectOffPlatform();
 
     // ************************* PUBLIC FUNCTIONS ************************
 public:
@@ -74,7 +76,6 @@ public:
     void toggleBounce();
     bool getShouldBounce() { return shouldBounce; }
 
-    void attachObserver(NumValueObserver* observer);
-
+    void attachObserver(NumValueObserver* observer);   
 };
 

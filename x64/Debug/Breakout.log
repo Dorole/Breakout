@@ -1,1 +1,7 @@
-﻿  Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe
+﻿  Ball.cpp
+C:\Users\dorot\Desktop\C++\Breakout\src\Ball.cpp(28,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dorot\Desktop\C++\Breakout\src\Ball.cpp(158,36): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\dorot\Desktop\C++\Breakout\src\Ball.cpp(158,33): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  PlayingState.cpp
+  Generating Code...
+  Breakout.vcxproj -> C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Breakout.exe

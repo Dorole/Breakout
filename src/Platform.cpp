@@ -36,7 +36,7 @@ void Platform::getSpriteLocalBounds()
 
 void Platform::setInitialPlatformPosition()
 {
-    initialPlatformPosition = Vector2f(window.getSize().x / 2, window.getSize().y - 20);
+    initialPlatformPosition = Vector2f(window.getSize().x / 2, window.getSize().y - 40);
     sprite.setPosition(initialPlatformPosition);
 }
 

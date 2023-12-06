@@ -7,50 +7,12 @@
 
 using namespace sf;
 
-UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef)  //unsubscribe
+UIManager::UIManager(RenderWindow& windowRef, ValueGetter& valueGetterRef)  
 	: window(windowRef), valueGetter(valueGetterRef)
 {
 	valueGetter.attachLevelDataObserver(this);
-	
-	font.loadFromFile(valueGetter.getDefaultFontPath()); 
-
-	textCreator = TextCreator(textOffsetTop, textOffsetSide);
-
-	auto levelText = textCreator.createNewText(window, font, "level:", TextAlignment::TOP_LEFT, fontSize);
-	auto scoreText = textCreator.createNewText(window, font, "score:", TextAlignment::TOP_RIGHT, fontSize);
-	auto livesText = textCreator.createNewText(window, font, "lives:", TextAlignment::TOP_CENTER, fontSize); //TEMP
-
-	Vector2f posBelowLevelText = levelText->getPosition() + Vector2f(0, levelText->getLocalBounds().height + verticalSpacing);
-	Vector2f posBelowScoreText = scoreText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing);
-	Vector2f posBelowLivesText = livesText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing); //TEMP
-
-	levelValueText = textCreator.createNewText(font, std::to_string(valueGetter.getLevel()), posBelowLevelText, fontSize, TextOrigin::TOP_CENTER); 
-	scoreValueText = textCreator.createNewText(font, std::to_string(0), posBelowScoreText, fontSize, TextOrigin::TOP_CENTER);
-	currentLivesText = textCreator.createNewText(font, "3", posBelowLivesText, fontSize, TextOrigin::TOP_CENTER); //TEMP - get from config
-
-	labelTexts.push_back(std::move(levelText));
-	labelTexts.push_back(std::move(scoreText));
-	labelTexts.push_back(std::move(livesText)); //TEMP
-
-
-	//fullHeartTex.loadFromFile("resources/textures/heart_full.png");
-	//emptyHeartTex.loadFromFile("resources/textures/heart_empty.png");
-
-	//fullHeartSprite.setTexture(fullHeartTex);
-	//emptyHeartSprite.setTexture(emptyHeartTex);
-
-	//fullHeartSprite.setScale(4, 4); //remove
-
-	//fullHeartSprite.setOrigin(fullHeartSprite.getLocalBounds().width / 2, fullHeartSprite.getLocalBounds().height / 2);
-	//emptyHeartSprite.setOrigin(emptyHeartSprite.getLocalBounds().width / 2, emptyHeartSprite.getLocalBounds().height / 2);
-
-	//fullHeartSprite.setPosition(window.getSize().x / 2, 50); //fix
-
+	setTextElements();
 }
-
-
-// ****************************** OVERRIDDEN FUNCTIONS ******************************
-
 
 void UIManager::handleInput()
 {
@@ -69,12 +31,41 @@ void UIManager::draw()
 
 	window.draw(*levelValueText);
 	window.draw(*scoreValueText);
-	window.draw(*currentLivesText); //TEMP
-
-	//window.draw(fullHeartSprite);
+	window.draw(*currentLivesText); 
 }
 
-//vjerojatno ce trebati enum ili nesto da se odredi koji valueChange se gleda
+void UIManager::setTextElements()
+{
+	font.loadFromFile(valueGetter.getDefaultFontPath());
+
+	textCreator = TextCreator(textOffsetTop, textOffsetSide);
+
+	auto levelText = textCreator.createNewText(window, font, "level:", TextAlignment::TOP_LEFT, fontSize);
+	auto scoreText = textCreator.createNewText(window, font, "score:", TextAlignment::TOP_RIGHT, fontSize);
+	auto livesText = textCreator.createNewText(window, font, "lives:", TextAlignment::TOP_CENTER, fontSize);
+
+	Vector2f posBelowLevelText = levelText->getPosition() + Vector2f(0, levelText->getLocalBounds().height + verticalSpacing);
+	Vector2f posBelowScoreText = scoreText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing);
+	Vector2f posBelowLivesText = livesText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing);
+
+	levelValueText = textCreator.createNewText(font, std::to_string(valueGetter.getLevel()), posBelowLevelText, fontSize, TextOrigin::TOP_CENTER);
+	scoreValueText = textCreator.createNewText(font, std::to_string(0), posBelowScoreText, fontSize, TextOrigin::TOP_CENTER);
+	currentLivesText = textCreator.createNewText(font, "3", posBelowLivesText, fontSize, TextOrigin::TOP_CENTER);
+
+	labelTexts.push_back(std::move(levelText));
+	labelTexts.push_back(std::move(scoreText));
+	labelTexts.push_back(std::move(livesText));
+
+	for (const auto& txt : labelTexts)
+	{
+		txt->setFillColor(textColor);
+	}
+
+	levelValueText->setFillColor(textColor);
+	scoreValueText->setFillColor(textColor);
+	currentLivesText->setFillColor(textColor);
+}
+
 void UIManager::onValueChanged(int value, ValueType valueType)
 {	
 	switch (valueType)

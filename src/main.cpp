@@ -24,15 +24,18 @@ int main()
 	BrickPool brickPool(valueGetter);
 	BrickGrid grid(valueGetter, brickPool);
 
-
 	// WINDOW
-	RenderWindow window(VideoMode(700, 500), "Breakout"); //adjust 
-	window.setPosition({ 650, 150 });
-
-	Clock clock;
-	float deltaTime;
+	RenderWindow window(VideoMode(1920, 1080), "Breakout"); //adjust 
+	VideoMode desktop = VideoMode::getDesktopMode();
+	Vector2i windowPosition(
+		(desktop.width - window.getSize().x) / 2,
+		(desktop.height - window.getSize().y) / 2
+	);
 
 	Game game(window, valueGetter, grid, levelLoader, audioPlayer);
+	
+	Clock clock;
+	float deltaTime;
 
 	while (window.isOpen())
 	{
@@ -45,13 +48,6 @@ int main()
 			{
 			case Event::Closed:
 				window.close();
-			case Event::KeyPressed:
-				if (event.key.code == Keyboard::Key::G && event.key.control && event.key.alt)
-				{
-					std::cout << "Cheat code for level clearing used." << std::endl;
-					grid.setLevelFinished();
-				}
-				break;
 			default:
 				break;
 			}

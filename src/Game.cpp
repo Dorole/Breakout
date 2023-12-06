@@ -50,6 +50,24 @@ void Game::changeState(std::shared_ptr<GameState> newState)
 void Game::handleInput()
 {
 	currentState->handleInput();
+
+	if (currentState != playingState) return;
+
+	if (Keyboard::isKeyPressed(Keyboard::Key::C) 
+		&& Keyboard::isKeyPressed(Keyboard::Key::LControl) 
+		&& Keyboard::isKeyPressed(Keyboard::Key::LAlt))
+	{
+		std::cout << "Cheat code for level clearing used." << std::endl;
+		changeState(levelClearState);
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::Key::G)
+		&& Keyboard::isKeyPressed(Keyboard::Key::LControl)
+		&& Keyboard::isKeyPressed(Keyboard::Key::LAlt))
+	{
+		std::cout << "Cheat code for game over used." << std::endl;
+		changeState(gameOverState);
+	}
 }
 
 void Game::update(float deltaTime)

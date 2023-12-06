@@ -7,8 +7,8 @@
 	GridOffsetTop="7"
 	ColumnSpacing="10"
 	BackgroundTexture="resources/textures/snowy_reindeer_green.png"
-	PlatformTexture="resources/textures/platform_purple.png"
-	BallTexture="resources/textures/ball_golden.png" 
+	PlatformTexture="resources/textures/platform_1.png"
+	BallTexture="resources/textures/ball_1.png" 
 	LevelMusic="resources/audio/level_1_music.wav">
 	<BrickTypes>
 		<!-- Soft Brick -->
