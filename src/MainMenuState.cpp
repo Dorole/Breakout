@@ -5,12 +5,12 @@
 
 #include "GameState.h"
 #include "TextCreator.h"
-#include "AudioPlayer.h"
+#include "MusicPlayer.h"
 #include "NumValueObserver.h"
 #include "StateObserver.h"
 #include "Button.h"
 
-MainMenuState::MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGetter, AudioPlayer& audioPlayerRef)
+MainMenuState::MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGetter, MusicPlayer& audioPlayerRef)
 	: GameState(windowRef, valueGetter, audioPlayerRef)
 {
 	init();
@@ -18,17 +18,9 @@ MainMenuState::MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGett
 
 void MainMenuState::init()
 {
-	font.loadFromFile(valueGetter.getDefaultFontPath()); 
-
-	TextCreator textCreator(50, 0);
-	titleText = textCreator.createNewText(window, font, "BREAKOUT", TextAlignment::TOP_CENTER, 100);
-
-	startButton = Button(startText, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
-	quitButton = Button(quitText, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
-
-	startButton.setButtonPosition(startButtonPosition, buttonTextOffset);
-	quitButton.setButtonPosition(quitButtonPosition, buttonTextOffset);
-
+	setBackground("resources/textures/snowy_mountains_blue.png");
+	setTextElements();
+	setButtonElements();
 }
 
 void MainMenuState::onStateEnter()
@@ -56,8 +48,9 @@ void MainMenuState::update(float deltaTime)
 
 void MainMenuState::draw()
 {
-	window.draw(*titleText);
+	window.draw(bgImage);
 
+	window.draw(*titleText);
 	startButton.drawButton(window);
 	quitButton.drawButton(window);
 }
@@ -75,4 +68,25 @@ void MainMenuState::attachValueObserver(NumValueObserver* observer)
 void MainMenuState::attachStateObserver(StateObserver* observer)
 {
 	stateObservers.push_back(observer);
+}
+
+void MainMenuState::setTextElements()
+{
+	font.loadFromFile(valueGetter.getDefaultFontPath());
+
+	TextCreator textCreator(50, 0);
+	titleText = textCreator.createNewText(window, font, "BREAKOUT", TextAlignment::TOP_CENTER, 100);
+	titleText->setFillColor(titleTextColor);
+}
+
+void MainMenuState::setButtonElements()
+{
+	startButton = Button(startText, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
+	quitButton = Button(quitText, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
+
+	startButton.setButtonOutline(1.0f, titleTextColor);
+	quitButton.setButtonOutline(1.0f, titleTextColor);
+
+	startButton.setButtonPosition(startButtonPosition, buttonTextOffset);
+	quitButton.setButtonPosition(quitButtonPosition, buttonTextOffset);
 }

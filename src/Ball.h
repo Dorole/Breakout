@@ -1,12 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <random>
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "Platform.h"
 #include "BrickGrid.h"
 #include "NumValueObserver.h"
+#include "SoundPlayer.h"
 
 using namespace sf;
 
@@ -18,7 +18,7 @@ private:
     BrickGrid& grid;
     Platform& platform;
     std::vector<std::vector<GridData>>& gridVector;
-    
+   
     // ************************* OBSERVERS *************************
     std::vector<NumValueObserver*> observers;
     void notifyObservers(int value);
@@ -37,6 +37,8 @@ private:
     int lastCollidedColumn{ -1 };
     bool shouldBounce;
     bool lostLife;
+
+    SoundPlayer soundPlayer;
 
     // ************************* PRIVATE FUNCTIONS ************************
     void setSpriteOriginToCenter();

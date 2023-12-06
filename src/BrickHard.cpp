@@ -17,8 +17,10 @@ void BrickHard::onHit()
 
 	if (hitPoints == 0)
 	{
-
+		brickSound.setBuffer(breakBuffer);
 	}
+
+	brickSound.play();
 };
 
 void BrickHard::reloadBrickValues(ValueGetter& valueGetter)

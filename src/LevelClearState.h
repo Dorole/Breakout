@@ -3,7 +3,7 @@
 
 #include "GameState.h"
 #include "ValueGetter.h"
-#include "AudioPlayer.h"
+#include "MusicPlayer.h"
 #include "LevelLoader.h"
 #include "Button.h"
 #include "StateObserver.h"
@@ -33,6 +33,7 @@ private:
 	const std::string LEVEL_CLEAR_LABEL = "LEVEL CLEAR!";
 	const std::string GAME_CLEAR_LABEL = "GAME CLEAR!";
 	const std::string SCORE_LABEL = "TOTAL SCORE: ";
+	Color textColor = Color(0, 0, 102);
 
 	Button nextButton;
 	Button restartButton;
@@ -44,7 +45,7 @@ private:
 	Vector2f buttonSize{ 250, 60 };
 	int buttonTextSize = 50;
 	Color buttonColor = Color::White;
-	Color buttonTextColor = Color::Black;
+	Color buttonTextColor = textColor;
 	Vector2f buttonTextOffset{ 0, 15 };
 
 	float buttonSpacing = 30;
@@ -54,7 +55,7 @@ private:
 
 public:
 
-	LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, LevelLoader& levelLoaderRef);
+	LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef, LevelLoader& levelLoaderRef);
 
 	void init();
 
@@ -64,6 +65,8 @@ public:
 	virtual void update(float deltaTime) override;
 	virtual void draw() override;
 	virtual void onStateExit() override;
+	virtual void setTextElements() override;
+	virtual void setButtonElements() override;
 	virtual void attachValueObserver(NumValueObserver* observer) override;
 	virtual void attachStateObserver(StateObserver* observer) override;
 
@@ -72,4 +75,5 @@ public:
 
 	// Inherited via LevelDataObserver
 	virtual void onLevelChanged() override;
+
 };

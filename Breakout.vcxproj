@@ -151,7 +151,8 @@
     <ClCompile Include="src/ValueGetter.cpp" />
     <ClCompile Include="src/GridData.cpp" />
     <ClCompile Include="src/UIManager.cpp" />
-    <ClCompile Include="src\AudioPlayer.cpp" />
+    <ClCompile Include="src\ImageConfig.cpp" />
+    <ClCompile Include="src\MusicPlayer.cpp" />
     <ClCompile Include="src\BrickPool.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
@@ -203,7 +204,8 @@
     <ClInclude Include="src/XmlParser.h" />
     <ClInclude Include="src/ValueGetter.h" />
     <ClInclude Include="src/GridData.h" />
-    <ClInclude Include="src\AudioPlayer.h" />
+    <ClInclude Include="src\ImageConfig.h" />
+    <ClInclude Include="src\MusicPlayer.h" />
     <ClInclude Include="src\BrickObserver.h" />
     <ClInclude Include="src/UIManager.h" />
     <ClInclude Include="src\BrickPool.h" />
@@ -216,6 +218,7 @@
     <ClInclude Include="src\MainMenuState.h" />
     <ClInclude Include="src\NumValueObserver.h" />
     <ClInclude Include="src\PlayingState.h" />
+    <ClInclude Include="src\SoundPlayer.h" />
     <ClInclude Include="src\StateObserver.h" />
     <ClInclude Include="src\TextCreator.h" />
   </ItemGroup>
@@ -316,6 +319,73 @@
     <CopyFileToFolders Include="resources\audio\level_clear.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\audio\ball_hit.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\button1.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\button2.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\reset.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\audio\hit_sound_dull.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\hit_sound_magic.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\hit_sound_magic_2.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\hit_sound_magic_3.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\snowy_mountains_blue.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\night_forest_rabbit.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\snowy_christmas.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\snowy_purple.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\snowy_reindeer_green.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\frozen_lake.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\lake_mountains_reindeer.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

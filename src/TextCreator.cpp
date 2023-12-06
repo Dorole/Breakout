@@ -76,3 +76,4 @@ void TextCreator::setTextOrigin(TextOrigin origin, Text& text)
 		break;
 	}
 }
+

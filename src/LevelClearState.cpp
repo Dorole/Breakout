@@ -4,11 +4,11 @@
 
 #include "GameState.h"
 #include "TextCreator.h"
-#include "AudioPlayer.h"
+#include "MusicPlayer.h"
 #include "LevelLoader.h"
 #include "Button.h"
 
-LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, LevelLoader& levelLoaderRef)
+LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef, LevelLoader& levelLoaderRef)
 	: GameState(windowRef, valueGetterRef, audioPlayerRef), levelLoader(levelLoaderRef)
 {
 	valueGetter.attachLevelDataObserver(this);
@@ -17,21 +17,9 @@ LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGett
 
 void LevelClearState::init()
 {
-	font.loadFromFile(valueGetter.getDefaultFontPath()); 
-
-	TextCreator textCreator(30, 0);
-	levelClearText = textCreator.createNewText(window, font, LEVEL_CLEAR_LABEL, TextAlignment::TOP_CENTER, levelClearTextSize);
-
-	Vector2f posBelowGameOverText = levelClearText->getPosition() + Vector2f(0, levelClearText->getLocalBounds().height + verticalTextSpacing);
-	totalScoreText = textCreator.createNewText(font, SCORE_LABEL + std::to_string(totalScore), posBelowGameOverText, scoreTextSize, TextOrigin::TOP_CENTER);
-
-	nextButton = Button(NEXT_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
-	restartButton = Button(RESTART_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
-	menuButton = Button(MENU_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
-
-	nextButton.setButtonPosition(nextButtonPosition, buttonTextOffset);
-	restartButton.setButtonPosition(restartButtonPosition, buttonTextOffset);
-	menuButton.setButtonPosition(menuButtonPosition, buttonTextOffset);
+	setBackground("resources/textures/snowy_christmas.png");
+	setTextElements();
+	setButtonElements();
 }
 
 void LevelClearState::onStateEnter()
@@ -81,6 +69,8 @@ void LevelClearState::update(float deltaTime)
 
 void LevelClearState::draw()
 {
+	window.draw(bgImage);
+
 	window.draw(*levelClearText);
 	window.draw(*totalScoreText);
 
@@ -118,7 +108,6 @@ void LevelClearState::onValueChanged(int value, ValueType valueType)
 	}
 }
 
-
 void LevelClearState::onLevelChanged()
 {
 	switch (currentMode)
@@ -149,4 +138,32 @@ void LevelClearState::onLevelChanged()
 	default:
 		break;
 	}
+}
+
+void LevelClearState::setTextElements()
+{
+	font.loadFromFile(valueGetter.getDefaultFontPath());
+
+	TextCreator textCreator(30, 0);
+	levelClearText = textCreator.createNewText(window, font, LEVEL_CLEAR_LABEL, TextAlignment::TOP_CENTER, levelClearTextSize);
+
+	Vector2f posBelowGameOverText = levelClearText->getPosition() + Vector2f(0, levelClearText->getLocalBounds().height + verticalTextSpacing);
+	totalScoreText = textCreator.createNewText(font, SCORE_LABEL + std::to_string(totalScore), posBelowGameOverText, scoreTextSize, TextOrigin::TOP_CENTER);
+	totalScoreText->setOutlineThickness(0.2f);
+	totalScoreText->setOutlineColor(Color::White);
+}
+
+void LevelClearState::setButtonElements()
+{
+	nextButton = Button(NEXT_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
+	restartButton = Button(RESTART_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
+	menuButton = Button(MENU_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
+
+	nextButton.setButtonOutline(1.0f, textColor);
+	restartButton.setButtonOutline(1.0f, textColor);
+	menuButton.setButtonOutline(1.0f, textColor);
+
+	nextButton.setButtonPosition(nextButtonPosition, buttonTextOffset);
+	restartButton.setButtonPosition(restartButtonPosition, buttonTextOffset);
+	menuButton.setButtonPosition(menuButtonPosition, buttonTextOffset);
 }

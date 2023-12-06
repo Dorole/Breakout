@@ -10,16 +10,12 @@ BrickSoft::BrickSoft(ValueGetter& valueGetter) : Brick(valueGetter)
 
 void BrickSoft::onHit()
 {
-	if (hitPoints == 0)
-		return;
-
 	hitPoints--;
 
 	if (hitPoints == 0)
-	{
 		brickSound.setBuffer(breakBuffer);
-	}
-		brickSound.play();
+
+	brickSound.play();
 };
 
 void BrickSoft::reloadBrickValues(ValueGetter& valueGetter) 

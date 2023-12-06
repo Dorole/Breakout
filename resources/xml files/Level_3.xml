@@ -6,7 +6,7 @@
 	RowSpacing="5"
 	ColumnSpacing="5"
 	GridOffsetTop="6"
-	BackgroundTexture=""
+	BackgroundTexture="resources/textures/lake_mountains_reindeer.png"
 	PlatformTexture="resources/textures/platform_purple.png"
 	BallTexture="resources/textures/ball_golden.png"
 	LevelMusic="resources/audio/level_3_music.wav">
@@ -25,7 +25,7 @@
 			Texture="resources/textures/brick_golden.png"
 			HitPoints="2"
 			HitSound="resources/audio/brickHit.wav"
-			BreakSound="resources/audio/brickDestroyed.wav"
+			BreakSound="resources/audio/hit_sound_magic.wav"
 			BreakScore="100" />
 		<!-- Hard Brick -->
 		<BrickType
@@ -33,14 +33,14 @@
 			Texture="resources/textures/brick_spec_purplegolden.png"
 			HitPoints="3"
 			HitSound="resources/audio/brickHit.wav"
-			BreakSound="resources/audio/brickDestroyed.wav"
+			BreakSound="resources/audio/hit_sound_magic_2.wav"
 			BreakScore="150" />
 		<!-- Impenetrable Brick -->
 		<BrickType
 			Id="I"
 			Texture="resources/textures/brick_gray.png"
 			HitPoints="Infinite"
-			HitSound="resources/audio/brickHit.wav" />
+			HitSound="resources/audio/hit_sound_dull.wav" />
 
 	</BrickTypes>
 	<Bricks>

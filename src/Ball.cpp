@@ -7,6 +7,7 @@
 #include "ValueGetter.h"
 #include "Platform.h"
 #include "BrickGrid.h"
+#include "SoundPlayer.h"
 
 using namespace sf;
 
@@ -30,6 +31,8 @@ void Ball::init()
     setSpriteOriginToCenter();
     setInitialBallPosition();
     getSpriteBounds();
+
+    soundPlayer.setBuffer(SoundType::BALL_HIT);
 }
 
 void Ball::setSpriteOriginToCenter()
@@ -74,11 +77,14 @@ bool Ball::checkWindowCollision()
 {
     FloatRect globalBallBounds = sprite.getGlobalBounds();
 
+    bool collided = false;
+
     //top
     if (globalBallBounds.top < topRenderBound)
     {
         ballVelocity.y = std::abs(ballVelocity.y);       
-        return true;
+        collided = true;
+       
     }
 
     //bottom
@@ -87,8 +93,7 @@ bool Ball::checkWindowCollision()
         if (!lostLife)
         {
             notifyObservers(1);
-            lostLife = true;    
-            return true;
+            lostLife = true;              
         }
     }
     else
@@ -100,13 +105,25 @@ bool Ball::checkWindowCollision()
     if (globalBallBounds.left < 0)
     {
         ballVelocity.x = std::abs(ballVelocity.x);
-        return true;
+        collided = true;
     }
 
     //right
     if (globalBallBounds.left + globalBallBounds.width > windowSize.x)
     {
         ballVelocity.x = -std::abs(ballVelocity.x);
+        collided = true;
+    }
+
+    if (collided)
+    {
+        soundPlayer.playSoundRandomPitch(SoundType::BALL_HIT);
+        return true;
+    }
+
+    if (lostLife)
+    {
+        soundPlayer.playSoundRandomPitch(SoundType::BALL_RESET);
         return true;
     }
 
@@ -114,12 +131,12 @@ bool Ball::checkWindowCollision()
 
 }
 
-//should return bool
 bool Ball::checkPlatformCollision()
 {
     if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()) && ballVelocity.y > 0)
     {
         ballVelocity.y = -ballVelocity.y;
+        soundPlayer.playSoundRandomPitch(SoundType::BALL_HIT);
         return true;
     }
 
@@ -160,21 +177,21 @@ void Ball::setLastCollidedToNull()
     lastCollidedColumn = -1;
 }
 
-//***************************************************
+//***************************************************sno
 void Ball::update(float deltaTime)
 {
     if (!shouldBounce)
         moveIdle(deltaTime);
     else
     {
+        sprite.move(ballVelocity * ballSpeed * deltaTime);
+        
         if (checkWindowCollision() || checkPlatformCollision())
         {
             setLastCollidedToNull();
         }
         
-        checkBrickCollision();
-        
-        sprite.move(ballVelocity * ballSpeed * deltaTime);
+        checkBrickCollision();      
 
         if (grid.allBricksDestroyed()) 
         {

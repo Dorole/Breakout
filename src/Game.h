@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "ValueGetter.h"
 #include "LevelLoader.h"
-#include "AudioPlayer.h"
+#include "MusicPlayer.h"
 #include "BrickGrid.h"
 #include "GameState.h"
 #include "NumValueObserver.h"
@@ -21,7 +21,7 @@ private:
 	ValueGetter& valueGetter;
 	BrickGrid& grid;
 	LevelLoader& levelLoader;
-	AudioPlayer& audioPlayer;
+	MusicPlayer& audioPlayer;
 
 	std::shared_ptr<GameState> currentState;
 	std::vector<NumValueObserver*> observers; 
@@ -34,7 +34,7 @@ private:
 	bool hasSwitched = false;
 
 public:
-	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid, LevelLoader& levelLoaderRef, AudioPlayer& audioPlayerRef);
+	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid, LevelLoader& levelLoaderRef, MusicPlayer& audioPlayerRef);
 
 	void changeState(std::shared_ptr<GameState> newState);
 	void handleInput();

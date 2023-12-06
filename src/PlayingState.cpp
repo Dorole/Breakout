@@ -5,7 +5,7 @@
 
 #include "GameState.h"
 #include "ValueGetter.h"
-#include "AudioPlayer.h"
+#include "MusicPlayer.h"
 #include "BrickGrid.h"
 #include "UIManager.h"
 #include "GameObject.h"
@@ -15,13 +15,12 @@
 #include "NumValueObserver.h"
 
 
-PlayingState::PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, BrickGrid& gridRef)
+PlayingState::PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef, BrickGrid& gridRef)
 	: GameState(windowRef, valueGetterRef, audioPlayerRef), grid(gridRef)
 {
 	grid.attachObserver(this);
 	init();
 }
-
 
 void PlayingState::init()
 {
@@ -42,6 +41,8 @@ void PlayingState::init()
 
 void PlayingState::onStateEnter()
 {
+	setBackground(valueGetter.getBackgroundTexturePath());
+
 	totalScore = 0;
 	currentLives = maxLives;
 	gameStarted = false;
@@ -93,6 +94,8 @@ void PlayingState::update(float deltaTime)
 
 void PlayingState::draw()
 {
+	window.draw(bgImage);
+
 	for (auto& gameObject : gameObjects)
 	{
 		gameObject->draw();
@@ -170,4 +173,12 @@ void PlayingState::onValueChanged(int value, ValueType valueType)
 
 	for (const auto& observer : valueObservers)
 		observer->onValueChanged(currentLives, ValueType::LIVES);
+}
+
+void PlayingState::setTextElements()
+{
+}
+
+void PlayingState::setButtonElements()
+{
 }

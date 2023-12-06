@@ -5,7 +5,7 @@
 #include "ValueGetter.h"
 #include "BrickGrid.h"
 #include "LevelLoader.h"
-#include "AudioPlayer.h"
+#include "MusicPlayer.h"
 #include "GameState.h"
 #include "PlayingState.h"
 #include "MainMenuState.h"
@@ -14,7 +14,7 @@
 
 using namespace sf;
 
-Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, LevelLoader& levelLoaderRef, AudioPlayer& audioPlayerRef)
+Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, LevelLoader& levelLoaderRef, MusicPlayer& audioPlayerRef)
 	: window(windowRef), valueGetter(valueGetterRef), grid(gridRef), levelLoader(levelLoaderRef), audioPlayer(audioPlayerRef)
 {
 	mainMenuState = std::make_shared<MainMenuState>(window, valueGetter, audioPlayer);
@@ -23,7 +23,7 @@ Game::Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& grid
 	levelClearState = std::make_shared<LevelClearState>(window, valueGetter, audioPlayer, levelLoader);
 
 	currentState = mainMenuState;
-	mainMenuState->onStateEnter();
+	currentState->onStateEnter();
 
 	mainMenuState->attachStateObserver(this);
 	playingState->attachStateObserver(this);

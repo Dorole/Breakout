@@ -5,7 +5,7 @@
 #include "LevelLoader.h"
 #include "XmlParser.h"
 #include "ValueGetter.h"
-#include "AudioPlayer.h"
+#include "MusicPlayer.h"
 #include "Game.h"
 #include "BrickGrid.h"
 #include "BrickPool.h"
@@ -19,7 +19,7 @@ int main()
 	XmlParser parser;
 	LevelLoader levelLoader;
 	ValueGetter valueGetter(parser, levelLoader);
-	AudioPlayer audioPlayer(valueGetter);
+	MusicPlayer audioPlayer(valueGetter);
 
 	BrickPool brickPool(valueGetter);
 	BrickGrid grid(valueGetter, brickPool);

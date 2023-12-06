@@ -5,7 +5,7 @@
 
 #include "GameState.h"
 #include "ValueGetter.h"
-#include "AudioPlayer.h"
+#include "MusicPlayer.h"
 #include "BrickGrid.h"
 #include "GameObject.h"
 #include "BrickObserver.h"
@@ -25,7 +25,7 @@ private:
 	std::vector<StateObserver*> stateObservers;
 
 	int totalScore = 0;
-	int maxLives = 3; //to gameConfig
+	int maxLives = 3; 
 	int currentLives = maxLives;
 
 	bool gameStarted = false;
@@ -36,7 +36,7 @@ private:
 	void updateLives(int amount);
 
 public:
-	PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, AudioPlayer& audioPlayerRef, BrickGrid& gridRef);
+	PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef, BrickGrid& gridRef);
 
 	void init();
 
@@ -46,6 +46,8 @@ public:
 	virtual void update(float deltaTime) override;
 	virtual void draw() override;
 	virtual void onStateExit() override;
+	virtual void setTextElements() override;
+	virtual void setButtonElements() override;
 	virtual void attachValueObserver(NumValueObserver* observer) override;
 	virtual void attachStateObserver(StateObserver* observer) override;
 

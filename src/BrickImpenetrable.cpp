@@ -10,7 +10,7 @@ BrickImpenetrable::BrickImpenetrable(ValueGetter& valueGetter) : Brick(valueGett
 
 void BrickImpenetrable::onHit()
 {
-
+	brickSound.play();
 	return;
 };
 

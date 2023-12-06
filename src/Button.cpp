@@ -1,5 +1,6 @@
 #include "Button.h"
 #include <SFML/Graphics.hpp>
+#include "SoundPlayer.h"
 
 Button::Button(std::string txt, Vector2f size, Font& font, int fontSize, Color bgColor, Color textColor)
 {
@@ -84,12 +85,24 @@ bool Button::buttonInteract(RenderWindow& window)
 	{
 		setButtonTransparency(AlphaChannel::HALF_TRANSPARENT);
 
+		if (!mouseOverButton)
+		{
+			soundPlayer.playRandomSound(SoundType::BUTTON);
+			mouseOverButton = true;
+		}
+
 		if (Mouse::isButtonPressed(Mouse::Left))
+		{
+			mouseOverButton = false;
 			return true;
+		}
+
+		return false;
 	}
 	else
 	{
 		setButtonTransparency(AlphaChannel::OPAQUE);
+		mouseOverButton = false;
 		return false;
 	}
 }

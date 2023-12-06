@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "SoundPlayer.h"
 
 using namespace sf;
 
@@ -15,6 +16,9 @@ class Button
 private:
 	RectangleShape button;
 	Text text;
+
+	SoundPlayer soundPlayer;
+	bool mouseOverButton = false;
 
 public:
 	Button() {}
