@@ -26,7 +26,7 @@ void Platform::init()
 void Platform::setSpriteOriginToCenter()
 {
     spriteLocalBounds = sprite.getLocalBounds();
-    sprite.setOrigin(spriteLocalBounds.width / 2, spriteLocalBounds.height / 2);
+    sprite.setOrigin(spriteLocalBounds.width / 2.0f, spriteLocalBounds.height / 2.0f);
 }
 
 void Platform::getSpriteLocalBounds()
@@ -36,7 +36,7 @@ void Platform::getSpriteLocalBounds()
 
 void Platform::setInitialPlatformPosition()
 {
-    initialPlatformPosition = Vector2f(window.getSize().x / 2, window.getSize().y - 40);
+    initialPlatformPosition = Vector2f(window.getSize().x / 2.0f, window.getSize().y - platformBottomOffset);
     sprite.setPosition(initialPlatformPosition);
 }
 

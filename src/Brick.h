@@ -22,6 +22,10 @@ protected:
 	SoundBuffer hitBuffer;
 	SoundBuffer breakBuffer;
 	Sound brickSound;
+
+	//used to prevent multiple hits "at once"
+	Clock cooldownTimer;
+	float coolDownDuration = 0.5f;
 	
 	void createBrick(BrickTypeValues values);
 

@@ -27,9 +27,10 @@ private:
 	std::unique_ptr<Text> levelClearText;
 	std::unique_ptr<Text> totalScoreText;
 
-	int levelClearTextSize = 100;
-	int scoreTextSize = 50;
-	int verticalTextSpacing = 50;
+	float levelClearTextPercentage = 20.0f;
+	float scoreTextPercentage = 10.0f;
+	float levelClearTopOffsetPercentage = 3.0f;
+	float verticalTextSpacingPercentage = 5.0f;
 	const std::string LEVEL_CLEAR_LABEL = "LEVEL CLEAR!";
 	const std::string GAME_CLEAR_LABEL = "GAME CLEAR!";
 	const std::string SCORE_LABEL = "TOTAL SCORE: ";
@@ -42,16 +43,13 @@ private:
 	const std::string RESTART_TEXT = "RESTART";
 	const std::string NEXT_TEXT = "NEXT";
 	const std::string MENU_TEXT = "MENU";
-	Vector2f buttonSize{ 250, 60 };
-	int buttonTextSize = 50;
+	float buttonWidthPercentage = 25.0f;
+	float buttonHeightPercentage = 10.0f;
+	float buttonTextSizePercentage = 80.0f;
+	float buttonSpacingPercentage = 5.0f;
 	Color buttonColor = Color::White;
 	Color buttonTextColor = textColor;
-	Vector2f buttonTextOffset{ 0, 15 };
-
-	float buttonSpacing = 30;
-	Vector2f nextButtonPosition{ window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + buttonSpacing };
-	Vector2f restartButtonPosition{ window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + buttonSize.y + (buttonSpacing * 1.5f) };
-	Vector2f menuButtonPosition{ window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + (buttonSize.y * 2) + (buttonSpacing * 2) };
+	Vector2f buttonTextOffset{ 0, 30 };
 
 public:
 

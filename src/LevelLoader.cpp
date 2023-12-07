@@ -8,7 +8,7 @@ LevelLoader::LevelLoader()
 	mapLevelPathsToIndices();
 }
 
-std::map<int, std::string> LevelLoader::levelsMap{};
+std::map<std::size_t, std::string> LevelLoader::levelsMap{};
 
 void LevelLoader::mapLevelPathsToIndices()
 {

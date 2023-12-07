@@ -16,14 +16,15 @@ private:
 	
 	TextCreator textCreator;
 	Font font;
-	unsigned int fontSize = 50;
-	float verticalSpacing = 15;
-	float textOffsetTop = 1;
-	float textOffsetSide = 70;
+	float verticalSpacing = 25;
+	float fontSizePercentage = 7.0f;
+	float textOffsetTopPercentage = 1.0f;
+	float textOffsetSidePercentage = 10.0f;
 	std::unique_ptr<Text> levelValueText;
 	std::unique_ptr<Text> scoreValueText;
 	std::unique_ptr<Text> currentLivesText;
 	std::vector<std::unique_ptr<Text>> labelTexts;
+	Vector2f adjustedScorePosition{};
 
 	Color textColor = Color(0, 0, 102); //deep blue
 

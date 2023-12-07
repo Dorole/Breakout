@@ -25,14 +25,18 @@ private:
 	float leftGridOffset;
 
 	// ************************* PRIVATE FUNCTIONS ************************
-	
 	/// <summary>
 	/// Defines how low from the window's top border
 	/// the first row of bricks should be rendered.
 	/// </summary>
 	float getTopRenderBorder();
 
+	/// <summary>
+	/// Defines where the first column should be drawn
+	/// so that the grid is centerd in the window.
+	/// </summary>
 	float getLeftRenderBorder();
+
 
 	// ************************* PUBLIC FUNCTIONS ************************
 public:

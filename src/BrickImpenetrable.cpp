@@ -10,6 +10,7 @@ BrickImpenetrable::BrickImpenetrable(ValueGetter& valueGetter) : Brick(valueGett
 
 void BrickImpenetrable::onHit()
 {
+	std::cout << "Impenetrable hit: " << std::endl;
 	brickSound.play();
 	return;
 };

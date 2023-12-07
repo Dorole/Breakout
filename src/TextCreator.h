@@ -34,8 +34,8 @@ public:
 	TextCreator();
 	TextCreator(float topOffset, float sideOffset);
 
-	std::unique_ptr<Text> createNewText(Font& font, std::string textString, Vector2f position, unsigned int charSize, TextOrigin txtOrigin = TextOrigin::TOP_LEFT);
-	std::unique_ptr<Text> createNewText(RenderWindow& window, Font& font, std::string textString, TextAlignment alignment, unsigned int charSize);
+	std::unique_ptr<Text> createNewText(Font& font, std::string textString, Vector2f position, float charSize, TextOrigin txtOrigin = TextOrigin::TOP_LEFT);
+	std::unique_ptr<Text> createNewText(RenderWindow& window, Font& font, std::string textString, TextAlignment alignment, float charSize);
 	void setTextOrigin(TextOrigin origin, Text& text);
 
 	void setTextOffsetTop(float value) { textOffsetTop = value; };

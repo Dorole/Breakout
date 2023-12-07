@@ -149,7 +149,6 @@
     <ClCompile Include="src/main.cpp" />
     <ClCompile Include="src/XmlParser.cpp" />
     <ClCompile Include="src/ValueGetter.cpp" />
-    <ClCompile Include="src/GridData.cpp" />
     <ClCompile Include="src/UIManager.cpp" />
     <ClCompile Include="src\ImageConfig.cpp" />
     <ClCompile Include="src\MusicPlayer.cpp" />
@@ -161,6 +160,7 @@
     <ClCompile Include="src\LevelClearState.cpp" />
     <ClCompile Include="src\MainMenuState.cpp" />
     <ClCompile Include="src\PlayingState.cpp" />
+    <ClCompile Include="src\SoundPlayer.cpp" />
     <ClCompile Include="src\TextCreator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -228,20 +228,6 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="resources\textures\brick_golden.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\brick_gray.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\brick_purple.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\brick_spec_purplegolden.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
     <CopyFileToFolders Include="resources\xml files\Level_2.xml">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
@@ -275,10 +261,6 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\audio\level_1_music.wav">
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\audio\level_2_music.wav">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
@@ -366,9 +348,6 @@
     <CopyFileToFolders Include="resources\textures\frozen_lake.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\lake_mountains_reindeer.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources\textures\platform_1.png">
@@ -393,6 +372,32 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
     <CopyFileToFolders Include="resources\textures\ball_3.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\audio\level_2_music.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\marble_texture.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\red_simple.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\royalblue_simple.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="resources\textures\lilasilver_simple.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
   </ItemGroup>

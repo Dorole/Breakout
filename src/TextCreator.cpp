@@ -11,13 +11,13 @@ TextCreator::TextCreator(float topOffset, float sideOffset)
 
 }
 
-std::unique_ptr<Text> TextCreator::createNewText(RenderWindow& window, Font& font, std::string textString, TextAlignment alignment, unsigned int charSize)
+std::unique_ptr<Text> TextCreator::createNewText(RenderWindow& window, Font& font, std::string textString, TextAlignment alignment, float charSize)
 {
 	auto text = std::make_unique<Text>();
 
 	text->setFont(font);
 	text->setString(textString);
-	text->setCharacterSize(charSize);
+	text->setCharacterSize(static_cast<unsigned int>(charSize));
 
 	Vector2f textPosition;
 	switch (alignment)
@@ -32,7 +32,7 @@ std::unique_ptr<Text> TextCreator::createNewText(RenderWindow& window, Font& fon
 		break;
 	case TextAlignment::TOP_CENTER:
 		setTextOrigin(TextOrigin::TOP_CENTER, *text);
-		textPosition = Vector2f(window.getSize().x / 2, textOffsetTop);
+		textPosition = Vector2f(window.getSize().x / 2.0f, textOffsetTop);
 		break;
 	default:
 		break;
@@ -43,13 +43,13 @@ std::unique_ptr<Text> TextCreator::createNewText(RenderWindow& window, Font& fon
 	return text;
 }
 
-std::unique_ptr<Text> TextCreator::createNewText(Font& font, std::string textString, Vector2f position, unsigned int charSize, TextOrigin txtOrigin)
+std::unique_ptr<Text> TextCreator::createNewText(Font& font, std::string textString, Vector2f position, float charSize, TextOrigin txtOrigin)
 {
 	auto text = std::make_unique<Text>();
 
 	text->setFont(font);
 	text->setString(textString);
-	text->setCharacterSize(charSize);
+	text->setCharacterSize(static_cast<unsigned int>(charSize));
 	setTextOrigin(txtOrigin, *text);
 	text->setPosition(position);
 
@@ -70,7 +70,7 @@ void TextCreator::setTextOrigin(TextOrigin origin, Text& text)
 		text.setOrigin(textBounds.left + textBounds.width, 0);
 		break;
 	case TextOrigin::TOP_CENTER:
-		text.setOrigin(textBounds.width / 2, 0);
+		text.setOrigin(textBounds.width / 2.0f, 0);
 		break;
 	default:
 		break;

@@ -28,10 +28,11 @@ private:
 	std::unique_ptr<Text> gameOverText;
 	std::unique_ptr<Text> totalScoreText;
 	Color textColor = Color(0, 0, 102);
+	float gameOverTextPercentage = 20.0f;
+	float scoreTextPercentage = 10.0f;
+	float gameOverTextTopOffsetPercentage = 3.0f;
+	float verticalTextSpacingPercentage = 5.0f;
 
-	int gameOverTextSize = 100;
-	int scoreTextSize = 50;
-	int verticalTextSpacing = 50;
 	const std::string GAME_OVER_LABEL = "GAME OVER";
 	const std::string SCORE_LABEL = "TOTAL SCORE: ";
 
@@ -40,15 +41,14 @@ private:
 
 	const std::string RESTART_TEXT = "RESTART";
 	const std::string MENU_TEXT = "MENU";
-	Vector2f buttonSize{ 250, 70 };
-	int buttonTextSize = 50;
+	float buttonWidthPercentage = 25.0f;
+	float buttonHeightPercentage = 10.0f;
+	float buttonTextSizePercentage = 80.0f;
+	float buttonSpacingPercentage = 5.0f;
 	Color buttonColor = Color::White;
 	Color buttonTextColor = textColor;
-	Vector2f buttonTextOffset{ 0, 15 };
+	Vector2f buttonTextOffset{ 0, 30 };
 
-	float buttonSpacing = 50;
-	Vector2f restartButtonPosition { window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + buttonSpacing };
-	Vector2f menuButtonPosition{ window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + buttonSize.y + (buttonSpacing * 1.5f )};
 
 public:
 

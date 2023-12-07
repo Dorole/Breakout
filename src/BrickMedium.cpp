@@ -10,7 +10,10 @@ BrickMedium::BrickMedium(ValueGetter& valueGetter) : Brick(valueGetter)
 
 void BrickMedium::onHit()
 {
+	if ((cooldownTimer.getElapsedTime().asSeconds() <= coolDownDuration ) || hitPoints <= 0) return;
+
 	hitPoints--;
+	std::cout << "Medium hit: " << hitPoints << std::endl;
 
 	if (hitPoints <= 0)
 	{
@@ -18,6 +21,7 @@ void BrickMedium::onHit()
 	}
 
 	brickSound.play();
+	cooldownTimer.restart();
 };
 
 void BrickMedium::reloadBrickValues(ValueGetter& valueGetter)

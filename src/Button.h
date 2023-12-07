@@ -23,7 +23,7 @@ private:
 public:
 	Button() {}
 
-	Button(std::string txt, Vector2f size, Font& font, int fontSize, Color bgColor, Color textColor);
+	Button(std::string txt, Vector2f size, Font& font, float fontSize, Color bgColor, Color textColor);
 
 	void setButtonOutline(float outlineThickness, Color outlineColor);
 	void setButtonColor(Color color);

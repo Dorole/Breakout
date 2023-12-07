@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Level
 	Id="2"
-	RowCount="8"
-	ColumnCount="10"
-	RowSpacing="3"
-	ColumnSpacing="3"
-	GridOffsetTop="7"
+	RowCount="6"
+	ColumnCount="18"
+	RowSpacing="4"
+	ColumnSpacing="4"
+	GridOffsetTop="5"
 	BackgroundTexture="resources/textures/snowy_purple.png"
-	PlatformTexture="resources/textures/platform_2.png"
+	PlatformTexture="resources/textures/platform_1.png"
 	BallTexture="resources/textures/ball_2.png"
 	LevelMusic="resources/audio/level_2_music.wav">
 	<BrickTypes>
 		<!-- Soft Brick -->
 		<BrickType
 			Id="S"
-			Texture="resources/textures/brick_purple.png"
+			Texture="resources/textures/red_simple.png"
 			HitPoints="1"
 			HitSound="resources/audio/brickHit.wav"
 			BreakSound="resources/audio/brickDestroyed.wav"
@@ -22,7 +22,7 @@
 		<!-- Medium Brick -->
 		<BrickType
 			Id="M"
-			Texture="resources/textures/brick_golden.png"
+			Texture="resources/textures/royalblue_simple.png"
 			HitPoints="2"
 			HitSound="resources/audio/brickHit.wav"
 			BreakSound="resources/audio/hit_sound_magic.wav"
@@ -30,7 +30,7 @@
 		<!-- Hard Brick -->
 		<BrickType
 			Id="H"
-			Texture="resources/textures/brick_spec_purplegolden.png"
+			Texture="resources/textures/lilasilver_simple.png"
 			HitPoints="3"
 			HitSound="resources/audio/brickHit.wav"
 			BreakSound="resources/audio/hit_sound_magic_2.wav"
@@ -38,19 +38,17 @@
 		<!-- Impenetrable Brick -->
 		<BrickType
 			Id="I"
-			Texture="resources/textures/brick_gray.png"
+			Texture="resources/textures/marble_texture.png"
 			HitPoints="Infinite"
 			HitSound="resources/audio/hit_sound_dull.wav" />
 
 	</BrickTypes>
 	<Bricks>
-		S M _ S M S _ M S M
-		_ S M S _ S M S M _
-		S M _ S M S _ M S M
-		_ S M S _ S M S M _
-		S M _ S M S _ M S M
-		_ S M S _ S M S M _
-		S M _ S M S _ M S M
-		_ S M S _ S M S M _
+		M M M M M M M M M M M M M M M M M M
+		M _ M _ M _ M M _ _ M M _ M _ M _ M
+		_ _ M M _ S S S M M S S S _ M M _ _
+		_ _ _ _ _ M M S S S S M M _ _ _ _ _
+		_ _ _ _ _ _ _ S S S S _ _ _ _ _ _ _
+		_ _ _ _ _ _ _ _ M M _ _ _ _ _ _ _ _ 
 	</Bricks>
 </Level>

@@ -144,6 +144,11 @@ void LevelClearState::setTextElements()
 {
 	font.loadFromFile(valueGetter.getDefaultFontPath());
 
+	float levelClearTextSize = window.getSize().y * levelClearTextPercentage / 100.0f;
+	float scoreTextSize = window.getSize().y * scoreTextPercentage / 100.0f;
+	float topOffset = window.getSize().y * levelClearTopOffsetPercentage / 100.0f;
+	float verticalTextSpacing = window.getSize().y * verticalTextSpacingPercentage / 100.0f;
+
 	TextCreator textCreator(30, 0);
 	levelClearText = textCreator.createNewText(window, font, LEVEL_CLEAR_LABEL, TextAlignment::TOP_CENTER, levelClearTextSize);
 
@@ -155,6 +160,18 @@ void LevelClearState::setTextElements()
 
 void LevelClearState::setButtonElements()
 {
+	float buttonWidth = window.getSize().x * buttonWidthPercentage / 100.0f;
+	float buttonHeight = window.getSize().y * buttonHeightPercentage / 100.0f;
+	Vector2f buttonSize = Vector2f(buttonWidth, buttonHeight);
+
+	float buttonTextSize = buttonHeight * buttonTextSizePercentage / 100.0f;
+
+	float buttonSpacing = window.getSize().y * buttonSpacingPercentage / 100.0f;
+	
+	Vector2f nextButtonPosition = Vector2f(window.getSize().x / 2.0f, (window.getSize().y / 2.0f));
+	Vector2f restartButtonPosition = Vector2f(window.getSize().x / 2.0f, nextButtonPosition.y + buttonSize.y + buttonSpacing);
+	Vector2f menuButtonPosition = Vector2f(window.getSize().x / 2.0f, restartButtonPosition.y + buttonSize.y + buttonSpacing);
+	
 	nextButton = Button(NEXT_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
 	restartButton = Button(RESTART_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
 	menuButton = Button(MENU_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);

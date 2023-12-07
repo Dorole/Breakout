@@ -12,9 +12,10 @@ private:
     // ************************* PRIVATE STATE ************************
     Texture texture;
     Sprite sprite;
-    Vector2f initialPlatformPosition;
+    Vector2f initialPlatformPosition{};
     FloatRect spriteLocalBounds;
 
+    float platformBottomOffset = 40.0f;
     float platformSpeed{ 400.0f }; 
     bool windowBoundReached = false;
 

@@ -2,11 +2,11 @@
 #include <SFML/Graphics.hpp>
 #include "SoundPlayer.h"
 
-Button::Button(std::string txt, Vector2f size, Font& font, int fontSize, Color bgColor, Color textColor)
+Button::Button(std::string txt, Vector2f size, Font& font, float fontSize, Color bgColor, Color textColor)
 {
 	text.setString(txt);
 	text.setFillColor(textColor);
-	text.setCharacterSize(fontSize);
+	text.setCharacterSize(static_cast<unsigned int>(fontSize));
 	text.setFont(font);
 	text.setOrigin(text.getLocalBounds().width / 2.0f, text.getLocalBounds().height / 2.0f);
 
@@ -46,7 +46,7 @@ void Button::setButtonTransparency(AlphaChannel alphaChannel)
 		break;
 	}
 
-	Color newColor = Color(buttonColor.r, buttonColor.g, buttonColor.b, alpha);
+	Color newColor = Color(buttonColor.r, buttonColor.g, buttonColor.b, static_cast<Uint8>(alpha));
 	button.setFillColor(newColor);
 }
 

@@ -9,6 +9,14 @@
 #include "NumValueObserver.h"
 #include "SoundPlayer.h"
 
+enum class CollisionDirection
+{
+    TOP,
+    BOTTOM,
+    LEFT,
+    RIGHT
+};
+
 using namespace sf;
 
 class Ball : public GameObject
@@ -21,7 +29,7 @@ private:
     std::vector<std::vector<GridData>>& gridVector;
    
     // ************************* OBSERVERS *************************
-    std::vector<NumValueObserver*> observers;
+    std::vector<NumValueObserver*> valueObservers;
     void notifyObservers(int value);
 
     // ************************* PRIVATE STATE ************************
@@ -30,14 +38,17 @@ private:
     Vector2f initialBallPosition;
     FloatRect spriteBounds;
     Vector2u windowSize;
-    int topRenderBound;
+    float topRenderBound;
+    float deathZone;
 
-    sf::Vector2f ballVelocity{-0.5f, -0.8f}; //starting values 
-    float ballSpeed{ 500.0f };
-    int lastCollidedRow{ -1 };
-    int lastCollidedColumn{ -1 };
+    sf::Vector2f ballVelocity{ -0.2f, -1.0f}; //starting values 
+    float ballSpeed{ 450.0f };
+    std::size_t lastCollidedRow{ 1000 };
+    std::size_t lastCollidedColumn{ 1000 };
     bool shouldBounce;
     bool lostLife;
+
+    CollisionDirection collisionDirection = CollisionDirection::BOTTOM; //default collision
 
     SoundPlayer soundPlayer;
 
@@ -55,13 +66,14 @@ private:
     /// Used to make sure the same brick is not
     /// accidentally hit more than once per frame.
     /// </summary>
-    void setLastCollided(int row, int col);
+    void setLastCollided(std::size_t row, std::size_t col);
     void setLastCollidedToNull();
 
     bool checkWindowCollision();
     bool checkPlatformCollision();
-    bool checkBrickCollision();
-    void reflectOffPlatform();
+    void reflectOffPlatform();  
+    void checkBrickCollision();
+    void reflectOffBrick(FloatRect& brickBounds);
 
     // ************************* PUBLIC FUNCTIONS ************************
 public:
@@ -77,5 +89,6 @@ public:
     bool getShouldBounce() { return shouldBounce; }
 
     void attachObserver(NumValueObserver* observer);   
+    
 };
 

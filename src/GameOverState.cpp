@@ -43,6 +43,9 @@ void GameOverState::handleInput()
 		currentMode = LoadLevelMode::RESET_LEVEL;
 		nextState = State::MAIN_MENU;
 		levelLoader.setLevel(currentMode);
+
+		for (const auto& observer : stateObservers)
+			observer->onStateChanged(State::MAIN_MENU);
 	}
 }
 
@@ -85,39 +88,24 @@ void GameOverState::onValueChanged(int value, ValueType valueType)
 }
 
 void GameOverState::onLevelChanged()
-{
-	switch (currentMode)
+{	
+	if (nextState == State::PLAYING_STATE)
 	{
-	case LoadLevelMode::PROGRESS:
-		break;
-
-	case LoadLevelMode::RESET_LEVEL:
-		if (nextState == State::PLAYING_STATE)
-		{
-			for (const auto& observer : stateObservers)
-				observer->onStateChanged(State::PLAYING_STATE);
-		}
-		else
-		{
-			for (const auto& observer : stateObservers)
-				observer->onStateChanged(State::MAIN_MENU);
-		}
-		break;
-
-	case LoadLevelMode::RESET_GAME:
-		break;
-
-	default:
-		break;
+		for (const auto& observer : stateObservers)
+			observer->onStateChanged(State::PLAYING_STATE);
 	}
-	
 }
 
 void GameOverState::setTextElements()
 {
 	font.loadFromFile(valueGetter.getDefaultFontPath());
 
-	TextCreator textCreator(50, 0);
+	float gameOverTextSize = window.getSize().y * gameOverTextPercentage / 100.0f;
+	float scoreTextSize = window.getSize().y * scoreTextPercentage / 100.0f;
+	float topOffset = window.getSize().y * gameOverTextTopOffsetPercentage / 100.0f;
+	float verticalTextSpacing = window.getSize().y * verticalTextSpacingPercentage / 100.0f;
+
+	TextCreator textCreator(topOffset, 0);
 	gameOverText = textCreator.createNewText(window, font, GAME_OVER_LABEL, TextAlignment::TOP_CENTER, gameOverTextSize);
 	gameOverText->setOutlineThickness(0.1f);
 	gameOverText->setOutlineColor(Color::White);
@@ -130,6 +118,16 @@ void GameOverState::setTextElements()
 
 void GameOverState::setButtonElements()
 {
+	float buttonWidth = window.getSize().x * buttonWidthPercentage / 100.0f;
+	float buttonHeight = window.getSize().y * buttonHeightPercentage / 100.0f;
+	Vector2f buttonSize = Vector2f(buttonWidth, buttonHeight);
+
+	float buttonTextSize = buttonHeight * buttonTextSizePercentage / 100.0f;
+
+	float buttonSpacing = window.getSize().y * buttonSpacingPercentage / 100.0f;
+	Vector2f restartButtonPosition = Vector2f(window.getSize().x / 2.0f, (window.getSize().y / 2.0f));
+	Vector2f menuButtonPosition = Vector2f(window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + buttonSize.y + buttonSpacing);
+
 	restartButton = Button(RESTART_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
 	menuButton = Button(MENU_TEXT, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
 

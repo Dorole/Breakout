@@ -78,9 +78,6 @@
     <ClCompile Include="src/Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src/GridData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src/UIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -117,6 +114,9 @@
     <ClCompile Include="src\ImageConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SoundPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -137,18 +137,6 @@
     <CopyFileToFolders Include="resources\xml files\Level_1.xml">
       <Filter>Resource Files\XML</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\brick_golden.png">
-      <Filter>Resource Files\Textures</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\brick_gray.png">
-      <Filter>Resource Files\Textures</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\brick_purple.png">
-      <Filter>Resource Files\Textures</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\brick_spec_purplegolden.png">
-      <Filter>Resource Files\Textures</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="resources\xml files\Level_2.xml">
       <Filter>Resource Files\XML</Filter>
     </CopyFileToFolders>
@@ -168,9 +156,6 @@
       <Filter>Resource Files\Audio</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="resources\audio\level_1_music.wav">
-      <Filter>Resource Files\Audio</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\audio\level_2_music.wav">
       <Filter>Resource Files\Audio</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="resources\audio\level_3_music.wav">
@@ -227,9 +212,6 @@
     <CopyFileToFolders Include="resources\textures\frozen_lake.png">
       <Filter>Resource Files\Textures</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="resources\textures\lake_mountains_reindeer.png">
-      <Filter>Resource Files\Textures</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="resources\textures\platform_1.png">
       <Filter>Resource Files\Textures</Filter>
     </CopyFileToFolders>
@@ -246,6 +228,21 @@
       <Filter>Resource Files\Textures</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="resources\textures\ball_3.png">
+      <Filter>Resource Files\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\audio\level_2_music.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\marble_texture.png">
+      <Filter>Resource Files\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\red_simple.png">
+      <Filter>Resource Files\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\royalblue_simple.png">
+      <Filter>Resource Files\Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="resources\textures\lilasilver_simple.png">
       <Filter>Resource Files\Textures</Filter>
     </CopyFileToFolders>
   </ItemGroup>

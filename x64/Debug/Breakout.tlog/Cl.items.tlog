@@ -14,7 +14,6 @@ C:\Users\dorot\Desktop\C++\Breakout\src\Platform.cpp;C:\Users\dorot\Desktop\C++\
 C:\Users\dorot\Desktop\C++\Breakout\src\main.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\main.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\XmlParser.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\XmlParser.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\ValueGetter.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ValueGetter.obj
-C:\Users\dorot\Desktop\C++\Breakout\src\GridData.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\GridData.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\UIManager.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\UIManager.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\ImageConfig.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ImageConfig.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\MusicPlayer.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\MusicPlayer.obj
@@ -26,4 +25,5 @@ C:\Users\dorot\Desktop\C++\Breakout\src\GameState.cpp;C:\Users\dorot\Desktop\C++
 C:\Users\dorot\Desktop\C++\Breakout\src\LevelClearState.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\LevelClearState.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\MainMenuState.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\MainMenuState.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\PlayingState.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\PlayingState.obj
+C:\Users\dorot\Desktop\C++\Breakout\src\SoundPlayer.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\SoundPlayer.obj
 C:\Users\dorot\Desktop\C++\Breakout\src\TextCreator.cpp;C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\TextCreator.obj

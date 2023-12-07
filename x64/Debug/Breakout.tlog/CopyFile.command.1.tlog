@@ -10,14 +10,6 @@ C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\sfml-system-d-2.dll
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\sfml-window-d-2.dll
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\XML FILES\LEVEL_1.XML
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Level_1.xml
-^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\BRICK_GOLDEN.PNG
-C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\brick_golden.png
-^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\BRICK_GRAY.PNG
-C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\brick_gray.png
-^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\BRICK_PURPLE.PNG
-C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\brick_purple.png
-^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\BRICK_SPEC_PURPLEGOLDEN.PNG
-C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\brick_spec_purplegolden.png
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\XML FILES\LEVEL_2.XML
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\Level_2.xml
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\XML FILES\LEVEL_3.XML
@@ -32,8 +24,6 @@ C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\brickDestroyed.wav
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\MenuMusic.wav
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\AUDIO\LEVEL_1_MUSIC.WAV
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\level_1_music.wav
-^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\AUDIO\LEVEL_2_MUSIC.WAV
-C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\level_2_music.wav
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\AUDIO\LEVEL_3_MUSIC.WAV
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\level_3_music.wav
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\AUDIO\GAME_OVER_MUSIC.WAV
@@ -70,8 +60,6 @@ C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\snowy_purple.png
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\snowy_reindeer_green.png
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\FROZEN_LAKE.PNG
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\frozen_lake.png
-^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\LAKE_MOUNTAINS_REINDEER.PNG
-C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\lake_mountains_reindeer.png
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\PLATFORM_1.PNG
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\platform_1.png
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\PLATFORM_2.PNG
@@ -84,3 +72,13 @@ C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ball_1.png
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ball_2.png
 ^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\BALL_3.PNG
 C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\ball_3.png
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\AUDIO\LEVEL_2_MUSIC.WAV
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\level_2_music.wav
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\MARBLE_TEXTURE.PNG
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\marble_texture.png
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\RED_SIMPLE.PNG
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\red_simple.png
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\ROYALBLUE_SIMPLE.PNG
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\royalblue_simple.png
+^C:\USERS\DOROT\DESKTOP\C++\BREAKOUT\RESOURCES\TEXTURES\LILASILVER_SIMPLE.PNG
+C:\Users\dorot\Desktop\C++\Breakout\x64\Debug\lilasilver_simple.png

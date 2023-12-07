@@ -57,9 +57,8 @@ std::string ValueGetter::getXmlFilePath(std::string& fileName) const
 	return fullPath.string();
 }
 
-//consts for brick IDs!!
-ValueGetter::ValueGetter(XmlParser& parserRef, LevelLoader& levelLoaderRef)
-	: parser(parserRef), levelLoader(levelLoaderRef)
+ValueGetter::ValueGetter(LevelLoader& levelLoaderRef)
+	: parser(), levelLoader(levelLoaderRef)
 {
 	levelLoader.attachLevelObserver(this);
 	getLevelValues(0);

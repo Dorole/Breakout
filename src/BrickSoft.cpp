@@ -10,7 +10,10 @@ BrickSoft::BrickSoft(ValueGetter& valueGetter) : Brick(valueGetter)
 
 void BrickSoft::onHit()
 {
+	if (hitPoints <= 0) return;
+
 	hitPoints--;
+	std::cout << "Soft hit: " << hitPoints << std::endl;
 
 	if (hitPoints == 0)
 		brickSound.setBuffer(breakBuffer);

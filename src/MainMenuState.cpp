@@ -74,13 +74,26 @@ void MainMenuState::setTextElements()
 {
 	font.loadFromFile(valueGetter.getDefaultFontPath());
 
-	TextCreator textCreator(50, 0);
-	titleText = textCreator.createNewText(window, font, "BREAKOUT", TextAlignment::TOP_CENTER, 100);
+	float titleTextSize = window.getSize().y * titleTextSizePercentage / 100.0f;
+	float topOffset = window.getSize().y * titleTextTopOffsetPercentage / 100.0f;
+
+	TextCreator textCreator(topOffset, 0);
+	titleText = textCreator.createNewText(window, font, "BREAKOUT", TextAlignment::TOP_CENTER, titleTextSize);
 	titleText->setFillColor(titleTextColor);
 }
 
 void MainMenuState::setButtonElements()
 {
+	float buttonWidth = window.getSize().x * buttonWidthPercentage / 100.0f;
+	float buttonHeight = window.getSize().y * buttonHeightPercentage / 100.0f;
+	Vector2f buttonSize = Vector2f(buttonWidth, buttonHeight);
+
+	float buttonTextSize = buttonHeight * buttonTextSizePercentage / 100.0f;
+	
+	float buttonSpacing = window.getSize().y * buttonSpacingPercentage / 100.0f;
+	Vector2f startButtonPosition = Vector2f(window.getSize().x / 2.0f, (window.getSize().y / 2.0f));
+	Vector2f quitButtonPosition = Vector2f(window.getSize().x / 2.0f, (window.getSize().y / 2.0f) + buttonSize.y + buttonSpacing);
+
 	startButton = Button(startText, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
 	quitButton = Button(quitText, buttonSize, font, buttonTextSize, buttonColor, buttonTextColor);
 

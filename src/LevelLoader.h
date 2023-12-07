@@ -16,7 +16,7 @@ using namespace sf;
 class LevelLoader
 {
 private:
-	static std::map<int, std::string> levelsMap;
+	static std::map<std::size_t, std::string> levelsMap;
 	std::vector<std::string> fileNamesVector =
 	{
 		"Level_1",
@@ -36,7 +36,7 @@ public:
 	bool nextLevelExists();
 	void setLevel(LoadLevelMode mode);
 
-	static std::map<int, std::string> getLevelsMap() { return levelsMap; }
+	static std::map<std::size_t, std::string> getLevelsMap() { return levelsMap; }
 	std::string& getFileName(int index) { return levelsMap[index]; }
 	int getCurrentLevel() { return currentLevel; }
 

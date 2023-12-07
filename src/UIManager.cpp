@@ -38,6 +38,10 @@ void UIManager::setTextElements()
 {
 	font.loadFromFile(valueGetter.getDefaultFontPath());
 
+	float fontSize = window.getSize().y * fontSizePercentage/ 100.0f;
+	float textOffsetTop = window.getSize().y  * textOffsetTopPercentage / 100.0f;
+	float textOffsetSide = window.getSize().x * textOffsetSidePercentage / 100.0f;
+
 	textCreator = TextCreator(textOffsetTop, textOffsetSide);
 
 	auto levelText = textCreator.createNewText(window, font, "level:", TextAlignment::TOP_LEFT, fontSize);
@@ -45,11 +49,11 @@ void UIManager::setTextElements()
 	auto livesText = textCreator.createNewText(window, font, "lives:", TextAlignment::TOP_CENTER, fontSize);
 
 	Vector2f posBelowLevelText = levelText->getPosition() + Vector2f(0, levelText->getLocalBounds().height + verticalSpacing);
-	Vector2f posBelowScoreText = scoreText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing);
-	Vector2f posBelowLivesText = livesText->getPosition() + Vector2f(0, scoreText->getLocalBounds().height + verticalSpacing);
+	Vector2f posBelowLivesText = livesText->getPosition() + Vector2f(0, livesText->getLocalBounds().height + verticalSpacing);
+	adjustedScorePosition = Vector2f(scoreText->getPosition().x, scoreText->getPosition().y + scoreText->getLocalBounds().height + verticalSpacing);
 
 	levelValueText = textCreator.createNewText(font, std::to_string(valueGetter.getLevel()), posBelowLevelText, fontSize, TextOrigin::TOP_CENTER);
-	scoreValueText = textCreator.createNewText(font, std::to_string(0), posBelowScoreText, fontSize, TextOrigin::TOP_CENTER);
+	scoreValueText = textCreator.createNewText(font, std::to_string(0), adjustedScorePosition, fontSize, TextOrigin::TOP_CENTER);
 	currentLivesText = textCreator.createNewText(font, "3", posBelowLivesText, fontSize, TextOrigin::TOP_CENTER);
 
 	labelTexts.push_back(std::move(levelText));
@@ -72,6 +76,7 @@ void UIManager::onValueChanged(int value, ValueType valueType)
 	{
 	case ValueType::SCORE:
 		scoreValueText->setString(std::to_string(value));
+		scoreValueText->setPosition(adjustedScorePosition);
 		break;
 	case ValueType::LIVES:
 		currentLivesText->setString(std::to_string(value));

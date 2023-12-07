@@ -175,10 +175,6 @@ void PlayingState::onValueChanged(int value, ValueType valueType)
 		observer->onValueChanged(currentLives, ValueType::LIVES);
 }
 
-void PlayingState::setTextElements()
-{
-}
+void PlayingState::setTextElements(){}
 
-void PlayingState::setButtonElements()
-{
-}
+void PlayingState::setButtonElements(){}

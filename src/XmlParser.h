@@ -142,7 +142,7 @@ private:
 				return attribute.as_int();
 			else
 			{
-				int result = std::numeric_limits<int>::max();
+				constexpr int result = std::numeric_limits<int>::max();
 				std::cout << "Attribute value is not an int. Returning special value: " << result << std::endl;
 				return result;
 			}

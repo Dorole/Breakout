@@ -10,7 +10,7 @@
 class ValueGetter : public NumValueObserver
 {
 private:
-	XmlParser& parser;
+	XmlParser parser;
 	LevelLoader& levelLoader;
 
 	//********************************* STATIC MEMBERS *********************************
@@ -69,7 +69,7 @@ private:
 
 	//********************************* PUBLIC FUNCTIONS *********************************
 public:
-	ValueGetter(XmlParser& parserRef, LevelLoader& levelLoaderRef);
+	ValueGetter(LevelLoader& levelLoaderRef);
 
 	//should probably make all these const!
 	static int getRowCount() { return rowCount; }
