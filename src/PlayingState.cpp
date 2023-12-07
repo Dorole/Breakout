@@ -63,9 +63,6 @@ void PlayingState::handleInput()
 	if (Mouse::isButtonPressed(Mouse::Left)) 
 		startGame();
 
-	if (Mouse::isButtonPressed(Mouse::Right)) //DEBUG ONLY
-		restartGame();
-
 	uiManager->handleInput();
 
 }

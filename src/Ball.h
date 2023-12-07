@@ -42,7 +42,7 @@ private:
     float deathZone;
 
     sf::Vector2f ballVelocity{ -0.2f, -1.0f}; //starting values 
-    float ballSpeed{ 450.0f };
+    float ballSpeed{ 500.0f };
     std::size_t lastCollidedRow{ 1000 };
     std::size_t lastCollidedColumn{ 1000 };
     bool shouldBounce;
