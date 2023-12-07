@@ -76,6 +76,7 @@ void UIManager::onValueChanged(int value, ValueType valueType)
 	{
 	case ValueType::SCORE:
 		scoreValueText->setString(std::to_string(value));
+		textCreator.setTextOrigin(TextOrigin::TOP_CENTER, *scoreValueText);
 		scoreValueText->setPosition(adjustedScorePosition);
 		break;
 	case ValueType::LIVES:
