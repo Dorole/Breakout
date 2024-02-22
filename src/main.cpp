@@ -50,4 +50,5 @@ int main()
 		window.display();
 		window.clear();
 	}
+
 }

@@ -75,4 +75,28 @@ void Platform::draw()
     window.draw(sprite);
 }
 
+//Vector2f Platform::getInitialPosition() const
+//{
+//    return initialPlatformPosition;
+//}
+//
+//Vector2f Platform::getPosition() const
+//{
+//    return sprite.getPosition();
+//}
+//
+//bool Platform::getWindowBoundReached() const
+//{
+//    return windowBoundReached;
+//}
+//
+//FloatRect Platform::getLocalBounds() const
+//{
+//    return spriteLocalBounds;
+//}
+//
+//FloatRect Platform::getGlobalBounds() const
+//{
+//    return sprite.getGlobalBounds();
+//}
 

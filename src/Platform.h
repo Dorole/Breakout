@@ -2,10 +2,11 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "ValueGetter.h"
+//#include "PlayerController.h"
 
 using namespace sf;
 
-class Platform : public GameObject
+class Platform : public GameObject//, public PlayerController
 {
 private:
 
@@ -39,6 +40,14 @@ public:
     FloatRect getPlatformLocalBounds() { return spriteLocalBounds; }
     FloatRect getPlatformGlobalBounds() { return sprite.getGlobalBounds(); }
     bool platformWindowBoundReached() { return windowBoundReached; } 
+
+
+    // Inherited via PlayerController
+    //Vector2f getInitialPosition() const override;
+    //Vector2f getPosition() const override;
+    //bool getWindowBoundReached() const override;
+    //FloatRect getLocalBounds() const override;
+    //FloatRect getGlobalBounds() const override;
 
 };
 

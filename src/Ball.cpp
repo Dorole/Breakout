@@ -8,15 +8,17 @@
 #include "Platform.h"
 #include "BrickGrid.h"
 #include "SoundPlayer.h"
+#include "PlayerController.h"
 
 using namespace sf;
 
-Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGrid& gridRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
-    : GameObject(windowRef, valueGetterRef), platform(platformRef), grid(gridRef), gridVector(gridDataVectorRef)
+Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
+    : GameObject(windowRef, valueGetterRef), grid(gridRef), platform(platformRef), gridVector(gridDataVectorRef)
 {
     valueGetter.attachLevelDataObserver(this);
     init();
 }
+
 
 void Ball::init()
 {
@@ -25,7 +27,7 @@ void Ball::init()
     sprite.setScale(0.35f, 0.35f); 
     windowSize = window.getSize();
     topRenderBound = grid.getGridOffset();
-    deathZone = platform.getPlatformPosition().y + platform.getPlatformLocalBounds().height;
+    deathZone = platform.getPlatformPosition().y + platform.getPlatformLocalBounds().height; //set elsewhere!
 
     shouldBounce = false;
     lostLife = false;
@@ -289,4 +291,9 @@ void Ball::notifyObservers(int value)
     for (const auto& observer : valueObservers)
         observer->onValueChanged(value, ValueType::LIVES);
 }
+
+//void Ball::setPlayerController(std::shared_ptr<PlayerController> controller)
+//{
+//    playerController = controller;
+//}
 

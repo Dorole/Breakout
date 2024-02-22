@@ -9,6 +9,8 @@
 #include "NumValueObserver.h"
 #include "SoundPlayer.h"
 
+//#include "PlayerController.h"
+
 enum class CollisionDirection
 {
     TOP,
@@ -26,6 +28,7 @@ private:
     // ************************* REFERENCES *************************
     BrickGrid& grid;
     Platform& platform;
+    //std::shared_ptr<PlayerController> playerController;
     std::vector<std::vector<GridData>>& gridVector;
    
     // ************************* OBSERVERS *************************
@@ -77,7 +80,7 @@ private:
 
     // ************************* PUBLIC FUNCTIONS ************************
 public:
-    Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, Platform& platformRef, BrickGrid& gridRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
+    Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
 
     // inherited via GameObject
     void init() override;
@@ -89,6 +92,7 @@ public:
     bool getShouldBounce() { return shouldBounce; }
 
     void attachObserver(NumValueObserver* observer);   
+    //void setPlayerController(std::shared_ptr<PlayerController> controller);
     
 };
 

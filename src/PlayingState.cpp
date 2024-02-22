@@ -27,13 +27,13 @@ void PlayingState::init()
 	//Create objects
 	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid, grid.getGridDataVector());
 	auto platform = std::make_unique<Platform>(window, valueGetter);
-	auto ball = std::make_unique<Ball>(window, valueGetter, *platform, grid, grid.getGridDataVector());
+	auto ball = std::make_unique<Ball>(window, valueGetter, grid, *platform, grid.getGridDataVector());
 
 	ball->attachObserver(this);
 
 	gameObjects.push_back(std::move(gridVisual));
 	gameObjects.push_back(std::move(platform));
-	gameObjects.push_back(std::move(ball));	
+	gameObjects.push_back(std::move(ball));
 
 	uiManager = std::make_unique<UIManager>(window, valueGetter);
 	attachValueObserver(uiManager.get());
