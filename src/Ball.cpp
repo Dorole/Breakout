@@ -12,8 +12,14 @@
 
 using namespace sf;
 
+//consider: storing window, valueGetter, grid, gridDataVector in a dedicated manager - objects could take in only that manager as a ctr param 
+//and retrieve other members from there instead of having to take in each object separately in the ctr
 Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
-    : GameObject(windowRef, valueGetterRef), grid(gridRef), platform(platformRef), gridVector(gridDataVectorRef)
+    : GameObject(windowRef, valueGetterRef), 
+    grid(gridRef), 
+    platform(platformRef), 
+    gridVector(gridDataVectorRef), 
+    ballMovement(windowRef, platformRef)
 {
     valueGetter.attachLevelDataObserver(this);
     init();
@@ -33,10 +39,12 @@ void Ball::init()
     lostLife = false;
 
     setSpriteOriginToCenter();
-    setInitialBallPosition();
+    resetBallPosition();
     getSpriteBounds();
 
     soundPlayer.setBuffer(SoundType::BALL_HIT);
+
+    
 }
 
 void Ball::setSpriteOriginToCenter()
@@ -50,26 +58,10 @@ void Ball::getSpriteBounds()
     spriteBounds = sprite.getLocalBounds();
 }
 
-void Ball::setInitialBallPosition()
+void Ball::resetBallPosition() 
 {
-    initialBallPosition = Vector2f(platform.getInitialPlatformPosition().x, platform.getInitialPlatformPosition().y - platform.getPlatformLocalBounds().height + 5.0f);
-    sprite.setPosition(initialBallPosition);
-}
-
-void Ball::moveIdle(float deltaTime)
-{
-    Vector2i localMousePosition = Mouse::getPosition(window);
-    Vector2f currentPosition = sprite.getPosition();
-    Vector2f targetPosition;
-
-    if (!platform.platformWindowBoundReached()) {
-        targetPosition = Vector2f(localMousePosition.x - currentPosition.x, 0);
-    }
-    else {
-       targetPosition = Vector2f(platform.getPlatformPosition().x - currentPosition.x, 0);
-    }
-
-    sprite.move(targetPosition * deltaTime * ballSpeed);
+    ballMovement.resetPosition();
+    sprite.setPosition(ballMovement.getBallPosition());
 }
 
 void Ball::toggleBounce()
@@ -82,58 +74,29 @@ bool Ball::checkWindowCollision()
     FloatRect globalBallBounds = sprite.getGlobalBounds();
     bool collided = false;
 
-    //top
-    if (globalBallBounds.top < topRenderBound)
-    {
-        ballVelocity.y = std::abs(ballVelocity.y);       
-        collided = true;
-       
-    }
-
-    //bottom
-    if (globalBallBounds.top + globalBallBounds.height > deathZone)
-    {
-        if (!lostLife)
-        {
-            notifyObservers(1);
-            lostLife = true;              
-        }
-    }
-    else
-    {
-        lostLife = false;
-    }
-
-    //left
-    if (globalBallBounds.left < 0)
-    {
-        ballVelocity.x = std::abs(ballVelocity.x);
-        collided = true;
-    }
-
-    //right
-    if (globalBallBounds.left + globalBallBounds.width > windowSize.x)
-    {
-        ballVelocity.x = -std::abs(ballVelocity.x);
-        collided = true;
-    }
-
-    if (collided)
+    if (ballMovement.handleWindowCollision(globalBallBounds, topRenderBound))
     {
         soundPlayer.playSoundRandomPitch(SoundType::BALL_HIT);
-        setLastCollidedToNull();
+        setLastCollidedToNull(); //??
         return true;
     }
 
-    if (lostLife)
+    return false;
+}
+
+bool Ball::checkBallLife()
+{
+    FloatRect globalBallBounds = sprite.getGlobalBounds();
+
+    if (ballMovement.ballMovedBelowPlatform(globalBallBounds))
     {
+		notifyObservers(1);
         soundPlayer.playSoundRandomPitch(SoundType::BALL_RESET);
         setLastCollidedToNull();
         return true;
     }
 
     return false;
-
 }
 
 bool Ball::checkPlatformCollision()
@@ -143,6 +106,7 @@ bool Ball::checkPlatformCollision()
         reflectOffPlatform();
         soundPlayer.playSoundRandomPitch(SoundType::BALL_HIT);
         setLastCollidedToNull();
+
         return true;
     }
 
@@ -257,20 +221,22 @@ void Ball::update(float deltaTime)
 {
     if (!shouldBounce)
     {
-        moveIdle(deltaTime);
+        ballMovement.updatePosition(sprite.getPosition());
+        sprite.move(ballMovement.moveBallAbovePlatform() * deltaTime);
     }
     else
     {
         checkBrickCollision();
         checkWindowCollision();
+        checkBallLife();
         checkPlatformCollision();
         
-        sprite.move(ballVelocity * ballSpeed * deltaTime);
+        sprite.move(ballMovement.moveBall() * deltaTime);
         
         if (grid.allBricksDestroyed()) 
         {
             shouldBounce = false;
-            setInitialBallPosition();
+            resetBallPosition();
         }
     }
 }

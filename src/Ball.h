@@ -8,6 +8,7 @@
 #include "BrickGrid.h"
 #include "NumValueObserver.h"
 #include "SoundPlayer.h"
+#include "BallMovement.h"
 
 //#include "PlayerController.h"
 
@@ -36,6 +37,8 @@ private:
     void notifyObservers(int value);
 
     // ************************* PRIVATE STATE ************************
+    BallMovement ballMovement;
+    
     Texture texture;
     Sprite sprite; 
     Vector2f initialBallPosition;
@@ -60,12 +63,6 @@ private:
     void getSpriteBounds();
   
     /// <summary>
-    /// Moves the ball relative to the mouse position 
-    /// and relative to the platform position before the game starts.
-    /// </summary>
-    void moveIdle(float deltaTime);
-
-    /// <summary>
     /// Used to make sure the same brick is not
     /// accidentally hit more than once per frame.
     /// </summary>
@@ -73,6 +70,7 @@ private:
     void setLastCollidedToNull();
 
     bool checkWindowCollision();
+    bool checkBallLife();
     bool checkPlatformCollision();
     void reflectOffPlatform();  
     void checkBrickCollision();
@@ -87,7 +85,7 @@ public:
     void update(float deltaTime) override;
     void draw() override;
 
-    void setInitialBallPosition();
+    void resetBallPosition();
     void toggleBounce();
     bool getShouldBounce() { return shouldBounce; }
 
@@ -95,4 +93,6 @@ public:
     //void setPlayerController(std::shared_ptr<PlayerController> controller);
     
 };
+
+
 

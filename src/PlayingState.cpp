@@ -125,7 +125,7 @@ void PlayingState::restartGame()
 	auto ball = static_cast<Ball*>(gameObjects[2].get());
 	if (ball->getShouldBounce())
 		ball->toggleBounce();
-	ball->setInitialBallPosition();
+	ball->resetBallPosition();
 }
 
 
