@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="../pugixml-1.14/src/pugixml.cpp" />
+    <ClCompile Include="src/Collidable.cpp" />
     <ClCompile Include="src/BallMovement.cpp" />
     <ClCompile Include="src/PlayerController.cpp" />
     <ClCompile Include="src/Ball.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="src/PlayingState.cpp" />
     <ClCompile Include="src/SoundPlayer.cpp" />
     <ClCompile Include="src/TextCreator.cpp" />
+    <ClCompile Include="src\GameStateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -181,6 +183,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../pugixml-1.14/src/pugixml.hpp" />
+    <ClInclude Include="src/Collidable.h" />
+    <ClInclude Include="src/PlatformCollisionEvent.h" />
     <ClInclude Include="src/BallMovement.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -219,6 +223,13 @@
     <ClInclude Include="src/SoundPlayer.h" />
     <ClInclude Include="src/StateObserver.h" />
     <ClInclude Include="src/TextCreator.h" />
+    <ClInclude Include="src\CollidableObjectType.h" />
+    <ClInclude Include="src\CollidablesMap.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="src\CollisionManager.h" />
+    <ClInclude Include="src\GameStateManager.h" />
+    <ClInclude Include="src\Quadrant.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources/xml files/Level_1.xml">

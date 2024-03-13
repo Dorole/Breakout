@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Platform.h"
+#include "Game.h"
 
 using namespace sf;
 
@@ -24,7 +25,7 @@ private:
 	void updatePositionAbovePlatform();
 
 public:
-	BallMovement(RenderWindow& windowRef, Platform& platformRef);
+	BallMovement(Game& game, Platform& platformRef);
 
 	void resetPosition();
 	void updatePosition(const sf::Vector2f& newPosition);

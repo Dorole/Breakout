@@ -3,6 +3,7 @@
 #include <functional>
 #include <SFML/Graphics.hpp>
 
+#include "Game.h"
 #include "GameState.h"
 #include "TextCreator.h"
 #include "MusicPlayer.h"
@@ -10,8 +11,8 @@
 #include "StateObserver.h"
 #include "Button.h"
 
-MainMenuState::MainMenuState(sf::RenderWindow& windowRef, ValueGetter& valueGetter, MusicPlayer& audioPlayerRef)
-	: GameState(windowRef, valueGetter, audioPlayerRef)
+MainMenuState::MainMenuState(Game& game)
+	: GameState(game)
 {
 	init();
 }

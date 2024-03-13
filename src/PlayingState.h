@@ -3,6 +3,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+#include "Game.h"
 #include "GameState.h"
 #include "ValueGetter.h"
 #include "MusicPlayer.h"
@@ -12,12 +13,13 @@
 #include "UIManager.h"
 #include "NumValueObserver.h"
 #include "StateObserver.h"
+//#include "Collidable.h"
 
 class PlayingState : public GameState, public BrickObserver, public NumValueObserver
 {
 private:
 
-	BrickGrid& grid;
+;	BrickGrid& grid;
 	std::unique_ptr<UIManager> uiManager;
 
 	std::vector<std::unique_ptr<GameObject>> gameObjects;
@@ -36,9 +38,9 @@ private:
 	void updateLives(int amount);
 
 public:
-	PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef, BrickGrid& gridRef);
+	PlayingState(Game& game);
 
-	void init();
+	void init(Game& game);
 
 	// Inherited via GameState
 	virtual void onStateEnter() override;
@@ -56,6 +58,8 @@ public:
 
 	// Inherited via NumValueObserver
 	void onValueChanged(int value, ValueType valueType) override;
+
+	//void getCollidables(std::vector<Collidable*>& collidables);
 
 };
 

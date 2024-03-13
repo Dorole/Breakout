@@ -123,6 +123,12 @@
     <ClCompile Include="src/PlayerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src/Collidable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameStateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -227,9 +233,6 @@
     <CopyFileToFolders Include="resources/audio/reset.wav">
       <Filter>Resource Files\Audio</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="resources/fonts/Cartoon Blocks Christmas.otf">
-      <Filter>Resource Files\Fonts</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\sfml-audio-2.dll">
       <Filter>Resource Files\SFML</Filter>
     </CopyFileToFolders>
@@ -251,6 +254,11 @@
     <CopyFileToFolders Include="resources/xml files/Level_3.xml">
       <Filter>Resource Files\XML</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="$(SolutionDir)resources/fonts/Cartoon Blocks Christmas.otf" />
+    <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\sfml-audio-d-2.dll" />
+    <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\sfml-graphics-d-2.dll" />
+    <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\sfml-system-d-2.dll" />
+    <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\sfml-window-d-2.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src/Platform.h">
@@ -352,10 +360,31 @@
     <ClInclude Include="src/PlayerController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
+    <ClInclude Include="src/Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ValueGetter.h">
+    <ClInclude Include="src/ValueGetter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src/Collidable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src/PlatformCollisionEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quadrant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollidablesMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollidableObjectType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameStateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

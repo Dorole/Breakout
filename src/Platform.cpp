@@ -2,12 +2,13 @@
 #include <SFML/Window.hpp>
 #include "Platform.h"
 #include "GameObject.h"
+#include "Game.h"
 #include "ValueGetter.h"
 
 using namespace sf;
 
-Platform::Platform(RenderWindow& windowRef, ValueGetter& valueGetterRef)
-    : GameObject(windowRef, valueGetterRef)
+Platform::Platform(Game& game)
+    : GameObject(game)//, Collidable(collidableType)
 {   
     valueGetter.attachLevelDataObserver(this);
     init();
@@ -75,28 +76,9 @@ void Platform::draw()
     window.draw(sprite);
 }
 
-//Vector2f Platform::getInitialPosition() const
+//void Platform::onCollision()
 //{
-//    return initialPlatformPosition;
+//    std::cout << "Ball collided with platform" << std::endl;
 //}
-//
-//Vector2f Platform::getPosition() const
-//{
-//    return sprite.getPosition();
-//}
-//
-//bool Platform::getWindowBoundReached() const
-//{
-//    return windowBoundReached;
-//}
-//
-//FloatRect Platform::getLocalBounds() const
-//{
-//    return spriteLocalBounds;
-//}
-//
-//FloatRect Platform::getGlobalBounds() const
-//{
-//    return sprite.getGlobalBounds();
-//}
+
 

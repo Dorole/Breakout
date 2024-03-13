@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject(RenderWindow& windowRef, ValueGetter& valueGetterRef)
-	:window(windowRef), valueGetter(valueGetterRef)
+GameObject::GameObject(Game& game)
+	:window(game.getWindow()), valueGetter(game.getValueGetter())
 {
 }
 

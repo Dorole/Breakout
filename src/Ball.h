@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "GameObject.h"
+#include "Game.h"
 #include "ValueGetter.h"
 #include "Platform.h"
 #include "BrickGrid.h"
@@ -61,6 +62,7 @@ private:
     // ************************* PRIVATE FUNCTIONS ************************
     void setSpriteOriginToCenter();
     void getSpriteBounds();
+    
   
     /// <summary>
     /// Used to make sure the same brick is not
@@ -78,7 +80,7 @@ private:
 
     // ************************* PUBLIC FUNCTIONS ************************
 public:
-    Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
+    Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
 
     // inherited via GameObject
     void init() override;
@@ -92,6 +94,7 @@ public:
     void attachObserver(NumValueObserver* observer);   
     //void setPlayerController(std::shared_ptr<PlayerController> controller);
     
+    FloatRect getBallSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
 };
 
 

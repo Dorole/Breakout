@@ -13,21 +13,22 @@
 #include "Platform.h"
 #include "Ball.h"
 #include "NumValueObserver.h"
+//#include "CollisionManager.h"
 
 
-PlayingState::PlayingState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef, BrickGrid& gridRef)
-	: GameState(windowRef, valueGetterRef, audioPlayerRef), grid(gridRef)
+PlayingState::PlayingState(Game& game)
+	: GameState(game), grid(game.getGrid())
 {
 	grid.attachObserver(this);
-	init();
+	init(game);
 }
 
-void PlayingState::init()
+void PlayingState::init(Game& game)
 {
 	//Create objects
-	auto gridVisual = std::make_unique<BrickGridVisual>(window, valueGetter, grid, grid.getGridDataVector());
-	auto platform = std::make_unique<Platform>(window, valueGetter);
-	auto ball = std::make_unique<Ball>(window, valueGetter, grid, *platform, grid.getGridDataVector());
+	auto gridVisual = std::make_unique<BrickGridVisual>(game, grid.getGridDataVector());
+	auto platform = std::make_unique<Platform>(game);
+	auto ball = std::make_unique<Ball>(game, *platform, grid.getGridDataVector());
 
 	ball->attachObserver(this);
 
@@ -54,8 +55,6 @@ void PlayingState::onStateEnter()
 	}
 
 	audioPlayer.loadPlayMusic(AudioType::LEVEL_MUSIC);
-
-	std::cout << "Entered level" << std::endl;
 }
 
 void PlayingState::handleInput()
@@ -175,3 +174,15 @@ void PlayingState::onValueChanged(int value, ValueType valueType)
 void PlayingState::setTextElements(){}
 
 void PlayingState::setButtonElements(){}
+
+//void PlayingState::getCollidables(std::vector<Collidable*>& collidables)
+//{
+//	for (const auto& gameObjectPtr : gameObjects)
+//	{
+//		Platform* platformPtr = dynamic_cast<Platform*>(gameObjectPtr.get());
+//		if (platformPtr)
+//		{
+//			collidables.push_back(platformPtr);
+//		}
+//	}
+//}

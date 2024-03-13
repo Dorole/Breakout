@@ -3,7 +3,8 @@
 #include "ValueGetter.h"
 
 
-BrickHard::BrickHard(ValueGetter& valueGetter) : Brick(valueGetter)
+BrickHard::BrickHard(ValueGetter& valueGetter)
+	: Brick(valueGetter)
 {
     createBrick(valueGetter.getBrickValuesById("H"));
 }

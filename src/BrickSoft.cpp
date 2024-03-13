@@ -3,7 +3,7 @@
 #include "ValueGetter.h"
 #include <SFML/Audio.hpp>
 
-BrickSoft::BrickSoft(ValueGetter& valueGetter) : Brick(valueGetter) 
+BrickSoft::BrickSoft(ValueGetter& valueGetter) : Brick(valueGetter)
 {
     createBrick(valueGetter.getBrickValuesById("S"));
 }

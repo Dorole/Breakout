@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Game.h"
 #include "GameState.h"
 #include "ValueGetter.h"
 #include "MusicPlayer.h"
@@ -52,7 +53,7 @@ private:
 
 public:
 
-	GameOverState(RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef, LevelLoader& levelLoaderRef);
+	GameOverState(Game& game);
 
 	void init();
 

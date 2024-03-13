@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Game.h"
 #include "GameState.h"
 #include "ValueGetter.h"
 #include "MusicPlayer.h"
@@ -37,7 +38,7 @@ private:
 
 public:
 
-	MainMenuState(RenderWindow& windowRef, ValueGetter& valueGetter, MusicPlayer& audioPlayerRef);
+	MainMenuState(Game& game);
 
 	void init();
 

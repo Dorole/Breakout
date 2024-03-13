@@ -1,20 +1,26 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
+#include "Game.h"
 #include "ValueGetter.h"
-//#include "PlayerController.h"
+#include "CollidableObjectType.h"
+//#include "Collidable.h"
+
 
 using namespace sf;
 
-class Platform : public GameObject//, public PlayerController
+class Platform : public GameObject//, public Collidable 
 {
 private:
 
     // ************************* PRIVATE STATE ************************
+    //CollisionManager& collisionManager;
+
     Texture texture;
     Sprite sprite;
     Vector2f initialPlatformPosition{};
     FloatRect spriteLocalBounds;
+    CollidableObjectType collidableType = CollidableObjectType::PLATFORM;
 
     float platformBottomOffset = 40.0f;
     float platformSpeed{ 400.0f }; 
@@ -28,7 +34,7 @@ private:
 
     // ************************* PUBLIC FUNCTIONS ************************
 public:
-    Platform(RenderWindow& windowRef, ValueGetter& valueGetterRef);
+    Platform(Game& game);
 
     // inherited via GameObject
     void init() override;
@@ -41,13 +47,8 @@ public:
     FloatRect getPlatformGlobalBounds() { return sprite.getGlobalBounds(); }
     bool platformWindowBoundReached() { return windowBoundReached; } 
 
-
-    // Inherited via PlayerController
-    //Vector2f getInitialPosition() const override;
-    //Vector2f getPosition() const override;
-    //bool getWindowBoundReached() const override;
-    //FloatRect getLocalBounds() const override;
-    //FloatRect getGlobalBounds() const override;
-
+    //Inherited via Collidable
+    //void onCollision() override;
+    //const Sprite& getSprite() const override { return sprite; }
 };
 

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "GameObject.h"
+#include "Game.h"
 #include "ValueGetter.h"
 #include "BrickGrid.h"
 #include "GridData.h"
@@ -41,7 +42,7 @@ private:
 	// ************************* PUBLIC FUNCTIONS ************************
 public:
 
-	BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& brickGridRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
+	BrickGridVisual(Game& game, std::vector<std::vector<GridData>>& gridDataVectorRef);
 
 	// inherited via GameObject
 	void init() override;

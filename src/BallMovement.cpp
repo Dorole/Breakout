@@ -1,8 +1,9 @@
 #include "BallMovement.h"
+#include "Game.h"
 #include <iostream>
 
-BallMovement::BallMovement(RenderWindow& windowRef, Platform& platformRef)
-    : window(windowRef), platform(platformRef)
+BallMovement::BallMovement(Game& game, Platform& platformRef)
+    : window(game.getWindow()), platform(platformRef)
 {
     deathZone = platform.getPlatformPosition().y + platform.getPlatformLocalBounds().height; //set elsewhere (maybe get from platform)?
     windowSize = window.getSize();

@@ -3,13 +3,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameState.h"
+#include "Game.h"
 #include "TextCreator.h"
 #include "MusicPlayer.h"
 #include "LevelLoader.h"
 #include "Button.h"
 
-LevelClearState::LevelClearState(RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef, LevelLoader& levelLoaderRef)
-	: GameState(windowRef, valueGetterRef, audioPlayerRef), levelLoader(levelLoaderRef)
+LevelClearState::LevelClearState(Game& game)
+	: GameState(game), levelLoader(game.getLevelLoader())
 {
 	valueGetter.attachLevelDataObserver(this);
 	init();

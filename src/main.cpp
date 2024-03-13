@@ -8,9 +8,13 @@
 #include "Game.h"
 #include "BrickGrid.h"
 #include "BrickPool.h"
+#include "GameStateManager.h"
 
 int main()
 {
+	//Game je trenutno dosta useless - vidi sto s tim
+	//ovo sve sibni u jedan class tipa GameManager i od tamo pozovi
+
 	LevelLoader levelLoader;
 	ValueGetter valueGetter(levelLoader);
 	MusicPlayer audioPlayer(valueGetter);
@@ -27,6 +31,7 @@ int main()
 	);
 
 	Game game(window, valueGetter, grid, levelLoader, audioPlayer);
+	GameStateManager gameStateManager(game);
 	
 	sf::Clock clock;
 	float deltaTime;
@@ -41,11 +46,11 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			game.handleInput();
+			gameStateManager.handleInput();
 		}
 
-		game.update(deltaTime);
-		game.draw();
+		gameStateManager.update(deltaTime);
+		gameStateManager.draw();
 
 		window.display();
 		window.clear();

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Game.h"
 #include "ValueGetter.h"
 #include "MusicPlayer.h"
 #include "NumValueObserver.h"
@@ -12,6 +13,7 @@ private:
 	void baseInit();
 
 protected:
+	//const Game& game;
 	sf::RenderWindow& window;
 	ValueGetter& valueGetter;
 	MusicPlayer& audioPlayer;
@@ -23,7 +25,7 @@ protected:
 	void setBackground(std::string texturePath);
 
 public:
-	GameState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef);
+	GameState(Game& gameRef);
 	
 	virtual void onStateEnter() = 0;
 	virtual void handleInput() = 0;

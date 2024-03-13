@@ -4,6 +4,7 @@
 
 #include "Ball.h"
 #include "GameObject.h"
+#include "Game.h"
 #include "ValueGetter.h"
 #include "Platform.h"
 #include "BrickGrid.h"
@@ -12,14 +13,13 @@
 
 using namespace sf;
 
-//consider: storing window, valueGetter, grid, gridDataVector in a dedicated manager - objects could take in only that manager as a ctr param 
-//and retrieve other members from there instead of having to take in each object separately in the ctr
-Ball::Ball(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
-    : GameObject(windowRef, valueGetterRef), 
-    grid(gridRef), 
+//mozda napraviti platform i ball u Game?
+Ball::Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
+    : GameObject(game), 
+    grid(game.getGrid()), 
     platform(platformRef), 
     gridVector(gridDataVectorRef), 
-    ballMovement(windowRef, platformRef)
+    ballMovement(game, platformRef)
 {
     valueGetter.attachLevelDataObserver(this);
     init();

@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "GameState.h"
+#include "Game.h"
 #include "ValueGetter.h"
 #include "MusicPlayer.h"
 
-GameState::GameState(sf::RenderWindow& windowRef, ValueGetter& valueGetterRef, MusicPlayer& audioPlayerRef)
-	: window(windowRef), valueGetter(valueGetterRef), audioPlayer(audioPlayerRef)
+GameState::GameState(Game& gameRef)
+	: window(gameRef.getWindow()), valueGetter(gameRef.getValueGetter()), audioPlayer(gameRef.getMusicPlayer())
 {
 	baseInit();
 }

@@ -4,10 +4,11 @@
 #include <cmath>
 #include "BrickGridVisual.h"
 #include "GameObject.h"
+#include "Game.h"
 #include "GridData.h"
 
-BrickGridVisual::BrickGridVisual(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& brickGridRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
-	: GameObject(windowRef, valueGetterRef), grid(brickGridRef), gridDataVector(gridDataVectorRef)
+BrickGridVisual::BrickGridVisual(Game& game, std::vector<std::vector<GridData>>& gridDataVectorRef)
+	: GameObject(game), grid(game.getGrid()), gridDataVector(gridDataVectorRef)
 {
 	valueGetter.attachLevelDataObserver(this);
 	init();
