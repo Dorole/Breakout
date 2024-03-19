@@ -1,21 +1,25 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "CollidablesMap.h"
+#include <vector>
+#include <iostream>
 #include "Collidable.h"
+#include "CollidableObjectType.h"
 
 class CollisionManager
 {
 private:
-	RenderWindow& window;
-	CollidablesMap colMap;
+
+	std::unique_ptr<Collidable> ballCollidable;
+	std::vector<std::unique_ptr<Collidable>> collidables;
 
 public:
-	CollisionManager(RenderWindow& windowRef)
-		: window(windowRef)
-	{};
+	CollisionManager() {};
 
-	//void addCollidableToCollisionMap(std::unique_ptr<Collidable> collidable)
-	//{
-	//	colMap.addCollidableToVector(std::move(collidable));
-	//}
+	void update()
+	{
+		
+	}
+	
+	void registerBallCollidable(std::unique_ptr<Collidable> ballCollidable);
+	void addCollidable(std::unique_ptr<Collidable> collidable);
+
 };

@@ -31,7 +31,7 @@ public:
 	void updatePosition(const sf::Vector2f& newPosition);
 
 	sf::Vector2f getInitialBallPosition() { return initialPosition; }
-	sf::Vector2f getBallPosition() { return currentPosition; }
+	sf::Vector2f getBallPosition() { return currentPosition; } //mozda salji preko Ball?
 
 	//TEMP
 	sf::Vector2f getBallVelocity() { return ballVelocity; }

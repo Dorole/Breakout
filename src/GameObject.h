@@ -12,7 +12,7 @@ class GameObject : public LevelDataObserver
 protected:
 	RenderWindow& window;
 	ValueGetter& valueGetter;
-	//BrickGrid& grid; nema veze sto ne ide u platform, stavi tu?
+	//BrickGrid& grid; nema veze sto ne ide u platform, stavi tu? <optional>?
 
 public:
 	GameObject(Game& game);
@@ -23,6 +23,5 @@ public:
 
 	// Inherited via LevelDataObserver
 	virtual void onLevelChanged() override;
-
 };
 

@@ -9,6 +9,7 @@
 #include "BrickGrid.h"
 #include "BrickPool.h"
 #include "GameStateManager.h"
+#include "CollisionManager.h"
 
 int main()
 {
@@ -30,7 +31,9 @@ int main()
 		(desktop.height - window.getSize().y) / 2
 	);
 
-	Game game(window, valueGetter, grid, levelLoader, audioPlayer);
+	CollisionManager collisionManager;
+
+	Game game(window, valueGetter, grid, levelLoader, audioPlayer, collisionManager);
 	GameStateManager gameStateManager(game);
 	
 	sf::Clock clock;

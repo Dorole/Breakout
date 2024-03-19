@@ -129,6 +129,9 @@
     <ClCompile Include="src\GameStateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -372,7 +375,7 @@
     <ClInclude Include="src/PlatformCollisionEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Quadrant.h">
+    <ClInclude Include="src\SpritePosition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CollidablesMap.h">

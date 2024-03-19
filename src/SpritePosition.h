@@ -1,6 +1,6 @@
 #pragma once
 
-enum class Quadrant
+enum class SpritePosition
 {
 	TOP_LEFT,
 	TOP_RIGHT,

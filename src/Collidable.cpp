@@ -1,16 +1,22 @@
 #include "Collidable.h"
+#include <iostream>
 
-Collidable::Collidable(CollidableObjectType collidableType) 
-	: objectType(collidableType)
+Collidable::Collidable(Sprite& spriteRef, CollidableObjectType objectTypeInit)
+	: sprite(spriteRef), objectType(objectTypeInit)
 {
+	if (objectType == CollidableObjectType::BALL)
+		std::cout << "Coll Obj Type BALL" << std::endl;
+
+	if (objectType == CollidableObjectType::PLATFORM)
+		std::cout << "Coll Obj Type PLATFORM" << std::endl;
 }
 
-bool Collidable::checkCollision(Ball& ball)
+void Collidable::setCollidableObjectType(CollidableObjectType type)
 {
-	return getSprite().getGlobalBounds().intersects(ball.getBallSpriteGlobalBounds());
+	objectType = type;
 }
 
-void Collidable::setQuadrant(Quadrant q)
+void Collidable::setSpritePosition(SpritePosition pos)
 {
-	quadrant = q;
+	spritePosition = pos;
 }

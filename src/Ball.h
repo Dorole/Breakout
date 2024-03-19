@@ -10,6 +10,9 @@
 #include "NumValueObserver.h"
 #include "SoundPlayer.h"
 #include "BallMovement.h"
+#include "Collidable.h"
+#include "CollidableObjectType.h"
+#include "CollisionManager.h"
 
 //#include "PlayerController.h"
 
@@ -32,6 +35,7 @@ private:
     Platform& platform;
     //std::shared_ptr<PlayerController> playerController;
     std::vector<std::vector<GridData>>& gridVector;
+    CollisionManager& collisionManager;
    
     // ************************* OBSERVERS *************************
     std::vector<NumValueObserver*> valueObservers;
@@ -47,6 +51,9 @@ private:
     Vector2u windowSize;
     float topRenderBound;
     float deathZone;
+
+    //Move to BallCollision or something
+    Collidable collidable;
 
     sf::Vector2f ballVelocity{ -0.2f, -1.0f}; //starting values 
     float ballSpeed{ 500.0f };

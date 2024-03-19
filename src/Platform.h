@@ -1,15 +1,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
+#include "Collidable.h"
 #include "Game.h"
 #include "ValueGetter.h"
 #include "CollidableObjectType.h"
-//#include "Collidable.h"
+#include "CollisionManager.h"
 
 
 using namespace sf;
 
-class Platform : public GameObject//, public Collidable 
+class Platform : public GameObject
 {
 private:
 
@@ -20,7 +21,9 @@ private:
     Sprite sprite;
     Vector2f initialPlatformPosition{};
     FloatRect spriteLocalBounds;
-    CollidableObjectType collidableType = CollidableObjectType::PLATFORM;
+
+    Collidable collidable;
+    CollisionManager& collisionManager;
 
     float platformBottomOffset = 40.0f;
     float platformSpeed{ 400.0f }; 
@@ -46,9 +49,5 @@ public:
     FloatRect getPlatformLocalBounds() { return spriteLocalBounds; }
     FloatRect getPlatformGlobalBounds() { return sprite.getGlobalBounds(); }
     bool platformWindowBoundReached() { return windowBoundReached; } 
-
-    //Inherited via Collidable
-    //void onCollision() override;
-    //const Sprite& getSprite() const override { return sprite; }
 };
 

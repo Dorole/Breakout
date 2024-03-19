@@ -1,7 +1,7 @@
 #pragma once
+#include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Ball.h"
-#include "Quadrant.h"
+#include "SpritePosition.h"
 #include "CollidableObjectType.h"
 
 
@@ -11,19 +11,31 @@ class Collidable
 {
 private:
 	CollidableObjectType objectType = CollidableObjectType::BRICK;
-	Quadrant quadrant = Quadrant::TOP_LEFT;
+	SpritePosition spritePosition = SpritePosition::TOP_LEFT;
+
+	Sprite& sprite;
+	Vector2f position;
 
 public:
+	Collidable(Sprite& spriteRef, CollidableObjectType objectTypeInit);
 
-	Collidable(CollidableObjectType collidableType);
-
-	virtual void onCollision() = 0;
-	virtual const Sprite& getSprite() const = 0;
-
-	bool checkCollision(Ball& ball);
+	void setCollidableObjectType(CollidableObjectType type);
 	CollidableObjectType getCollidableObjectType() { return objectType; }
-	void setQuadrant(Quadrant q);
-	Quadrant getQuadrant() { return quadrant; }
 
+	const Sprite& getSprite() const { return sprite; }
+
+	void setSpritePosition(SpritePosition pos);
+	SpritePosition getSpritePosition() { return spritePosition; }
+
+	Vector2f getGlobalSpritePosition() { return sprite.getPosition(); }
+	FloatRect getSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
+
+	//void checkSprite(Sprite& _sprite)
+	//{
+	//	if (sprite.getTexture() == _sprite.getTexture())
+	//		std::cout << "Textures match" << std::endl;
+	//	else
+	//		std::cout << "No textures match" << std::endl;
+	//}
 };
 

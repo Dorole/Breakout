@@ -1,17 +1,16 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 #include "Platform.h"
-#include "GameObject.h"
-#include "Game.h"
-#include "ValueGetter.h"
+#include <SFML/Window.hpp>
 
 using namespace sf;
 
 Platform::Platform(Game& game)
-    : GameObject(game)//, Collidable(collidableType)
+    : GameObject(game), collidable(sprite, CollidableObjectType::PLATFORM),
+    collisionManager(game.getCollisionManager())
 {   
     valueGetter.attachLevelDataObserver(this);
     init();
+
+    collisionManager.addCollidable(std::make_unique<Collidable>(collidable));
 }
 
 void Platform::init()
@@ -75,10 +74,5 @@ void Platform::draw()
 {
     window.draw(sprite);
 }
-
-//void Platform::onCollision()
-//{
-//    std::cout << "Ball collided with platform" << std::endl;
-//}
 
 

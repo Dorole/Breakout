@@ -2,7 +2,8 @@
 
 enum class CollidableObjectType
 {
-	BRICK,
-	PLATFORM
+	BALL,
+	PLATFORM,
+	BRICK
 };
 

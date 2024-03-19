@@ -13,7 +13,6 @@
 #include "Platform.h"
 #include "Ball.h"
 #include "NumValueObserver.h"
-//#include "CollisionManager.h"
 
 
 PlayingState::PlayingState(Game& game)

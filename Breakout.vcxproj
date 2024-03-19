@@ -172,6 +172,7 @@
     <ClCompile Include="src/PlayingState.cpp" />
     <ClCompile Include="src/SoundPlayer.cpp" />
     <ClCompile Include="src/TextCreator.cpp" />
+    <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -229,7 +230,7 @@
     </ClInclude>
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\GameStateManager.h" />
-    <ClInclude Include="src\Quadrant.h" />
+    <ClInclude Include="src\SpritePosition.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources/xml files/Level_1.xml">

@@ -13,7 +13,6 @@
 #include "UIManager.h"
 #include "NumValueObserver.h"
 #include "StateObserver.h"
-//#include "Collidable.h"
 
 class PlayingState : public GameState, public BrickObserver, public NumValueObserver
 {
@@ -58,8 +57,5 @@ public:
 
 	// Inherited via NumValueObserver
 	void onValueChanged(int value, ValueType valueType) override;
-
-	//void getCollidables(std::vector<Collidable*>& collidables);
-
 };
 

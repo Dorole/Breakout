@@ -19,10 +19,14 @@ Ball::Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>
     grid(game.getGrid()), 
     platform(platformRef), 
     gridVector(gridDataVectorRef), 
-    ballMovement(game, platformRef)
+    ballMovement(game, platformRef),
+    collidable(sprite, CollidableObjectType::BALL),
+    collisionManager(game.getCollisionManager())
 {
     valueGetter.attachLevelDataObserver(this);
     init();
+
+    collisionManager.registerBallCollidable(std::make_unique<Collidable>(collidable)); //move to collision or something
 }
 
 
