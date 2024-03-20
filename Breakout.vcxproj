@@ -172,6 +172,7 @@
     <ClCompile Include="src/PlayingState.cpp" />
     <ClCompile Include="src/SoundPlayer.cpp" />
     <ClCompile Include="src/TextCreator.cpp" />
+    <ClCompile Include="src\CollidablesMap.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
   </ItemGroup>
@@ -224,6 +225,7 @@
     <ClInclude Include="src/SoundPlayer.h" />
     <ClInclude Include="src/StateObserver.h" />
     <ClInclude Include="src/TextCreator.h" />
+    <ClInclude Include="src\BallCollision.h" />
     <ClInclude Include="src\CollidableObjectType.h" />
     <ClInclude Include="src\CollidablesMap.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

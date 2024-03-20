@@ -4,6 +4,7 @@
 #include <vector>
 #include "BrickTypeValues.h"
 #include "ValueGetter.h"
+#include "Collidable.h"
 
 
 using namespace sf;
@@ -19,6 +20,7 @@ protected:
 	int hitPoints = 0;
 	int breakScore = 0;
 
+	Collidable collidable;
 	SoundBuffer hitBuffer;
 	SoundBuffer breakBuffer;
 	Sound brickSound;
@@ -47,6 +49,6 @@ public:
 
 	bool shouldDestroy() { return hitPoints == 0; }
 
-	
+	Collidable& getCollidable() { return collidable; }
 };
 

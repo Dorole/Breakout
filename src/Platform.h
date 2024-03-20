@@ -5,8 +5,6 @@
 #include "Game.h"
 #include "ValueGetter.h"
 #include "CollidableObjectType.h"
-#include "CollisionManager.h"
-
 
 using namespace sf;
 
@@ -23,7 +21,6 @@ private:
     FloatRect spriteLocalBounds;
 
     Collidable collidable;
-    CollisionManager& collisionManager;
 
     float platformBottomOffset = 40.0f;
     float platformSpeed{ 400.0f }; 
@@ -43,6 +40,7 @@ public:
     void init() override;
     void update(float deltaTime) override;
     void draw() override;
+    void registerForCollision() override;
 
     Vector2f getInitialPlatformPosition() { return initialPlatformPosition; }
     Vector2f getPlatformPosition() { return sprite.getPosition(); }

@@ -4,13 +4,12 @@
 using namespace sf;
 
 Platform::Platform(Game& game)
-    : GameObject(game), collidable(sprite, CollidableObjectType::PLATFORM),
-    collisionManager(game.getCollisionManager())
+    : GameObject(game), collidable(sprite, CollidableObjectType::PLATFORM)
 {   
     valueGetter.attachLevelDataObserver(this);
     init();
 
-    collisionManager.addCollidable(std::make_unique<Collidable>(collidable));
+    registerForCollision();
 }
 
 void Platform::init()
@@ -75,4 +74,8 @@ void Platform::draw()
     window.draw(sprite);
 }
 
+void Platform::registerForCollision()
+{
+    collisionManager.addCollidable(std::make_unique<Collidable>(collidable));
+}
 

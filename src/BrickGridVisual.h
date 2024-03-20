@@ -38,6 +38,7 @@ private:
 	/// </summary>
 	float getLeftRenderBorder();
 
+	void registerBrickCollidables();
 
 	// ************************* PUBLIC FUNCTIONS ************************
 public:
@@ -48,5 +49,6 @@ public:
 	void init() override;
 	void update(float deltaTime) override;
 	void draw() override;
+	void registerForCollision() override;
 };
 

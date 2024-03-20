@@ -2,9 +2,11 @@
 #include "Brick.h"
 #include "ValueGetter.h"
 
-Brick::Brick() {}
+Brick::Brick() 
+	: collidable(sprite, CollidableObjectType::BRICK) {}
 
-Brick::Brick(ValueGetter& valueGetter) {}
+Brick::Brick(ValueGetter& valueGetter) 
+	: collidable(sprite, CollidableObjectType::BRICK) {}
 
 void Brick::createBrick(BrickTypeValues values)
 {

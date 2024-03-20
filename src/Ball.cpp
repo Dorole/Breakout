@@ -20,13 +20,11 @@ Ball::Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>
     platform(platformRef), 
     gridVector(gridDataVectorRef), 
     ballMovement(game, platformRef),
-    collidable(sprite, CollidableObjectType::BALL),
-    collisionManager(game.getCollisionManager())
+    collidable(sprite, CollidableObjectType::BALL)
 {
     valueGetter.attachLevelDataObserver(this);
     init();
-
-    collisionManager.registerBallCollidable(std::make_unique<Collidable>(collidable)); //move to collision or something
+    registerForCollision();
 }
 
 
@@ -49,6 +47,12 @@ void Ball::init()
     soundPlayer.setBuffer(SoundType::BALL_HIT);
 
     
+}
+
+void Ball::registerForCollision()
+{
+    //move to collision or something
+    collisionManager.registerBallCollidable(std::make_unique<Collidable>(collidable));
 }
 
 void Ball::setSpriteOriginToCenter()

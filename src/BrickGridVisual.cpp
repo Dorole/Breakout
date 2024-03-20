@@ -13,6 +13,7 @@ BrickGridVisual::BrickGridVisual(Game& game, std::vector<std::vector<GridData>>&
 	valueGetter.attachLevelDataObserver(this);
 	init();
 
+	registerForCollision();
 }
 
 void BrickGridVisual::init()
@@ -64,5 +65,20 @@ float BrickGridVisual::getLeftRenderBorder()
 	return std::max(leftOffset, 0.0f);
 }
 
+void BrickGridVisual::registerBrickCollidables()
+{
+	for (size_t row = 0; row < rowCount; row++)
+	{
+		for (size_t column = 0; column < columnCount; column++)
+		{
+			collisionManager.addCollidable(std::make_unique<Collidable>(gridDataVector[row][column].getCollidable()));
+		}
+	}
+}
+
+void BrickGridVisual::registerForCollision()
+{
+	registerBrickCollidables();
+}
 
 

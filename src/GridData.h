@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Brick.h"
-
+#include "Collidable.h"
 
 struct GridData
 {
@@ -37,6 +37,11 @@ struct GridData
 	std::string getBrickId()
 	{
 		return brickData->getBrickId();
+	}
+
+	Collidable& getCollidable()
+	{
+		return brickData->getCollidable();
 	}
 
 	~GridData() {};

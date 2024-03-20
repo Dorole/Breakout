@@ -12,7 +12,6 @@
 #include "BallMovement.h"
 #include "Collidable.h"
 #include "CollidableObjectType.h"
-#include "CollisionManager.h"
 
 //#include "PlayerController.h"
 
@@ -35,7 +34,6 @@ private:
     Platform& platform;
     //std::shared_ptr<PlayerController> playerController;
     std::vector<std::vector<GridData>>& gridVector;
-    CollisionManager& collisionManager;
    
     // ************************* OBSERVERS *************************
     std::vector<NumValueObserver*> valueObservers;
@@ -93,6 +91,7 @@ public:
     void init() override;
     void update(float deltaTime) override;
     void draw() override;
+    void registerForCollision() override;
 
     void resetBallPosition();
     void toggleBounce();

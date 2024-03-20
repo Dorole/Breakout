@@ -61,8 +61,6 @@ GridData BrickPool::createGridData(std::string id)
 		gridData.brickData = std::make_shared<BrickHard>(valueGetter);
 	else if (id == "I")
 		gridData.brickData = std::make_shared<BrickImpenetrable>(valueGetter);
-	//else
-	//	gridData.brickData = std::make_shared<BrickImpenetrable>(valueGetter); //PLACEHOLDER
 
 	gridData.shouldRender = false;
 	gridData.canDestroy = id != "I";

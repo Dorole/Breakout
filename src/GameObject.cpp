@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 GameObject::GameObject(Game& game)
-	:window(game.getWindow()), valueGetter(game.getValueGetter())
+	:window(game.getWindow()), valueGetter(game.getValueGetter()), collisionManager(game.getCollisionManager())
 {
 }
 
