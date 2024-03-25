@@ -13,10 +13,5 @@ void CollisionManager::registerBallCollidable(std::unique_ptr<Collidable> ballCo
 
 void CollisionManager::addCollidable(std::unique_ptr<Collidable> collidable)
 {
-	//CollidablesMap map(window);
-	//map.mapCollidablePosition(*collidable);
-
 	collidables.push_back(std::move(collidable));
-	std::cout << "Collidables vector elements: " << collidables.size() << std::endl;
-
 }

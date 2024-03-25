@@ -45,6 +45,8 @@ public:
 
 	BrickGridVisual(Game& game, std::vector<std::vector<GridData>>& gridDataVectorRef);
 
+	void setBrickSpritePositions();
+
 	// inherited via GameObject
 	void init() override;
 	void update(float deltaTime) override;

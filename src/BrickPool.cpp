@@ -117,9 +117,12 @@ void BrickPool::refreshPool()
 		for (GridData& gridData : dataVec)
 			gridData.brickData->reloadBrickValues(valueGetter);
 	}
+
+	std::cout << "Pool refreshed" << std::endl;
 }
 
 void BrickPool::onLevelChanged()
 {
+	std::cout << "Refresh pool" << std::endl;
 	refreshPool();
 }

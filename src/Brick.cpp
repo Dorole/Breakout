@@ -3,10 +3,12 @@
 #include "ValueGetter.h"
 
 Brick::Brick() 
-	: collidable(sprite, CollidableObjectType::BRICK) {}
+	: collidable(sprite, CollidableObjectType::BRICK) 
+{}
 
 Brick::Brick(ValueGetter& valueGetter) 
-	: collidable(sprite, CollidableObjectType::BRICK) {}
+	: collidable(sprite, CollidableObjectType::BRICK) 
+{}
 
 void Brick::createBrick(BrickTypeValues values)
 {

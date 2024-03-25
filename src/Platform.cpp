@@ -5,7 +5,7 @@ using namespace sf;
 
 Platform::Platform(Game& game)
     : GameObject(game), collidable(sprite, CollidableObjectType::PLATFORM)
-{   
+{  
     valueGetter.attachLevelDataObserver(this);
     init();
 

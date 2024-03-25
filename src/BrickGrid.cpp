@@ -22,7 +22,7 @@ void BrickGrid::init()
 
 	setBrickSchemeVector();
 	setGridDataVector();
-}
+ }
 
 void BrickGrid::setBrickSchemeVector()
 {

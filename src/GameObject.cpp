@@ -8,4 +8,6 @@ GameObject::GameObject(Game& game)
 void GameObject::onLevelChanged()
 {
 	init();
+	//pazi ovo se zove istovremeno kad i tipa grid init() - problem ako se ovo pozove prije grida
+	//potencijalno makni ovo i pozovi u PlayingState onStateEnter da bude ziher
 }

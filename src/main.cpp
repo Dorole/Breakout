@@ -28,6 +28,7 @@ int main()
 	ValueGetter valueGetter(levelLoader);
 	CollisionManager collisionManager(window);
 	MusicPlayer audioPlayer(valueGetter);
+	
 	BrickPool brickPool(valueGetter);
 	BrickGrid grid(valueGetter, brickPool);
 

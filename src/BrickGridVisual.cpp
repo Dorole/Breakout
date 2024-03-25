@@ -28,11 +28,11 @@ void BrickGridVisual::init()
 	std::cout << "left grid offset: " << leftGridOffset << std::endl;
 
 	grid.setGridOffset(getTopRenderBorder());
+
+	setBrickSpritePositions();
 }
 
-void BrickGridVisual::update(float deltaTime) { }
-
-void BrickGridVisual::draw()
+void BrickGridVisual::setBrickSpritePositions()
 {
 	for (size_t row = 0; row < rowCount; row++)
 	{
@@ -40,11 +40,24 @@ void BrickGridVisual::draw()
 		{
 			if (!gridDataVector[row][column].shouldRender) continue;
 
-			gridDataVector[row][column].setSpritePosition(
-				Vector2f(
-				(column + leftGridOffset) * (gridDataVector[row][column].getBrickSpriteBounds().width + columnSpacing),
-				(row + topGridOffset) * (gridDataVector[row][column].getBrickSpriteBounds().height + rowSpacing)));
-				
+			gridDataVector[row][column].setSpritePosition(Vector2f(
+					(column + leftGridOffset) * (gridDataVector[row][column].getBrickSpriteBounds().width + columnSpacing),
+					(row + topGridOffset) * (gridDataVector[row][column].getBrickSpriteBounds().height + rowSpacing)));
+		}
+	}
+}
+
+void BrickGridVisual::update(float deltaTime) { }
+
+void BrickGridVisual::draw()
+{
+	if (gridDataVector.size() < 1) return;
+
+	for (size_t row = 0; row < rowCount; row++)
+	{
+		for (size_t column = 0; column < columnCount; column++)
+		{
+			if (!gridDataVector[row][column].shouldRender) continue;
 			window.draw(gridDataVector[row][column].getBrickSprite());
 		}
 	}
@@ -71,6 +84,8 @@ void BrickGridVisual::registerBrickCollidables()
 	{
 		for (size_t column = 0; column < columnCount; column++)
 		{
+			if (!gridDataVector[row][column].shouldRender) continue;
+
 			collisionManager.addCollidable(std::make_unique<Collidable>(gridDataVector[row][column].getCollidable()));
 		}
 	}

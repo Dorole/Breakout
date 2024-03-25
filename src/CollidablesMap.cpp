@@ -2,17 +2,6 @@
 
 CollidablesMap::CollidablesMap(RenderWindow& window)
 {
-	//auto vec = getRelevantAreas(SpritePosition::TOP_LEFT);
-	//std::cout << "Relevant areas for TOP_LEFT size" << vec.size() << std::endl;
-
-	//for (int i = 0; i < vec.size(); i++)
-	//{
-	//	if (vec[i] == SpritePosition::CENTRE)
-	//		std::cout << "Position " << i << "is CENTRE" << std::endl;
-	//	else
-	//		std::cout << "Position " << i << "is not CENTRE" << std::endl;
-	//}
-
 	calculateMidPoints(window);
 }
 
@@ -66,7 +55,7 @@ std::vector<SpritePosition> CollidablesMap::getRelevantAreas(SpritePosition main
 void CollidablesMap::setCollidablePosition(Collidable& collidable)
 {
 	FloatRect spriteBounds = collidable.getSpriteGlobalBounds();
-	SpritePosition position;
+	SpritePosition position { SpritePosition::TOP_LEFT };
 
 	if (spriteBounds.top < midY && (spriteBounds.top + spriteBounds.height) < midY)
 	{

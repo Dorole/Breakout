@@ -233,6 +233,7 @@
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\GameStateManager.h" />
     <ClInclude Include="src\SpritePosition.h" />
+    <ClInclude Include="src\EnumToStringConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources/xml files/Level_1.xml">

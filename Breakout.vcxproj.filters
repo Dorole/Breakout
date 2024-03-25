@@ -396,5 +396,8 @@
     <ClInclude Include="src\BallCollision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\EnumToStringConverter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

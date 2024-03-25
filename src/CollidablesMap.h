@@ -16,69 +16,70 @@ private:
 	float midX{ 0 };
 	float midY{ 0 }; 
 	
+	std::unordered_map<SpritePosition, std::vector<Collidable>> collidablesMap; 
 	void calculateMidPoints(RenderWindow& window);
 	void setCollidablePosition(Collidable& collidable);
+
+	void mapCollidable(Collidable& collidable, SpritePosition pos)
+	{
+		//check if key exists
+		//check if vector init, if not - init? or init right away?
+		auto& vec = collidablesMap[pos];
+		vec.push_back(collidable);
+	}
+
+
 
 public:
 	CollidablesMap(RenderWindow& window);
 
-//	std::unordered_map<Quadrant, std::vector<std::unique_ptr<Collidable>>> collidablesMap;
 
 	std::vector<SpritePosition> getRelevantAreas(SpritePosition mainQuadrant);
 
-	void mapCollidablePosition(Collidable& collidable)
+	//pozvati iz collisionManagera
+	//postavlja poziciju
+	void mapCollidablePosition(Collidable& collidable) //promijeni naziv funkcije
 	{
 		if (collidable.getCollidableObjectType() == CollidableObjectType::PLATFORM)
-			collidable.setSpritePosition(SpritePosition::BOTTOM_CENTRE);
+		{
+			SpritePosition platformPos = SpritePosition::BOTTOM_CENTRE;
+			collidable.setSpritePosition(platformPos);
+		}
 		else
+		{
 			setCollidablePosition(collidable);
+		}
+		
+		mapCollidable(collidable, collidable.getSpritePosition());
 	}
 
+	//za ball
+	SpritePosition getCurrentPosition(Collidable& collidable)
+	{
+		Vector2f globalSpritePosition = collidable.getGlobalSpritePosition();
+		SpritePosition position{ SpritePosition::TOP_LEFT };
 
-//
-//	void fillMap()
-//	{
-//		for (auto it = collidablesVector.begin(); it != collidablesVector.end(); ++it)
-//		{
-//			std::unique_ptr<Collidable>& collidable = *it;
-//
-//			Quadrant quadrant = collidable->getQuadrant();
-//
-//			std::vector<std::unique_ptr<Collidable>>& quadrantVector = collidablesMap[quadrant];
-//			quadrantVector.emplace_back(std::move(collidable));
-//
-//			it = collidablesVector.erase(it);
-//		}
-//	}
-//
-//public:
-//
-//	void init(RenderWindow& window)
-//	{
-//		setQuadrants(window);
-//		fillMap();
-//	}
-//
-//	void addCollidableToVector(std::unique_ptr<Collidable> collidable)
-//	{
-//		collidablesVector.push_back(collidable);
-//	}
-//
-//	void checkCollision(Ball& ball, Quadrant quadrant)
-//	{
-//		std::vector<Quadrant> relevantQuadrants = getRelevantQuadrants(quadrant);
-//
-//		for (const Quadrant& q : relevantQuadrants)
-//		{
-//			for (const auto& collidable : collidablesMap[q])
-//			{
-//				if (collidable->checkCollision(ball))
-//				{
-//					collidable->onCollision();
-//					return;
-//				}
-//			}
-//		}
-//	}
+		if (globalSpritePosition.x < midX)
+		{
+			if (globalSpritePosition.y < midY)
+				position = SpritePosition::TOP_LEFT;
+			else if (globalSpritePosition.y > midY)
+				position = SpritePosition::BOTTOM_LEFT;
+		}
+		else if (globalSpritePosition.x > midX)
+		{
+			if (globalSpritePosition.y < midY)
+				position = SpritePosition::TOP_RIGHT;
+			else if (globalSpritePosition.y > midY)
+				position = SpritePosition::BOTTOM_RIGHT;
+		}
+
+		return position;
+	}
+
+	std::unordered_map<SpritePosition, std::vector<Collidable>>& getMappedCollidables()
+	{
+		return collidablesMap;
+	}
 
 };

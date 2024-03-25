@@ -29,13 +29,5 @@ public:
 
 	Vector2f getGlobalSpritePosition() { return sprite.getPosition(); }
 	FloatRect getSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
-
-	//void checkSprite(Sprite& _sprite)
-	//{
-	//	if (sprite.getTexture() == _sprite.getTexture())
-	//		std::cout << "Textures match" << std::endl;
-	//	else
-	//		std::cout << "No textures match" << std::endl;
-	//}
 };
 

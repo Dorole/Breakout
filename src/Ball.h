@@ -100,7 +100,7 @@ public:
     void attachObserver(NumValueObserver* observer);   
     //void setPlayerController(std::shared_ptr<PlayerController> controller);
     
-    FloatRect getBallSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
+    FloatRect getBallSpriteGlobalBounds() { return sprite.getGlobalBounds(); } //u biti ne treba ovo? jer dohvaca preko Collidable
 };
 
 

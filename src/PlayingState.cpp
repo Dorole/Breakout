@@ -16,7 +16,7 @@
 
 
 PlayingState::PlayingState(Game& game)
-	: GameState(game), grid(game.getGrid())
+	: GameState(game), grid(game.getGrid()), colMan(game.getCollisionManager())
 {
 	grid.attachObserver(this);
 	init(game);
@@ -54,6 +54,8 @@ void PlayingState::onStateEnter()
 	}
 
 	audioPlayer.loadPlayMusic(AudioType::LEVEL_MUSIC);
+
+	colMan.mapCollidables();
 }
 
 void PlayingState::handleInput()
@@ -62,7 +64,6 @@ void PlayingState::handleInput()
 		startGame();
 
 	uiManager->handleInput();
-
 }
 
 void PlayingState::update(float deltaTime)
@@ -84,6 +85,7 @@ void PlayingState::update(float deltaTime)
 			observer->onStateChanged(State::LEVEL_CLEAR);
 	}
 
+	colMan.update();
 	uiManager->update();
 }
 
@@ -174,14 +176,3 @@ void PlayingState::setTextElements(){}
 
 void PlayingState::setButtonElements(){}
 
-//void PlayingState::getCollidables(std::vector<Collidable*>& collidables)
-//{
-//	for (const auto& gameObjectPtr : gameObjects)
-//	{
-//		Platform* platformPtr = dynamic_cast<Platform*>(gameObjectPtr.get());
-//		if (platformPtr)
-//		{
-//			collidables.push_back(platformPtr);
-//		}
-//	}
-//}

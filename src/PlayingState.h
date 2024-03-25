@@ -13,12 +13,14 @@
 #include "UIManager.h"
 #include "NumValueObserver.h"
 #include "StateObserver.h"
+#include "CollisionManager.h"
 
 class PlayingState : public GameState, public BrickObserver, public NumValueObserver
 {
 private:
 
-;	BrickGrid& grid;
+	BrickGrid& grid;
+	CollisionManager& colMan;
 	std::unique_ptr<UIManager> uiManager;
 
 	std::vector<std::unique_ptr<GameObject>> gameObjects;
