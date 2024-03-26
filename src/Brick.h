@@ -5,11 +5,12 @@
 #include "BrickTypeValues.h"
 #include "ValueGetter.h"
 #include "Collidable.h"
-
+#include "CollisionObserver.h"
+#include "CollisionManager.h"
 
 using namespace sf;
 
-class Brick 
+class Brick : public CollisionObserver
 {
 protected:
 
@@ -50,5 +51,9 @@ public:
 	bool shouldDestroy() { return hitPoints == 0; }
 
 	Collidable& getCollidable() { return collidable; }
+
+	// Inherited via CollisionObserver
+	virtual void onCollision(Collidable& collidedObject) override;
+	void observeCollision(CollisionManager& collisionManager);
 };
 

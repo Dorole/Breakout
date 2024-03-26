@@ -12,6 +12,7 @@
 #include "BallMovement.h"
 #include "Collidable.h"
 #include "CollidableObjectType.h"
+#include "CollisionObserver.h"
 
 //#include "PlayerController.h"
 
@@ -25,7 +26,7 @@ enum class CollisionDirection
 
 using namespace sf;
 
-class Ball : public GameObject
+class Ball : public GameObject, public CollisionObserver
 {
 private: 
 
@@ -81,7 +82,7 @@ private:
     bool checkPlatformCollision();
     void reflectOffPlatform();  
     void checkBrickCollision();
-    void reflectOffBrick(FloatRect& brickBounds);
+    void reflectOffBrick(FloatRect brickBounds);
 
     // ************************* PUBLIC FUNCTIONS ************************
 public:
@@ -100,7 +101,11 @@ public:
     void attachObserver(NumValueObserver* observer);   
     //void setPlayerController(std::shared_ptr<PlayerController> controller);
     
-    FloatRect getBallSpriteGlobalBounds() { return sprite.getGlobalBounds(); } //u biti ne treba ovo? jer dohvaca preko Collidable
+    //u biti ne treba ovo? jer dohvaca preko Collidable
+    FloatRect getBallSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
+   
+    // Inherited via CollisionObserver
+    virtual void onCollision(Collidable& collidedObject) override;
 };
 
 

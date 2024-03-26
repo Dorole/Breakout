@@ -35,6 +35,10 @@ public:
 
 	//TEMP
 	sf::Vector2f getBallVelocity() { return ballVelocity; }
+	void adjustBallVelocity(sf::Vector2f val) {
+		ballVelocity = val;
+	} //END TEMP
+
 	float getBallSpeed() { return ballSpeed; }
 
 	/// <summary>

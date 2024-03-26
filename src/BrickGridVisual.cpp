@@ -14,6 +14,7 @@ BrickGridVisual::BrickGridVisual(Game& game, std::vector<std::vector<GridData>>&
 	init();
 
 	registerForCollision();
+	attachCollisionObservers(); //mozda bi se trebalo svaki put u initu? a colMan da ocisti vector?
 }
 
 void BrickGridVisual::init()
@@ -94,6 +95,19 @@ void BrickGridVisual::registerBrickCollidables()
 void BrickGridVisual::registerForCollision()
 {
 	registerBrickCollidables();
+}
+
+void BrickGridVisual::attachCollisionObservers()
+{
+	for (size_t row = 0; row < rowCount; row++)
+	{
+		for (size_t column = 0; column < columnCount; column++)
+		{
+			if (!gridDataVector[row][column].shouldRender) continue;
+
+			gridDataVector[row][column].attachCollisionObserver(collisionManager);
+		}
+	}
 }
 
 

@@ -5,6 +5,8 @@
 #include "Collidable.h"
 #include "CollidableObjectType.h"
 #include "CollidablesMap.h"
+#include "CollisionObserver.h"
+
 #include "EnumToStringConverter.h"
 
 class CollisionManager
@@ -18,14 +20,24 @@ private:
 	std::unique_ptr<Collidable> ballCollidable;
 	std::vector<std::unique_ptr<Collidable>> collidables;
 
+	std::vector<CollisionObserver*> collisionObservers;
+
 	bool checkForCollision(Collidable& collidable)
 	{
 		return ballCollidable->getSpriteGlobalBounds().intersects(collidable.getSpriteGlobalBounds());
 	}
 
+	void notifyCollisionObservers(Collidable& collidable)
+	{
+		for (const auto& observer : collisionObservers)
+			observer->onCollision(collidable);
+	}
+
+
 public:
 	CollisionManager(RenderWindow& windowRef) : window(windowRef), collidablesMap(windowRef)
-	{		
+	{	
+
 	};
 
 	void update()
@@ -41,10 +53,8 @@ public:
 			{
 				if (checkForCollision(mappedCollidables.at(i)))
 				{
-					//check if colType is Platform -> call one thing
-					//if colType is Brick -> call other thing
-					
-					
+					notifyCollisionObservers(mappedCollidables.at(i));
+										
 					//std::string collidableEnumName = enumConverter.spritePositionToString((mappedCollidables.at(i).getSpritePosition()));
 					//std::string zoneEnumName = enumConverter.spritePositionToString(position);
 
@@ -69,5 +79,10 @@ public:
 			//std::string collidableEnumName = enumConverter.spritePositionToString(collidable->getSpritePosition());
 			//std::cout << "Collidable " << collidableTypeName << " mapped to " << collidableEnumName << std::endl;
 		}
+	}
+
+	void attachCollisionObserver(CollisionObserver* observer)
+	{
+		collisionObservers.push_back(observer);
 	}
 };

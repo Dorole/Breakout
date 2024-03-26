@@ -38,7 +38,10 @@ private:
 	/// </summary>
 	float getLeftRenderBorder();
 
+	//zapravo bi ovo trebao BrickGrid sve handlati ili sam Brick,
+	//ovaj je samo za crtanje
 	void registerBrickCollidables();
+	void attachCollisionObservers();
 
 	// ************************* PUBLIC FUNCTIONS ************************
 public:

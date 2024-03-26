@@ -231,6 +231,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\CollisionManager.h" />
+    <ClInclude Include="src\CollisionObserver.h" />
     <ClInclude Include="src\GameStateManager.h" />
     <ClInclude Include="src\SpritePosition.h" />
     <ClInclude Include="src\EnumToStringConverter.h" />

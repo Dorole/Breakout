@@ -33,3 +33,19 @@ int Brick::getBreakScore() const
 { 
 	return breakScore; 
 }
+
+void Brick::onCollision(Collidable& collidedObject)
+{
+	if (collidedObject.getCollidableObjectType() == CollidableObjectType::BRICK
+		&& collidedObject.getSpriteGlobalBounds() == sprite.getGlobalBounds())
+	{
+		onHit();
+	}
+
+}
+
+void Brick::observeCollision(CollisionManager& collisionManager)
+{
+	collisionManager.attachCollisionObserver(this);
+}
+

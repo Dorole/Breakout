@@ -1,7 +1,7 @@
 #include "Collidable.h"
 #include <iostream>
 
-Collidable::Collidable(Sprite& spriteRef, CollidableObjectType objectTypeInit)
+Collidable::Collidable(sf::Sprite& spriteRef, CollidableObjectType objectTypeInit)
 	: sprite(spriteRef), objectType(objectTypeInit)
 {
 	//if (objectType == CollidableObjectType::BALL)

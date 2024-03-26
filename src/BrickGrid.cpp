@@ -69,10 +69,9 @@ void BrickGrid::setGridDataVector()
 	}
 }
 
+//PROBLEM!!!
 void BrickGrid::handleCollision(std::size_t row, std::size_t column)
 {
-	gridDataVector[row][column].brickData->onHit();
-
 	if (gridDataVector[row][column].shouldDestroy())
 	{
 		gridDataVector[row][column].shouldRender = false;

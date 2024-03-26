@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Brick.h"
 #include "Collidable.h"
+#include "CollisionManager.h"
 
 struct GridData
 {
@@ -42,6 +43,11 @@ struct GridData
 	Collidable& getCollidable()
 	{
 		return brickData->getCollidable();
+	}
+
+	void attachCollisionObserver(CollisionManager& collisionManager)
+	{
+		brickData->observeCollision(collisionManager);
 	}
 
 	~GridData() {};

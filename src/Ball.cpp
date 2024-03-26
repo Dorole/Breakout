@@ -24,6 +24,8 @@ Ball::Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>
 {
     valueGetter.attachLevelDataObserver(this);
     init();
+
+    collisionManager.attachCollisionObserver(this);
     registerForCollision();
 }
 
@@ -167,7 +169,7 @@ void Ball::checkBrickCollision()
     }
 }
 
-void Ball::reflectOffBrick(FloatRect& brickBounds)
+void Ball::reflectOffBrick(FloatRect brickBounds)
 {
     FloatRect ballBounds = sprite.getGlobalBounds();
 
@@ -189,24 +191,31 @@ void Ball::reflectOffBrick(FloatRect& brickBounds)
             collisionDirection = (crossWidth > -crossHeight) ? CollisionDirection::RIGHT : CollisionDirection::TOP;
     }
 
+    Vector2f ballVel = ballMovement.getBallVelocity();
+    float adjustedVelX = 1.0f;
+    float adjustedVelY = 1.0f;
+
     switch (collisionDirection)
     {
     case CollisionDirection::TOP:
-        ballVelocity.y = -ballVelocity.y;
+        adjustedVelY *= -1;
         break;
 
     case CollisionDirection::BOTTOM:      
-        ballVelocity.y = -ballVelocity.y;
+        adjustedVelY *= -1;
         break;
 
     case CollisionDirection::LEFT:       
-        ballVelocity.x = -ballVelocity.x;
+        adjustedVelX *= -1;
         break;
 
     case CollisionDirection::RIGHT:       
-        ballVelocity.x = -ballVelocity.x;
+        adjustedVelX *= -1;
         break;
     }
+
+    Vector2f adjustedBallVel = Vector2f(ballVel.x * adjustedVelX, ballVel.y * adjustedVelY);
+    ballMovement.adjustBallVelocity(adjustedBallVel);
 }
 
 void Ball::setLastCollided(std::size_t row, std::size_t col)
@@ -234,10 +243,8 @@ void Ball::update(float deltaTime)
     }
     else
     {
-        checkBrickCollision();
         checkWindowCollision();
         checkBallLife();
-        checkPlatformCollision();
         
         sprite.move(ballMovement.moveBall() * deltaTime);
         
@@ -260,14 +267,44 @@ void Ball::attachObserver(NumValueObserver* observer)
     valueObservers.push_back(observer);
 }
 
+void Ball::onCollision(Collidable& collidedObject)
+{
+    if (!shouldBounce) return;
+
+    CollidableObjectType type = collidedObject.getCollidableObjectType();
+    Vector2f collidedPosition = collidedObject.getGlobalSpritePosition();
+
+    if (type == CollidableObjectType::PLATFORM)
+    {
+        //radi al omg what even is this
+        //+ ne odbija se lijepo neg skoro ravno
+
+        FloatRect localSpriteBounds = collidedObject.getSpriteLocalBounds();
+
+        float hitPointX = sprite.getPosition().x - collidedPosition.x;
+        float reflectionFactor = hitPointX / (localSpriteBounds.width / 2.0f);
+
+        ballMovement.adjustBallVelocity(Vector2f(reflectionFactor, -ballMovement.getBallVelocity().y));
+        Vector2f adjustedVel = ballMovement.getBallVelocity();
+
+        float speed = sqrt(adjustedVel.x * adjustedVel.x + adjustedVel.y * adjustedVel.y);
+        adjustedVel /= speed;
+        ballMovement.adjustBallVelocity(adjustedVel);
+
+        sprite.setPosition(collidedPosition.x + hitPointX, sprite.getPosition().y);
+
+    }
+    else if (type == CollidableObjectType::BRICK)
+    {
+        reflectOffBrick(collidedObject.getSpriteGlobalBounds());
+        //brick handle collision
+        //brickgrid handle collision?? - prije je islo po row, column, mozda sad moze direktno
+    } 
+}
+
 void Ball::notifyObservers(int value)
 {
     for (const auto& observer : valueObservers)
         observer->onValueChanged(value, ValueType::LIVES);
 }
-
-//void Ball::setPlayerController(std::shared_ptr<PlayerController> controller)
-//{
-//    playerController = controller;
-//}
 
