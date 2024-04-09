@@ -22,6 +22,8 @@ void BrickGrid::init()
 
 	setBrickSchemeVector();
 	setGridDataVector();
+
+	observeBricks();
  }
 
 void BrickGrid::setBrickSchemeVector()
@@ -69,16 +71,15 @@ void BrickGrid::setGridDataVector()
 	}
 }
 
-//PROBLEM!!!
 void BrickGrid::handleCollision(std::size_t row, std::size_t column)
 {
-	if (gridDataVector[row][column].shouldDestroy())
-	{
-		gridDataVector[row][column].shouldRender = false;
+	//if (gridDataVector[row][column].shouldDestroy())
+	//{
+	//	gridDataVector[row][column].shouldRender = false;
 
-		for (const auto& observer : observers)
-			observer->onBrickDestroyed(*gridDataVector[row][column].brickData);	
-	}
+	//	for (const auto& observer : gridObservers)
+	//		observer->onBrickDestroyed(*gridDataVector[row][column].brickData);	
+	//}
 }
 
 bool BrickGrid::allBricksDestroyed()
@@ -111,9 +112,9 @@ bool BrickGrid::allBricksDestroyed()
 	return true;
 }
 
-void BrickGrid::attachObserver(BrickObserver* observer)
+void BrickGrid::attachGridObserver(BrickObserver* observer)
 {
-	observers.push_back(observer);
+	gridObservers.push_back(observer);
 }
 
 
@@ -148,3 +149,42 @@ void BrickGrid::onLevelChanged()
 	init();
 }
 
+void BrickGrid::onBrickDestroyed(Brick& brick)
+{
+	updateGrid(brick);
+}
+
+void BrickGrid::updateGrid(Brick& brick)
+{
+	for (auto& row : gridDataVector)
+	{
+		for (auto& gridData : row)
+		{
+			if (!gridData.canDestroy || !gridData.shouldRender) continue;
+
+			if (gridData.shouldDestroy())
+			{
+				std::cout << "BRICK GRID: Stop rendering." << std::endl;
+				gridData.shouldRender = false;
+	
+				for (const auto& observer : gridObservers)
+					observer->onBrickDestroyed(brick);
+
+				return;
+			}
+		}
+	}
+}
+
+void BrickGrid::observeBricks()
+{
+	for (const auto& row : gridDataVector)
+	{
+		for (const auto& gridData : row)
+		{
+			if (!gridData.canDestroy) continue;
+
+			gridData.brickData->attachBrickObserver(this);
+		}
+	}
+}

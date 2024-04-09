@@ -5,6 +5,7 @@
 #include "MusicPlayer.h"
 #include "BrickGrid.h"
 #include "CollisionManager.h"
+#include "LevelDataProvider.h"
 
 using namespace sf;
 
@@ -17,9 +18,11 @@ private:
 	LevelLoader& levelLoader;
 	MusicPlayer& audioPlayer;
 	CollisionManager& collisionManager;
+	LevelDataProvider& levelDataProvider;
 
 public:
-	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, LevelLoader& levelLoaderRef, MusicPlayer& audioPlayerRef, CollisionManager& collisionManagerRef);
+	Game(RenderWindow& windowRef, ValueGetter& valueGetterRef, BrickGrid& gridRef, LevelLoader& levelLoaderRef, 
+		MusicPlayer& audioPlayerRef, CollisionManager& collisionManagerRef, LevelDataProvider& levelDataProviderRef);
 
 	RenderWindow& getWindow() const { return window; }
 	ValueGetter& getValueGetter() const { return valueGetter; }
@@ -27,6 +30,7 @@ public:
 	MusicPlayer& getMusicPlayer() const { return audioPlayer; }
 	BrickGrid& getGrid() const { return grid; }
 	CollisionManager& getCollisionManager() const { return collisionManager; }
+	LevelDataProvider& getLevelDataProvider() const { return levelDataProvider; }
 };
 
 

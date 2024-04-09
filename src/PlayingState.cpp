@@ -18,7 +18,7 @@
 PlayingState::PlayingState(Game& game)
 	: GameState(game), grid(game.getGrid()), colMan(game.getCollisionManager())
 {
-	grid.attachObserver(this);
+	grid.attachGridObserver(this);
 	init(game);
 }
 
@@ -27,7 +27,7 @@ void PlayingState::init(Game& game)
 	//Create objects
 	auto gridVisual = std::make_unique<BrickGridVisual>(game, grid.getGridDataVector());
 	auto platform = std::make_unique<Platform>(game);
-	auto ball = std::make_unique<Ball>(game, *platform, grid.getGridDataVector());
+	auto ball = std::make_unique<Ball>(game, grid.getGridDataVector());
 
 	ball->attachObserver(this);
 

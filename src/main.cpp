@@ -10,6 +10,7 @@
 #include "BrickPool.h"
 #include "GameStateManager.h"
 #include "CollisionManager.h"
+#include "LevelDataProvider.h"
 
 int main()
 {
@@ -28,11 +29,12 @@ int main()
 	ValueGetter valueGetter(levelLoader);
 	CollisionManager collisionManager(window);
 	MusicPlayer audioPlayer(valueGetter);
+	LevelDataProvider levelDataProvider;
 	
 	BrickPool brickPool(valueGetter);
 	BrickGrid grid(valueGetter, brickPool);
 
-	Game game(window, valueGetter, grid, levelLoader, audioPlayer, collisionManager);
+	Game game(window, valueGetter, grid, levelLoader, audioPlayer, collisionManager, levelDataProvider);
 	GameStateManager gameStateManager(game);
 	
 	sf::Clock clock;

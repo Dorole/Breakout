@@ -8,7 +8,7 @@
 #include "BrickPool.h"
 #include "LevelDataObserver.h"
 
-class BrickGrid : public LevelDataObserver
+class BrickGrid : public LevelDataObserver, public BrickObserver
 {
 private:
 	ValueGetter& valueGetter;
@@ -20,7 +20,7 @@ private:
 	std::vector<std::vector<char>> brickSchemeVector {};
 	std::vector<std::vector<GridData>> gridDataVector {};
 
-	std::vector<BrickObserver*> observers;
+	std::vector<BrickObserver*> gridObservers;
 
 	float gridOffset = 0;
 
@@ -39,6 +39,8 @@ private:
 	void printBrickScheme();
 
 	void init();
+	void observeBricks();
+	void updateGrid(Brick& brick);
 
 public:
 
@@ -51,7 +53,7 @@ public:
 	void handleCollision(std::size_t row, std::size_t column);
 	bool allBricksDestroyed();
 
-	void attachObserver(BrickObserver* observer);
+	void attachGridObserver(BrickObserver* observer);
 
 	void setGridOffset(float value)
 	{
@@ -66,6 +68,10 @@ public:
 
 	// Inherited via LevelDataObserver
 	virtual void onLevelChanged() override;
+
+
+	// Inherited via BrickObserver
+	virtual void onBrickDestroyed(Brick& brick) override;
 
 };
 

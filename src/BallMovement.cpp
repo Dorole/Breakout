@@ -2,13 +2,14 @@
 #include "Game.h"
 #include <iostream>
 
-BallMovement::BallMovement(Game& game, Platform& platformRef)
-    : window(game.getWindow()), platform(platformRef)
+BallMovement::BallMovement(Game& game)
+    : window(game.getWindow()), 
+    platformData(game.getLevelDataProvider().getPlatformData()) //check at first use - if not set - set again!
 {
-    deathZone = platform.getPlatformPosition().y + platform.getPlatformLocalBounds().height; //set elsewhere (maybe get from platform)?
+    deathZone = platformData.getGlobalSpritePosition().y + platformData.getSpriteLocalBounds().height; //mozda uzmi iz level data providera?
+    //this is set in init() so it might not be available here - maybe some version of lazy init?
+    
     windowSize = window.getSize();
-
-    resetPosition();
 }
 
 void BallMovement::updatePosition(const sf::Vector2f& newPosition)
@@ -18,19 +19,12 @@ void BallMovement::updatePosition(const sf::Vector2f& newPosition)
 
 void BallMovement::resetPosition()
 {
-    currentPosition = Vector2f(platform.getInitialPlatformPosition().x, platform.getInitialPlatformPosition().y - platform.getPlatformLocalBounds().height + 5.0f);
+    currentPosition = Vector2f(platformData.getGlobalSpritePosition().x, platformData.getGlobalSpritePosition().y - platformData.getSpriteLocalBounds().height + 5.0f);
 }
 
 void BallMovement::updatePositionAbovePlatform()
 {
-    Vector2i localMousePosition = Mouse::getPosition(window);
-
-    if (!platform.platformWindowBoundReached()) {
-        targetPosition = Vector2f(localMousePosition.x - currentPosition.x, 0);
-    }
-    else {
-        targetPosition = Vector2f(platform.getPlatformPosition().x - currentPosition.x, 0);
-    }
+    targetPosition = Vector2f(platformData.getGlobalSpritePosition().x - currentPosition.x, 0);
 }
 
 bool BallMovement::handleWindowCollision(const sf::FloatRect& globalBallBounds, const float& topRenderBound)

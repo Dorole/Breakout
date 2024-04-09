@@ -4,12 +4,14 @@
 using namespace sf;
 
 Platform::Platform(Game& game)
-    : GameObject(game), collidable(sprite, CollidableObjectType::PLATFORM)
+    : GameObject(game), collidable(sprite, CollidableObjectType::PLATFORM), platformData(sprite)
 {  
     valueGetter.attachLevelDataObserver(this);
     init();
 
     registerForCollision();
+
+    game.getLevelDataProvider().registerPlatformData(std::make_unique<GameObjectData>(platformData));
 }
 
 void Platform::init()
@@ -20,6 +22,8 @@ void Platform::init()
     setSpriteOriginToCenter();
     setInitialPlatformPosition();
     getSpriteLocalBounds();
+
+    levelDataProvider.setDeathZone(getPlatformPosition().y + getPlatformLocalBounds().height); //
 }
 
 void Platform::setSpriteOriginToCenter()

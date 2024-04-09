@@ -6,20 +6,17 @@
 #include "GameObject.h"
 #include "Game.h"
 #include "ValueGetter.h"
-#include "Platform.h"
 #include "BrickGrid.h"
 #include "SoundPlayer.h"
 #include "PlayerController.h"
 
 using namespace sf;
 
-//mozda napraviti platform i ball u Game?
-Ball::Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef)
-    : GameObject(game), 
-    grid(game.getGrid()), 
-    platform(platformRef), 
-    gridVector(gridDataVectorRef), 
-    ballMovement(game, platformRef),
+Ball::Ball(Game& game, std::vector<std::vector<GridData>>& gridDataVectorRef)
+    : GameObject(game),
+    grid(game.getGrid()),
+    gridVector(gridDataVectorRef),
+    ballMovement(game),
     collidable(sprite, CollidableObjectType::BALL)
 {
     valueGetter.attachLevelDataObserver(this);
@@ -37,7 +34,6 @@ void Ball::init()
     sprite.setScale(0.35f, 0.35f); 
     windowSize = window.getSize();
     topRenderBound = grid.getGridOffset();
-    deathZone = platform.getPlatformPosition().y + platform.getPlatformLocalBounds().height; //set elsewhere!
 
     shouldBounce = false;
     lostLife = false;
@@ -79,7 +75,7 @@ void Ball::toggleBounce()
     shouldBounce = !shouldBounce;
 }
 
-bool Ball::checkWindowCollision()
+void Ball::checkWindowCollision()
 {
     FloatRect globalBallBounds = sprite.getGlobalBounds();
     bool collided = false;
@@ -87,14 +83,10 @@ bool Ball::checkWindowCollision()
     if (ballMovement.handleWindowCollision(globalBallBounds, topRenderBound))
     {
         soundPlayer.playSoundRandomPitch(SoundType::BALL_HIT);
-        setLastCollidedToNull(); //??
-        return true;
     }
-
-    return false;
 }
 
-bool Ball::checkBallLife()
+void Ball::checkBallLife()
 {
     FloatRect globalBallBounds = sprite.getGlobalBounds();
 
@@ -102,72 +94,25 @@ bool Ball::checkBallLife()
     {
 		notifyObservers(1);
         soundPlayer.playSoundRandomPitch(SoundType::BALL_RESET);
-        setLastCollidedToNull();
-        return true;
-    }
-
-    return false;
-}
-
-bool Ball::checkPlatformCollision()
-{
-    if (sprite.getGlobalBounds().intersects(platform.getPlatformGlobalBounds()) && ballVelocity.y > 0)
-    {
-        reflectOffPlatform();
-        soundPlayer.playSoundRandomPitch(SoundType::BALL_HIT);
-        setLastCollidedToNull();
-
-        return true;
-    }
-
-    return false;
-}
-
-void Ball::reflectOffPlatform()
-{
-    float hitPointX = sprite.getPosition().x - platform.getPlatformPosition().x;
-    float reflectionFactor = hitPointX / (platform.getPlatformLocalBounds().width / 2.0f);
-
-    ballVelocity.x = reflectionFactor;
-
-    ballVelocity.y = -ballVelocity.y;
-    float speed = sqrt(ballVelocity.x * ballVelocity.x + ballVelocity.y * ballVelocity.y);
-    ballVelocity /= speed;
-
-    sprite.setPosition(platform.getPlatformPosition().x + hitPointX, sprite.getPosition().y);
-}
-
-void Ball::checkBrickCollision()
-{
-    bool collisionOccured = false;
-
-    for (size_t i = 0; i < valueGetter.getRowCount(); i++)
-    {
-        for (size_t j = 0; j < valueGetter.getColumnCount(); j++)
-        {
-            if (!gridVector[i][j].shouldRender) continue;
-
-            if (gridVector[i][j].getSpriteGlobalBounds().intersects(sprite.getGlobalBounds()))
-            {
-                FloatRect brickBounds = gridVector[i][j].getSpriteGlobalBounds();
-                reflectOffBrick(brickBounds);
-
-                if (lastCollidedRow != i || lastCollidedColumn != j)
-                {
-                    setLastCollided(i, j);
-                    std::cout << "Last collided: " << i << ", " << j << std::endl;
-
-                    grid.handleCollision(i, j);
-                }
-                
-                collisionOccured = true;
-                break;
-            } 
-        }
-
-        if (collisionOccured) break;
     }
 }
+
+
+void Ball::reflectOffPlatform(Vector2f collidedPosition, FloatRect localPlatformSpriteBounds)
+{
+    float hitPointX = sprite.getPosition().x - collidedPosition.x;
+    float reflectionFactor = hitPointX / (localPlatformSpriteBounds.width / 2.0f);
+
+    ballMovement.adjustBallVelocity(Vector2f(reflectionFactor, -ballMovement.getBallVelocity().y));
+    Vector2f adjustedVel = ballMovement.getBallVelocity();
+
+    float speed = sqrt(adjustedVel.x * adjustedVel.x + adjustedVel.y * adjustedVel.y);
+    adjustedVel /= speed;
+    ballMovement.adjustBallVelocity(adjustedVel);
+
+    sprite.setPosition(collidedPosition.x + hitPointX, sprite.getPosition().y);
+}
+
 
 void Ball::reflectOffBrick(FloatRect brickBounds)
 {
@@ -218,19 +163,6 @@ void Ball::reflectOffBrick(FloatRect brickBounds)
     ballMovement.adjustBallVelocity(adjustedBallVel);
 }
 
-void Ball::setLastCollided(std::size_t row, std::size_t col)
-{
-    lastCollidedRow = row;
-    lastCollidedColumn = col;   
-}
-
-void Ball::setLastCollidedToNull()
-{
-    lastCollidedRow = -1;
-    lastCollidedColumn = -1;
-
-    std::cout << "Last collided: NULL" << std::endl;
-}
 
 // ******************** OVERRIDDEN FUNCTIONS ********************
 
@@ -248,7 +180,7 @@ void Ball::update(float deltaTime)
         
         sprite.move(ballMovement.moveBall() * deltaTime);
         
-        if (grid.allBricksDestroyed()) 
+        if (grid.allBricksDestroyed()) //should be an event?
         {
             shouldBounce = false;
             resetBallPosition();
@@ -274,32 +206,17 @@ void Ball::onCollision(Collidable& collidedObject)
     CollidableObjectType type = collidedObject.getCollidableObjectType();
     Vector2f collidedPosition = collidedObject.getGlobalSpritePosition();
 
-    if (type == CollidableObjectType::PLATFORM)
+    if (type == CollidableObjectType::PLATFORM) //&& ballMovement.getBallVelocity().y > 0?
     {
-        //radi al omg what even is this
-        //+ ne odbija se lijepo neg skoro ravno
-
-        FloatRect localSpriteBounds = collidedObject.getSpriteLocalBounds();
-
-        float hitPointX = sprite.getPosition().x - collidedPosition.x;
-        float reflectionFactor = hitPointX / (localSpriteBounds.width / 2.0f);
-
-        ballMovement.adjustBallVelocity(Vector2f(reflectionFactor, -ballMovement.getBallVelocity().y));
-        Vector2f adjustedVel = ballMovement.getBallVelocity();
-
-        float speed = sqrt(adjustedVel.x * adjustedVel.x + adjustedVel.y * adjustedVel.y);
-        adjustedVel /= speed;
-        ballMovement.adjustBallVelocity(adjustedVel);
-
-        sprite.setPosition(collidedPosition.x + hitPointX, sprite.getPosition().y);
-
+        FloatRect localPlatformSpriteBounds = collidedObject.getSpriteLocalBounds();
+        reflectOffPlatform(collidedPosition, localPlatformSpriteBounds);
     }
     else if (type == CollidableObjectType::BRICK)
     {
         reflectOffBrick(collidedObject.getSpriteGlobalBounds());
-        //brick handle collision
-        //brickgrid handle collision?? - prije je islo po row, column, mozda sad moze direktno
     } 
+
+    soundPlayer.playSoundRandomPitch(SoundType::BALL_HIT);
 }
 
 void Ball::notifyObservers(int value)

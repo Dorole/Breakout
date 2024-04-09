@@ -23,7 +23,7 @@ private:
 	std::vector<CollisionObserver*> collisionObservers;
 
 	bool checkForCollision(Collidable& collidable)
-	{
+	{		
 		return ballCollidable->getSpriteGlobalBounds().intersects(collidable.getSpriteGlobalBounds());
 	}
 
@@ -35,10 +35,7 @@ private:
 
 
 public:
-	CollisionManager(RenderWindow& windowRef) : window(windowRef), collidablesMap(windowRef)
-	{	
-
-	};
+	CollisionManager(RenderWindow& windowRef) : window(windowRef), collidablesMap(windowRef) {};
 
 	void update()
 	{
@@ -47,18 +44,13 @@ public:
 
 		for (const auto& position : relevantPositions)
 		{
-			auto mappedCollidables = collidablesMap.getMappedCollidables()[position];
+			auto& mappedCollidables = collidablesMap.getMappedCollidables()[position];
 
 			for (int i = 0; i < mappedCollidables.size(); i++)
 			{
-				if (checkForCollision(mappedCollidables.at(i)))
+				if (mappedCollidables.at(i).getActiveStatus() && checkForCollision(mappedCollidables.at(i)))
 				{
 					notifyCollisionObservers(mappedCollidables.at(i));
-										
-					//std::string collidableEnumName = enumConverter.spritePositionToString((mappedCollidables.at(i).getSpritePosition()));
-					//std::string zoneEnumName = enumConverter.spritePositionToString(position);
-
-					//std::cout << "Collision occured in " << zoneEnumName << "; with collidable position: " << collidableEnumName << std::endl;
 					return;
 				}
 					
@@ -74,15 +66,18 @@ public:
 		{
 			auto& collidable = collidables.at(i);
 			collidablesMap.mapCollidablePosition(*collidable);
-
-			//std::string collidableTypeName = enumConverter.collidableTypeToString(collidable->getCollidableObjectType());
-			//std::string collidableEnumName = enumConverter.spritePositionToString(collidable->getSpritePosition());
-			//std::cout << "Collidable " << collidableTypeName << " mapped to " << collidableEnumName << std::endl;
 		}
 	}
 
 	void attachCollisionObserver(CollisionObserver* observer)
 	{
 		collisionObservers.push_back(observer);
+	}
+
+	//ovo na pocetku svakog levela pozovi ili nek se ovaj subskrajba na event za novi level?
+	void activateCollidables()
+	{
+		for (int i = 0; i < collidables.size(); i++)
+			collidables.at(i)->setActiveStatus(true);
 	}
 };

@@ -18,6 +18,7 @@ void BrickMedium::onHit()
 	if (hitPoints <= 0)
 	{
 		brickSound.setBuffer(breakBuffer);
+		notifyBrickObservers();
 	}
 
 	brickSound.play();

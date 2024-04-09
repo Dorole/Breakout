@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "ValueGetter.h"
 #include "CollidableObjectType.h"
+#include "GameObjectData.h"
 
 using namespace sf;
 
@@ -21,6 +22,7 @@ private:
     FloatRect spriteLocalBounds;
 
     Collidable collidable;
+    GameObjectData platformData;
 
     float platformBottomOffset = 40.0f;
     float platformSpeed{ 400.0f }; 

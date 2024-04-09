@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Platform.h"
 #include "Game.h"
+#include "GameObjectData.h"
 
 using namespace sf;
 
@@ -9,8 +9,7 @@ class BallMovement
 {
 private:
 	RenderWindow& window;
-	Platform& platform;
-
+	GameObjectData& platformData;
 	
 	sf::Vector2f ballVelocity{ -0.2f, -1.0f }; //starting values 
 	float ballSpeed{ 500.0f };
@@ -25,7 +24,7 @@ private:
 	void updatePositionAbovePlatform();
 
 public:
-	BallMovement(Game& game, Platform& platformRef);
+	BallMovement(Game& game);
 
 	void resetPosition();
 	void updatePosition(const sf::Vector2f& newPosition);

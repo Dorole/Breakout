@@ -15,8 +15,11 @@ void BrickSoft::onHit()
 	hitPoints--;
 	std::cout << "Soft hit: " << hitPoints << std::endl;
 
-	if (hitPoints == 0)
+	if (hitPoints <= 0)
+	{
 		brickSound.setBuffer(breakBuffer);
+		notifyBrickObservers();
+	}
 
 	brickSound.play();
 };

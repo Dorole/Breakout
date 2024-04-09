@@ -12,7 +12,9 @@ private:
 	SpritePosition spritePosition = SpritePosition::TOP_LEFT;
 
 	sf::Sprite& sprite;
-	sf::Vector2f position;
+	sf::Vector2f position; //makni?
+
+	bool isActive = true;
 
 public:
 	Collidable(sf::Sprite& spriteRef, CollidableObjectType objectTypeInit);
@@ -28,6 +30,9 @@ public:
 	sf::Vector2f getGlobalSpritePosition() { return sprite.getPosition(); }
 	sf::FloatRect getSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
 	sf::FloatRect getSpriteLocalBounds() { return sprite.getLocalBounds(); }
-	
+
+	bool getActiveStatus() const { return isActive; }
+	void setActiveStatus(bool value) { isActive = value; }
+
 };
 

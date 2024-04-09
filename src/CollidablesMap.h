@@ -19,7 +19,6 @@ private:
 	std::unordered_map<SpritePosition, std::vector<Collidable>> collidablesMap; 
 	void calculateMidPoints(RenderWindow& window);
 	void setCollidablePosition(Collidable& collidable);
-
 	void mapCollidable(Collidable& collidable, SpritePosition pos)
 	{
 		//check if key exists

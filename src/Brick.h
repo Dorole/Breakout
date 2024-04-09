@@ -7,6 +7,7 @@
 #include "Collidable.h"
 #include "CollisionObserver.h"
 #include "CollisionManager.h"
+#include "BrickObserver.h"
 
 using namespace sf;
 
@@ -32,6 +33,9 @@ protected:
 	
 	void createBrick(BrickTypeValues values);
 
+	std::vector<BrickObserver*> brickObservers;
+	void notifyBrickObservers();
+
 public:
 
 	Brick();
@@ -55,5 +59,7 @@ public:
 	// Inherited via CollisionObserver
 	virtual void onCollision(Collidable& collidedObject) override;
 	void observeCollision(CollisionManager& collisionManager);
+
+	void attachBrickObserver(BrickObserver* observer);
 };
 

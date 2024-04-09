@@ -36,10 +36,13 @@ int Brick::getBreakScore() const
 
 void Brick::onCollision(Collidable& collidedObject)
 {
-	if (collidedObject.getCollidableObjectType() == CollidableObjectType::BRICK
-		&& collidedObject.getSpriteGlobalBounds() == sprite.getGlobalBounds())
+	if (collidedObject.getCollidableObjectType() == CollidableObjectType::BRICK &&
+		collidedObject.getGlobalSpritePosition() == sprite.getPosition())
 	{
 		onHit();
+
+		if (shouldDestroy())
+			collidedObject.setActiveStatus(false);
 	}
 
 }
@@ -49,3 +52,13 @@ void Brick::observeCollision(CollisionManager& collisionManager)
 	collisionManager.attachCollisionObserver(this);
 }
 
+void Brick::attachBrickObserver(BrickObserver* observer)
+{
+	brickObservers.push_back(observer);
+}
+
+void Brick::notifyBrickObservers()
+{
+	for (const auto& brickObserver : brickObservers)
+		brickObserver->onBrickDestroyed(*this);
+}

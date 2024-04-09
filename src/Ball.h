@@ -5,7 +5,6 @@
 #include "GameObject.h"
 #include "Game.h"
 #include "ValueGetter.h"
-#include "Platform.h"
 #include "BrickGrid.h"
 #include "NumValueObserver.h"
 #include "SoundPlayer.h"
@@ -32,8 +31,6 @@ private:
 
     // ************************* REFERENCES *************************
     BrickGrid& grid;
-    Platform& platform;
-    //std::shared_ptr<PlayerController> playerController;
     std::vector<std::vector<GridData>>& gridVector;
    
     // ************************* OBSERVERS *************************
@@ -68,25 +65,16 @@ private:
     // ************************* PRIVATE FUNCTIONS ************************
     void setSpriteOriginToCenter();
     void getSpriteBounds();
-    
   
-    /// <summary>
-    /// Used to make sure the same brick is not
-    /// accidentally hit more than once per frame.
-    /// </summary>
-    void setLastCollided(std::size_t row, std::size_t col);
-    void setLastCollidedToNull();
-
-    bool checkWindowCollision();
-    bool checkBallLife();
-    bool checkPlatformCollision();
-    void reflectOffPlatform();  
-    void checkBrickCollision();
+    void checkWindowCollision();
+    void checkBallLife();
+    void reflectOffPlatform(Vector2f collidedPosition, FloatRect localPlatformSpriteBounds);
     void reflectOffBrick(FloatRect brickBounds);
 
     // ************************* PUBLIC FUNCTIONS ************************
 public:
-    Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
+    //Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
+    Ball(Game& game, std::vector<std::vector<GridData>>& gridDataVectorRef);
 
     // inherited via GameObject
     void init() override;

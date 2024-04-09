@@ -13,6 +13,7 @@ protected:
 	RenderWindow& window;
 	ValueGetter& valueGetter;
 	CollisionManager& collisionManager;
+	LevelDataProvider& levelDataProvider;
 	//BrickGrid& grid; nema veze sto ne ide u platform, stavi tu? <optional>?
 
 public:
