@@ -1,7 +1,7 @@
 #include "Collidable.h"
 #include <iostream>
 
-Collidable::Collidable(sf::Sprite& spriteRef, CollidableObjectType objectTypeInit)
+Collidable::Collidable(const sf::Sprite& spriteRef, CollidableObjectType objectTypeInit)
 	: sprite(spriteRef), objectType(objectTypeInit)
 {
 }

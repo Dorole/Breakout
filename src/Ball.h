@@ -1,7 +1,5 @@
 #pragma once
-#include <SFML/System.hpp>
 #include <vector>
-
 #include "GameObject.h"
 #include "Game.h"
 #include "ValueGetter.h"
@@ -12,16 +10,7 @@
 #include "Collidable.h"
 #include "CollidableObjectType.h"
 #include "CollisionObserver.h"
-
-//#include "PlayerController.h"
-
-enum class CollisionDirection
-{
-    TOP,
-    BOTTOM,
-    LEFT,
-    RIGHT
-};
+#include "GameObjectRenderer.h"
 
 using namespace sf;
 
@@ -31,7 +20,6 @@ private:
 
     // ************************* REFERENCES *************************
     BrickGrid& grid;
-    std::vector<std::vector<GridData>>& gridVector;
    
     // ************************* OBSERVERS *************************
     std::vector<NumValueObserver*> valueObservers;
@@ -39,42 +27,22 @@ private:
 
     // ************************* PRIVATE STATE ************************
     BallMovement ballMovement;
-    
-    Texture texture;
-    Sprite sprite; 
-    Vector2f initialBallPosition;
-    FloatRect spriteBounds;
-    Vector2u windowSize;
-    float topRenderBound;
-    float deathZone;
-
-    //Move to BallCollision or something
+    GameObjectRenderer renderer;
     Collidable collidable;
 
-    sf::Vector2f ballVelocity{ -0.2f, -1.0f}; //starting values 
-    float ballSpeed{ 500.0f };
-    std::size_t lastCollidedRow{ 1000 };
-    std::size_t lastCollidedColumn{ 1000 };
+    Vector2f ballSize{ 0.35f, 0.35f };
     bool shouldBounce;
     bool lostLife;
 
-    CollisionDirection collisionDirection = CollisionDirection::BOTTOM; //default collision
-
     SoundPlayer soundPlayer;
 
-    // ************************* PRIVATE FUNCTIONS ************************
-    void setSpriteOriginToCenter();
-    void getSpriteBounds();
-  
+    // ************************* PRIVATE FUNCTIONS ************************ 
     void checkWindowCollision();
     void checkBallLife();
-    void reflectOffPlatform(Vector2f collidedPosition, FloatRect localPlatformSpriteBounds);
-    void reflectOffBrick(FloatRect brickBounds);
 
     // ************************* PUBLIC FUNCTIONS ************************
 public:
-    //Ball(Game& game, Platform& platformRef, std::vector<std::vector<GridData>>& gridDataVectorRef);
-    Ball(Game& game, std::vector<std::vector<GridData>>& gridDataVectorRef);
+    Ball(Game& gameRef);
 
     // inherited via GameObject
     void init() override;
@@ -87,11 +55,7 @@ public:
     bool getShouldBounce() { return shouldBounce; }
 
     void attachObserver(NumValueObserver* observer);   
-    //void setPlayerController(std::shared_ptr<PlayerController> controller);
-    
-    //u biti ne treba ovo? jer dohvaca preko Collidable
-    FloatRect getBallSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
-   
+       
     // Inherited via CollisionObserver
     virtual void onCollision(Collidable& collidedObject) override;
 };

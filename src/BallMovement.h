@@ -8,9 +8,10 @@ using namespace sf;
 class BallMovement
 {
 private:
-	RenderWindow& window;
+	Game& game;
+	sf::RenderWindow& window;
 	GameObjectData& platformData;
-	
+
 	sf::Vector2f ballVelocity{ -0.2f, -1.0f }; //starting values 
 	float ballSpeed{ 500.0f };
 
@@ -18,14 +19,17 @@ private:
 	sf::Vector2f currentPosition;
 	sf::Vector2f targetPosition;
 
-	Vector2u windowSize;
-	float deathZone;
+	sf::Vector2u windowSize;
+	float playingFieldTopBound {0};
+	float deathZone {0};
+
 
 	void updatePositionAbovePlatform();
 
 public:
-	BallMovement(Game& game);
+	BallMovement(Game& gameRef);
 
+	void init();
 	void resetPosition();
 	void updatePosition(const sf::Vector2f& newPosition);
 
@@ -51,8 +55,11 @@ public:
 	/// </summary>
 	sf::Vector2f moveBall();
 
-	bool handleWindowCollision(const sf::FloatRect& globalBallBounds, const float& topRenderBound);
+	bool handleWindowCollision(const sf::FloatRect& globalBallBounds);
 	bool ballMovedBelowPlatform(const sf::FloatRect& globalBallBounds);
+
+	void reflectOffPlatform(float hitPoint, const sf::Vector2f& collidedPosition, const sf::FloatRect& localPlatformSpriteBounds);
+	void reflectOffBrick(const sf::FloatRect& ballBounds, const sf::FloatRect& brickBounds);
 };
 
 

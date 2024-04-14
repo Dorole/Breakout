@@ -25,9 +25,9 @@ PlayingState::PlayingState(Game& game)
 void PlayingState::init(Game& game)
 {
 	//Create objects
-	auto gridVisual = std::make_unique<BrickGridVisual>(game, grid.getGridDataVector());
+	auto gridVisual = std::make_unique<BrickGridVisual>(game);
 	auto platform = std::make_unique<Platform>(game);
-	auto ball = std::make_unique<Ball>(game, grid.getGridDataVector());
+	auto ball = std::make_unique<Ball>(game);
 
 	ball->attachObserver(this);
 

@@ -1,20 +1,14 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <vector>
-#include <cmath>
 #include "BrickGridVisual.h"
-#include "GameObject.h"
-#include "Game.h"
-#include "GridData.h"
+#include <SFML/Window.hpp>
+#include <cmath>
 
-BrickGridVisual::BrickGridVisual(Game& game, std::vector<std::vector<GridData>>& gridDataVectorRef)
-	: GameObject(game), grid(game.getGrid()), gridDataVector(gridDataVectorRef)
+BrickGridVisual::BrickGridVisual(Game& game)
+	: GameObject(game), 
+	grid(game.getGrid()), 
+	gridDataVector(game.getGrid().getGridDataVector())
 {
 	valueGetter.attachLevelDataObserver(this);
 	init();
-
-	registerForCollision();
-	attachCollisionObservers(); //mozda bi se trebalo svaki put u initu? a colMan da ocisti vector?
 }
 
 void BrickGridVisual::init()
@@ -79,35 +73,5 @@ float BrickGridVisual::getLeftRenderBorder()
 	return std::max(leftOffset, 0.0f);
 }
 
-void BrickGridVisual::registerBrickCollidables()
-{
-	for (size_t row = 0; row < rowCount; row++)
-	{
-		for (size_t column = 0; column < columnCount; column++)
-		{
-			if (!gridDataVector[row][column].shouldRender) continue;
-
-			collisionManager.addCollidable(std::make_unique<Collidable>(gridDataVector[row][column].getCollidable()));
-		}
-	}
-}
-
-void BrickGridVisual::registerForCollision()
-{
-	registerBrickCollidables();
-}
-
-void BrickGridVisual::attachCollisionObservers()
-{
-	for (size_t row = 0; row < rowCount; row++)
-	{
-		for (size_t column = 0; column < columnCount; column++)
-		{
-			if (!gridDataVector[row][column].shouldRender) continue;
-
-			gridDataVector[row][column].attachCollisionObserver(collisionManager);
-		}
-	}
-}
 
 

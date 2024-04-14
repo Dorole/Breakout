@@ -4,11 +4,11 @@
 class GameObjectData
 {
 private:
-	sf::Sprite& sprite;
+	const sf::Sprite& sprite;
 	sf::Vector2f spriteInitialPosition;
 
 public:
-	GameObjectData(sf::Sprite& spriteRef) : sprite(spriteRef) {}
+	GameObjectData(const sf::Sprite& spriteRef) : sprite(spriteRef) {}
 
 	const sf::Sprite& getSprite() const { return sprite; }
 

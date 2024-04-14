@@ -11,13 +11,12 @@ private:
 	CollidableObjectType objectType = CollidableObjectType::BRICK;
 	SpritePosition spritePosition = SpritePosition::TOP_LEFT;
 
-	sf::Sprite& sprite;
-	sf::Vector2f position; //makni?
+	const sf::Sprite& sprite;
 
 	bool isActive = true;
 
 public:
-	Collidable(sf::Sprite& spriteRef, CollidableObjectType objectTypeInit);
+	Collidable(const sf::Sprite& spriteRef, CollidableObjectType objectTypeInit);
 
 	void setCollidableObjectType(CollidableObjectType type);
 	CollidableObjectType getCollidableObjectType() { return objectType; }

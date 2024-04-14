@@ -4,48 +4,38 @@
 using namespace sf;
 
 Platform::Platform(Game& game)
-    : GameObject(game), collidable(sprite, CollidableObjectType::PLATFORM), platformData(sprite)
+    : GameObject(game), 
+    renderer(game),
+    collidable(renderer.getSprite(), CollidableObjectType::PLATFORM),
+    platformData(renderer.getSprite())
 {  
     valueGetter.attachLevelDataObserver(this);
     init();
 
     registerForCollision();
-
-    game.getLevelDataProvider().registerPlatformData(std::make_unique<GameObjectData>(platformData));
+    levelDataProvider.registerPlatformData(platformData);
 }
 
 void Platform::init()
 {
-    texture.loadFromFile(valueGetter.getPlatformTexturePath());
-    sprite.setTexture(texture);
+    std::string platformPath = valueGetter.getPlatformTexturePath();
+    renderer.init(platformPath); 
 
-    setSpriteOriginToCenter();
     setInitialPlatformPosition();
-    getSpriteLocalBounds();
 
-    levelDataProvider.setDeathZone(getPlatformPosition().y + getPlatformLocalBounds().height); //
-}
-
-void Platform::setSpriteOriginToCenter()
-{
-    spriteLocalBounds = sprite.getLocalBounds();
-    sprite.setOrigin(spriteLocalBounds.width / 2.0f, spriteLocalBounds.height / 2.0f);
-}
-
-void Platform::getSpriteLocalBounds()
-{
-    spriteLocalBounds = sprite.getLocalBounds();
+    levelDataProvider.setDeathZone(renderer.getSpritePosition().y + renderer.getSpriteLocalBounds().height);
 }
 
 void Platform::setInitialPlatformPosition()
 {
     initialPlatformPosition = Vector2f(window.getSize().x / 2.0f, window.getSize().y - platformBottomOffset);
-    sprite.setPosition(initialPlatformPosition);
+    renderer.setSpritePosition(initialPlatformPosition);
 }
 
 void Platform::movePlatform(float deltaTime)
 {
-    Vector2f currentPosition = sprite.getPosition();
+    Vector2f currentPosition = renderer.getSpritePosition();
+    FloatRect spriteLocalBounds = renderer.getSpriteLocalBounds();
     Vector2i localMousePosition = Mouse::getPosition(window);
     Vector2f targetPosition;
 
@@ -65,7 +55,7 @@ void Platform::movePlatform(float deltaTime)
         windowBoundReached = false;
     }
 
-    sprite.move(targetPosition * deltaTime * platformSpeed);
+    renderer.moveSprite(targetPosition * deltaTime * platformSpeed);
 }
 
 void Platform::update(float deltaTime) 
@@ -75,11 +65,11 @@ void Platform::update(float deltaTime)
 
 void Platform::draw()
 {
-    window.draw(sprite);
+    renderer.drawSprite();
 }
 
 void Platform::registerForCollision()
 {
-    collisionManager.addCollidable(std::make_unique<Collidable>(collidable));
+    collisionManager.addCollidable(collidable);
 }
 

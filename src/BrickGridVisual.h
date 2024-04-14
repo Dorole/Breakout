@@ -38,15 +38,10 @@ private:
 	/// </summary>
 	float getLeftRenderBorder();
 
-	//zapravo bi ovo trebao BrickGrid sve handlati ili sam Brick,
-	//ovaj je samo za crtanje
-	void registerBrickCollidables();
-	void attachCollisionObservers();
-
 	// ************************* PUBLIC FUNCTIONS ************************
 public:
 
-	BrickGridVisual(Game& game, std::vector<std::vector<GridData>>& gridDataVectorRef);
+	BrickGridVisual(Game& game);
 
 	void setBrickSpritePositions();
 
@@ -54,6 +49,5 @@ public:
 	void init() override;
 	void update(float deltaTime) override;
 	void draw() override;
-	void registerForCollision() override;
 };
 

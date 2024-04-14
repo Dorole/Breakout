@@ -135,6 +135,9 @@
     <ClCompile Include="src\CollidablesMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameObjectRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -393,7 +396,7 @@
     <ClInclude Include="src\GameStateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BallCollision.h">
+    <ClInclude Include="src\GameObjectRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\EnumToStringConverter.h">
@@ -406,6 +409,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObjectData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionDirection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

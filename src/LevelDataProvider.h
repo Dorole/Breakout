@@ -14,9 +14,15 @@ private:
 
 public: 
 
-	void registerPlatformData(std::unique_ptr<GameObjectData> platformDataRef)
+	//void registerPlatformData(std::unique_ptr<GameObjectData> platformDataRef)
+	//{
+	//	platformData = std::move(platformDataRef);
+	//}
+
+	void registerPlatformData(GameObjectData& platformDataRef)
 	{
-		platformData = std::move(platformDataRef);
+		auto platformDataPtr = std::make_unique<GameObjectData>(platformDataRef);
+		platformData = std::move(platformDataPtr);
 	}
 
 	GameObjectData& getPlatformData() const { 

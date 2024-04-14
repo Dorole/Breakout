@@ -7,11 +7,12 @@
 #include "BrickObserver.h"
 
 
-BrickGrid::BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef)
-	: valueGetter(valueGetterRef), brickPool(brickPoolRef)
+BrickGrid::BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef, CollisionManager& collisionManagerRef)
+	: valueGetter(valueGetterRef), brickPool(brickPoolRef), collisionManager(collisionManagerRef)
 {
 	valueGetter.attachLevelDataObserver(this);
 	init();
+	registerForCollision();
 }
 
 void BrickGrid::init()
@@ -71,17 +72,6 @@ void BrickGrid::setGridDataVector()
 	}
 }
 
-void BrickGrid::handleCollision(std::size_t row, std::size_t column)
-{
-	//if (gridDataVector[row][column].shouldDestroy())
-	//{
-	//	gridDataVector[row][column].shouldRender = false;
-
-	//	for (const auto& observer : gridObservers)
-	//		observer->onBrickDestroyed(*gridDataVector[row][column].brickData);	
-	//}
-}
-
 bool BrickGrid::allBricksDestroyed()
 {
 	for (const auto& row : gridDataVector)
@@ -117,7 +107,37 @@ void BrickGrid::attachGridObserver(BrickObserver* observer)
 	gridObservers.push_back(observer);
 }
 
+void BrickGrid::registerForCollision()
+{
+	registerBrickCollidables();
+	attachCollisionObservers();
+}
 
+void BrickGrid::registerBrickCollidables()
+{
+	for (size_t row = 0; row < rowCount; row++)
+	{
+		for (size_t column = 0; column < columnCount; column++)
+		{
+			if (!gridDataVector[row][column].shouldRender) continue;
+
+			collisionManager.addCollidable(gridDataVector[row][column].getCollidable());
+		}
+	}
+}
+
+void BrickGrid::attachCollisionObservers()
+{
+	for (size_t row = 0; row < rowCount; row++)
+	{
+		for (size_t column = 0; column < columnCount; column++)
+		{
+			if (!gridDataVector[row][column].shouldRender) continue;
+
+			gridDataVector[row][column].attachCollisionObserver(collisionManager);
+		}
+	}
+}
 
 //************************** DEBUG FUNCTIONS **************************
 

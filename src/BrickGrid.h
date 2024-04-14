@@ -7,12 +7,15 @@
 #include "BrickObserver.h"
 #include "BrickPool.h"
 #include "LevelDataObserver.h"
+#include "CollisionManager.h"
 
 class BrickGrid : public LevelDataObserver, public BrickObserver
 {
 private:
 	ValueGetter& valueGetter;
 	BrickPool& brickPool;
+	CollisionManager& collisionManager;
+
 	int columnCount;
 	int rowCount;
 	std::string bricksLayout;
@@ -42,25 +45,23 @@ private:
 	void observeBricks();
 	void updateGrid(Brick& brick);
 
+	void registerBrickCollidables();
+	void attachCollisionObservers();
+
 public:
 
-	BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef);
+	BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef, CollisionManager& collisionManagerRef);
 
 	//make these const?
 	std::vector<std::vector<char>> getBrickSchemeVector() { return brickSchemeVector; }
 	std::vector<std::vector<GridData>>& getGridDataVector() { return gridDataVector; }
 
-	void handleCollision(std::size_t row, std::size_t column);
-	bool allBricksDestroyed();
-
-	void attachGridObserver(BrickObserver* observer);
-
-	void setGridOffset(float value)
-	{
-		gridOffset = value;
-	}
-
+	void setGridOffset(float value) { gridOffset = value; }
 	float getGridOffset() { return gridOffset; }
+	
+	bool allBricksDestroyed();
+	void attachGridObserver(BrickObserver* observer);
+	void registerForCollision();
 
 
 	//debug
@@ -68,7 +69,6 @@ public:
 
 	// Inherited via LevelDataObserver
 	virtual void onLevelChanged() override;
-
 
 	// Inherited via BrickObserver
 	virtual void onBrickDestroyed(Brick& brick) override;

@@ -14,10 +14,8 @@
 
 int main()
 {
-	//Game je trenutno dosta useless - vidi sto s tim
 	//ovo sve sibni u jedan class tipa GameManager i od tamo pozovi
 
-	// WINDOW
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Breakout");  
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	sf::Vector2i windowPosition(
@@ -32,7 +30,7 @@ int main()
 	LevelDataProvider levelDataProvider;
 	
 	BrickPool brickPool(valueGetter);
-	BrickGrid grid(valueGetter, brickPool);
+	BrickGrid grid(valueGetter, brickPool, collisionManager);
 
 	Game game(window, valueGetter, grid, levelLoader, audioPlayer, collisionManager, levelDataProvider);
 	GameStateManager gameStateManager(game);

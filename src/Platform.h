@@ -1,11 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Game.h"
 #include "GameObject.h"
 #include "Collidable.h"
-#include "Game.h"
 #include "ValueGetter.h"
 #include "CollidableObjectType.h"
 #include "GameObjectData.h"
+#include "GameObjectRenderer.h"
 
 using namespace sf;
 
@@ -14,13 +15,9 @@ class Platform : public GameObject
 private:
 
     // ************************* PRIVATE STATE ************************
-    //CollisionManager& collisionManager;
-
-    Texture texture;
-    Sprite sprite;
     Vector2f initialPlatformPosition{};
-    FloatRect spriteLocalBounds;
 
+    GameObjectRenderer renderer;
     Collidable collidable;
     GameObjectData platformData;
 
@@ -29,8 +26,7 @@ private:
     bool windowBoundReached = false;
 
     // ************************* PRIVATE FUNCTIONS ************************
-    void setSpriteOriginToCenter();
-    void getSpriteLocalBounds();
+    
     void setInitialPlatformPosition();
     void movePlatform(float deltaTime);
 
@@ -45,9 +41,6 @@ public:
     void registerForCollision() override;
 
     Vector2f getInitialPlatformPosition() { return initialPlatformPosition; }
-    Vector2f getPlatformPosition() { return sprite.getPosition(); }
-    FloatRect getPlatformLocalBounds() { return spriteLocalBounds; }
-    FloatRect getPlatformGlobalBounds() { return sprite.getGlobalBounds(); }
     bool platformWindowBoundReached() { return windowBoundReached; } 
 };
 
