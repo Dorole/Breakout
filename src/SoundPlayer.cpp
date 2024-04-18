@@ -14,8 +14,11 @@ SoundPlayer::SoundPlayer()
     buttonBuffers.push_back(buttonBuffer_1);
     buttonBuffers.push_back(buttonBuffer_2);
 
-    ballSound.setVolume(defaultBallVolume);
-    buttonSound.setVolume(defaultButtonVolume);
+    //ballSound.setVolume(defaultBallVolume);
+    //buttonSound.setVolume(defaultButtonVolume);
+
+    ballSound.setVolume(0.0f);
+    buttonSound.setVolume(0.0f);
 }
 
 void SoundPlayer::playSoundRandomPitch(SoundType src)

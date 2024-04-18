@@ -11,8 +11,7 @@ BrickGrid::BrickGrid(ValueGetter& valueGetterRef, BrickPool& brickPoolRef, Colli
 	: valueGetter(valueGetterRef), brickPool(brickPoolRef), collisionManager(collisionManagerRef)
 {
 	valueGetter.attachLevelDataObserver(this);
-	init();
-	registerForCollision();
+	init();	
 }
 
 void BrickGrid::init()
@@ -24,6 +23,7 @@ void BrickGrid::init()
 	setBrickSchemeVector();
 	setGridDataVector();
 
+	registerForCollision();
 	observeBricks();
  }
 
@@ -122,8 +122,12 @@ void BrickGrid::registerBrickCollidables()
 			if (!gridDataVector[row][column].shouldRender) continue;
 
 			collisionManager.addCollidable(gridDataVector[row][column].getCollidable());
+			collisionManager.activateCollision(gridDataVector[row][column].getCollidable());
 		}
 	}
+
+	std::cout << "Finished registering brick collidables" << std::endl;
+	collisionManager.mapCollidables(); ///////////////////////////////// OVO IMAS I TU I U PLAYING STATE!
 }
 
 void BrickGrid::attachCollisionObservers()
@@ -159,7 +163,7 @@ void BrickGrid::setLevelFinished()
 	{
 		for (auto& gridData : row)
 		{
-			gridData.shouldRender = false;
+			gridData.shouldRender = false;			
 		}
 	}
 }
@@ -184,7 +188,6 @@ void BrickGrid::updateGrid(Brick& brick)
 
 			if (gridData.shouldDestroy())
 			{
-				std::cout << "BRICK GRID: Stop rendering." << std::endl;
 				gridData.shouldRender = false;
 	
 				for (const auto& observer : gridObservers)

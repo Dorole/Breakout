@@ -21,8 +21,6 @@ private:
 	void setCollidablePosition(Collidable& collidable);
 	void mapCollidable(Collidable& collidable, SpritePosition pos)
 	{
-		//check if key exists
-		//check if vector init, if not - init? or init right away?
 		auto& vec = collidablesMap[pos];
 		vec.push_back(collidable);
 	}
@@ -50,6 +48,7 @@ public:
 		}
 		
 		mapCollidable(collidable, collidable.getSpritePosition());
+		
 	}
 
 	//za ball
@@ -79,6 +78,13 @@ public:
 	std::unordered_map<SpritePosition, std::vector<Collidable>>& getMappedCollidables()
 	{
 		return collidablesMap;
+	}
+
+	void clearCollidablesMap()
+	{
+		for (auto& entry : collidablesMap) {
+			entry.second.clear(); 
+		}
 	}
 
 };

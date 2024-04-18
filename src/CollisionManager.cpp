@@ -25,17 +25,28 @@ void CollisionManager::registerBallCollidable(Collidable& ballCollidableRef)
 
 void CollisionManager::addCollidable(Collidable& collidable)
 {
-	auto collidablePtr = std::make_unique<Collidable>(collidable);
-	collidables.push_back(std::move(collidablePtr));
+	//auto collidablePtr = std::make_unique<Collidable>(collidable);
+	//collidables.push_back(std::move(collidablePtr));
+
+	if (!checkCollidableExists(collidable))
+		collidables.push_back(std::make_unique<Collidable>(collidable));
 }
 
 void CollisionManager::mapCollidables()
 {
+	std::cout << "Started mapping" << std::endl;
+
+	collidablesMap.clearCollidablesMap();
+
 	for (int i = 0; i < collidables.size(); i++)
 	{
 		auto& collidable = collidables.at(i);
-		collidablesMap.mapCollidablePosition(*collidable);
+		
+		if (collidable->getActiveStatus())
+			collidablesMap.mapCollidablePosition(*collidable);
 	}
+
+	std::cout << "Finished mapping" << std::endl;
 }
 
 void CollisionManager::attachCollisionObserver(CollisionObserver* observer)

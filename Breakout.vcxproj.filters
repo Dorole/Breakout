@@ -138,6 +138,9 @@
     <ClCompile Include="src\GameObjectRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\UIDGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -412,6 +415,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionDirection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UIDGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

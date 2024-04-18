@@ -23,7 +23,7 @@ public:
     void moveSprite(const sf::Vector2f& offset);
     void drawSprite();
 
-    const sf::Sprite& getSprite() const { return sprite; }
+    sf::Sprite& getSprite() { return sprite; }
     const sf::Vector2f& getSpritePosition() const { return sprite.getPosition(); }
     const sf::FloatRect getSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
     const sf::FloatRect getSpriteLocalBounds() { return sprite.getLocalBounds(); }

@@ -13,12 +13,11 @@ void GameObjectRenderer::setSpriteOriginToCenter()
 
 void GameObjectRenderer::init(std::string fileName, sf::Vector2f spriteScale)
 {
-    ValueGetter& valueGetter = game.getValueGetter();
-
     texture.loadFromFile(fileName);
     sprite.setTexture(texture);
     sprite.setScale(spriteScale);
     setSpriteOriginToCenter();
+    std::cout << "Renderer init from " << fileName << std::endl;
 }
 
 void GameObjectRenderer::setSpritePosition(const sf::Vector2f& position)

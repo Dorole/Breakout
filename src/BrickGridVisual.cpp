@@ -8,7 +8,7 @@ BrickGridVisual::BrickGridVisual(Game& game)
 	gridDataVector(game.getGrid().getGridDataVector())
 {
 	valueGetter.attachLevelDataObserver(this);
-	init();
+	//init();
 }
 
 void BrickGridVisual::init()

@@ -55,7 +55,14 @@ void PlayingState::onStateEnter()
 
 	audioPlayer.loadPlayMusic(AudioType::LEVEL_MUSIC);
 
-	colMan.mapCollidables();
+
+	for (auto& gameObject : gameObjects)
+	{
+		gameObject->init();
+	}
+
+	colMan.mapCollidables(); /////////////////////// OVO IMAS I TU I U BRICK GRID
+	//potencijalno neki event koji se pozove kad se svi objekti init() i onda collision manager mapira?
 }
 
 void PlayingState::handleInput()
@@ -85,7 +92,7 @@ void PlayingState::update(float deltaTime)
 			observer->onStateChanged(State::LEVEL_CLEAR);
 	}
 
-	colMan.update();
+	colMan.update(); 
 	uiManager->update();
 }
 
@@ -107,6 +114,10 @@ void PlayingState::onStateExit()
 	restartGame();
 
 	audioPlayer.stopMusic();
+
+	// spoji u jednu funkciju u collision manageru
+	colMan.detachCollisionObservers(); 
+	colMan.deactivateCollidables(CollidableObjectType::BRICK);
 
 }
 

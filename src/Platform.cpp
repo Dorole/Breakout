@@ -10,7 +10,7 @@ Platform::Platform(Game& game)
     platformData(renderer.getSprite())
 {  
     valueGetter.attachLevelDataObserver(this);
-    init();
+    //init();
 
     registerForCollision();
     levelDataProvider.registerPlatformData(platformData);

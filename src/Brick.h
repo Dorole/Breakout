@@ -17,12 +17,14 @@ protected:
 
 	FloatRect spriteBounds;
 	Sprite sprite;
-	std::string id;
+	std::string brickTypeId;
 	Texture texture;
 	int hitPoints = 0;
 	int breakScore = 0;
 
 	Collidable collidable;
+	int collidableId;
+
 	SoundBuffer hitBuffer;
 	SoundBuffer breakBuffer;
 	Sound brickSound;
@@ -35,6 +37,7 @@ protected:
 
 	std::vector<BrickObserver*> brickObservers;
 	void notifyBrickObservers();
+	void detachBrickObservers();
 
 public:
 
@@ -47,7 +50,7 @@ public:
 	Sprite& getSprite() { return sprite; }
 	FloatRect& getSpriteBounds() { return spriteBounds; }
 	int getBreakScore() const;
-	std::string getBrickId() { return id; }
+	std::string getBrickId() { return brickTypeId; }
 	
 	void setSpritePosition(Vector2f position) { sprite.setPosition(position); }
 	FloatRect getSpriteGlobalBounds() { return sprite.getGlobalBounds(); }
@@ -60,6 +63,6 @@ public:
 	virtual void onCollision(Collidable& collidedObject) override;
 	void observeCollision(CollisionManager& collisionManager);
 
-	void attachBrickObserver(BrickObserver* observer);
+	void attachBrickObserver(BrickObserver* observer);	
 };
 

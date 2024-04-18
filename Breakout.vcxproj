@@ -176,6 +176,7 @@
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\GameObjectRenderer.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
+    <ClCompile Include="src\UIDGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\SFML\SFML-2.5.1\bin\openal32.dll">
@@ -239,6 +240,7 @@
     <ClInclude Include="src\LevelDataProvider.h" />
     <ClInclude Include="src\SpritePosition.h" />
     <ClInclude Include="src\EnumToStringConverter.h" />
+    <ClInclude Include="src\UIDGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="resources/xml files/Level_1.xml">

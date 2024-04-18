@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "SpritePosition.h"
 #include "CollidableObjectType.h"
+#include "UIDGenerator.h"
 
 
 class Collidable
@@ -11,17 +12,18 @@ private:
 	CollidableObjectType objectType = CollidableObjectType::BRICK;
 	SpritePosition spritePosition = SpritePosition::TOP_LEFT;
 
-	const sf::Sprite& sprite;
+	sf::Sprite& sprite;
 
 	bool isActive = true;
+	int id{ 0 };
 
 public:
-	Collidable(const sf::Sprite& spriteRef, CollidableObjectType objectTypeInit);
+	Collidable(sf::Sprite& spriteRef, CollidableObjectType objectTypeInit);
 
 	void setCollidableObjectType(CollidableObjectType type);
 	CollidableObjectType getCollidableObjectType() { return objectType; }
 
-	const sf::Sprite& getSprite() const { return sprite; }
+	sf::Sprite& getSprite() { return sprite; }
 
 	void setSpritePosition(SpritePosition pos);
 	SpritePosition getSpritePosition() { return spritePosition; }
@@ -33,5 +35,6 @@ public:
 	bool getActiveStatus() const { return isActive; }
 	void setActiveStatus(bool value) { isActive = value; }
 
+	int getId() { return id; }
 };
 

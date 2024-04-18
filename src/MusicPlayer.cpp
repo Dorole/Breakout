@@ -8,7 +8,8 @@ MusicPlayer::MusicPlayer(ValueGetter& valueGetterRef)
 {
 	valueGetter.attachLevelDataObserver(this);
 	levelMusicPath = valueGetter.getLevelMusicPath();
-	music.setVolume(defaultMusicVolume);
+	//music.setVolume(defaultMusicVolume);
+	music.setVolume(0.0f);
 }
 
 void MusicPlayer::stopMusic()

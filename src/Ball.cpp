@@ -13,9 +13,8 @@ Ball::Ball(Game& gameRef)
     collidable(renderer.getSprite(), CollidableObjectType::BALL)
 {
     valueGetter.attachLevelDataObserver(this);
-    init();
+    //init();
 
-    collisionManager.attachCollisionObserver(this);
     registerForCollision();
 }
 
@@ -31,7 +30,9 @@ void Ball::init()
     shouldBounce = false;
     lostLife = false;
 
+    collisionManager.attachCollisionObserver(this);
     soundPlayer.setBuffer(SoundType::BALL_HIT);    
+    
 }
 
 void Ball::registerForCollision()
