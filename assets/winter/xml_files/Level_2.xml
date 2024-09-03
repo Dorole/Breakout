@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level
+	Id="2"
+	RowCount="6"
+	ColumnCount="18"
+	RowSpacing="4"
+	ColumnSpacing="4"
+	GridOffsetTop="5"
+	BackgroundTexture="assets/winter/textures/snowy_purple.png"
+	PlatformTexture="assets/winter/textures/platform_1.png"
+	BallTexture="assets/winter/textures/ball_2.png"
+	LevelMusic="assets/winter/audio/level_2_music.wav">
+	<BrickTypes>
+		<!-- Soft Brick -->
+		<BrickType
+			Id="S"
+			Texture="assets/winter/textures/red_simple.png"
+			HitPoints="1"
+			HitSound="assets/winter/audio/brickHit.wav"
+			BreakSound="assets/winter/audio/brickDestroyed.wav"
+			BreakScore="50" />
+		<!-- Medium Brick -->
+		<BrickType
+			Id="M"
+			Texture="assets/winter/textures/royalblue_simple.png"
+			HitPoints="2"
+			HitSound="assets/winter/audio/brickHit.wav"
+			BreakSound="assets/winter/audio/hit_sound_magic.wav"
+			BreakScore="100" />
+		<!-- Hard Brick -->
+		<BrickType
+			Id="H"
+			Texture="assets/winter/textures/lilasilver_simple.png"
+			HitPoints="3"
+			HitSound="assets/winter/audio/brickHit.wav"
+			BreakSound="assets/winter/audio/hit_sound_magic_2.wav"
+			BreakScore="150" />
+		<!-- Impenetrable Brick -->
+		<BrickType
+			Id="I"
+			Texture="assets/winter/textures/marble_texture.png"
+			HitPoints="Infinite"
+			HitSound="assets/winter/audio/hit_sound_dull.wav" />
+
+	</BrickTypes>
+	<Bricks>
+		M M M M M M M M M M M M M M M M M M
+		M _ M _ M _ M M _ _ M M _ M _ M _ M
+		_ _ M M _ S S S M M S S S _ M M _ _
+		_ _ _ _ _ M M S S S S M M _ _ _ _ _
+		_ _ _ _ _ _ _ S S S S _ _ _ _ _ _ _
+		_ _ _ _ _ _ _ _ M M _ _ _ _ _ _ _ _ 
+	</Bricks>
+</Level>
