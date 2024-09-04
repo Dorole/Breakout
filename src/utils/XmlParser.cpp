@@ -10,7 +10,7 @@ bool XmlParser::loadDocument(const char* filePath)
 
 	if (doc.load_file(filePath))
 	{
-		std::cout << "File loaded: " + s << std::endl;
+		//std::cout << "File loaded: " + s << std::endl;
 		currentFilePath = s;
 		return true;
 	}

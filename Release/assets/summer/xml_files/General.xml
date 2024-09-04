@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Theme
+ 	ThemeFont="assets/summer/fonts/Copyduck.ttf"
+	MainMenuImage="assets/summer/textures/summer_5_bg.png"
+	GameOverImage="assets/summer/textures/sunset_bg.png"
+	LevelClearImage="assets/summer/textures/summer_3_bg.png"
+	MainMenuMusic="assets/summer/audio/s_menu_music.wav"
+	GameOverMusic="assets/summer/audio/s_game_over_music.wav"
+	LevelClearMusic="assets/summer/audio/s_level_clear.wav"
+	GameFinishedMusic="assets/summer/audio/s_game_clear_music.wav"
+	BallHitSound="assets/summer/audio/s_ball_hit.wav"
+	BallResetSound="assets/summer/audio/water_splash.wav"
+	ButtonSound1="assets/common/audio/button1.wav"
+	ButtonSound2="assets/common/audio/button2.wav"
+	PauseScreen="assets/common/textures/pause_screen.png">
+</Theme>

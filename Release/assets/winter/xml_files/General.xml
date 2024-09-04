@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Theme
+	Id="w"
+	ThemeFont="assets/winter/fonts/Cartoon Blocks Christmas.otf"
+	MainMenuImage="assets/winter/textures/snowy_mountains_blue.png"
+	GameOverImage="assets/winter/textures/night_forest_rabbit.png"
+	LevelClearImage="assets/winter/textures/snowy_christmas.png"
+	MainMenuMusic="assets/winter/audio/MenuMusic.wav"
+	GameOverMusic="assets/winter/audio/game_over_music.wav"
+	LevelClearMusic="assets/winter/audio/level_clear.wav"
+	GameFinishedMusic="assets/winter/audio/game_clear.wav"
+	BallHitSound="assets/winter/audio/ball_hit.wav"
+	BallResetSound="assets/winter/audio/reset.wav"
+	ButtonSound1="assets/common/audio/button1.wav"
+	ButtonSound2="assets/common/audio/button2.wav"
+	PauseScreen="assets/common/textures/pause_screen.png">
+</Theme>

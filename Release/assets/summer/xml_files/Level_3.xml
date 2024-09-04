@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level
+	Id="3"
+	RowCount="5"
+	ColumnCount="20"
+	RowSpacing="4"
+	ColumnSpacing="2"
+	GridOffsetTop="5"
+	BackgroundTexture="assets/summer/textures/summer_2_bg.png"
+	PlatformTexture="assets/summer/textures/oranges_platform.png"
+	BallTexture="assets/summer/textures/swim_ring_ball.png" 
+	LevelMusic="assets/summer/audio/s_level_3_music.flac">
+	<BrickTypes>
+				<!-- Soft Brick -->
+		<BrickType
+			Id="S"
+			Texture="assets/summer/textures/yellow_brick.png"
+			HitPoints="1"
+			HitSound="assets/summer/audio/plop.wav"
+			BreakSound="assets/summer/audio/bubbles_burst.wav"
+			BreakScore="50" />
+		<!-- Medium Brick -->
+		<BrickType
+			Id="M"
+			Texture="assets/summer/textures/orange_brick.png"
+			HitPoints="2"
+			HitSound="assets/summer/audio/plop.wav"
+			BreakSound="assets/summer/audio/bubbles_burst.wav"
+			BreakScore="100" />
+		<!-- Hard Brick -->
+		<BrickType
+			Id="H"
+			Texture="assets/summer/textures/pink_brick.png"
+			HitPoints="3"
+			HitSound="assets/summer/audio/plop.wav"
+			BreakSound="assets/summer/audio/bubbles_burst.wav"
+			BreakScore="150" />
+		<!-- Impenetrable Brick -->
+		<BrickType
+			Id="I"
+			Texture="assets/summer/textures/stone_brick.png"
+			HitPoints="Infinite"
+			HitSound="assets/summer/audio/hit_sound_dull.wav" />
+
+	</BrickTypes>
+	<Bricks>
+		I H H H H H H H H H H H H H H H H H H I
+		I _ _ _ S S _ _ _ M M _ _ _ S S _ _ _ I
+		I _ _ _ M M I I S S S S I I M M _ _ _ I
+		I I I I H H S S M M M M S S H H I I I I
+		I S S S S S S S S S S S S S S S S S S I		
+	</Bricks>
+</Level>

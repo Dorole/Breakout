@@ -358,25 +358,17 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SFML\SFML-2.5.1\bin\sfml-window-d-2.dll">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="SFML\SFML-2.5.1\bin\sfml-audio-d-2.dll">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="SFML\SFML-2.5.1\bin\sfml-graphics-d-2.dll">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="SFML\SFML-2.5.1\bin\sfml-network-d-2.dll">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="SFML\SFML-2.5.1\bin\sfml-system-d-2.dll">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="assets\textures\ball_1.png">
       <Filter>Resource Files\Textures</Filter>
     </None>
     <None Include="SFML\SFML-2.5.1\bin\openal32.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SFML\SFML-2.5.1\bin\sfml-audio-2.dll" />
+    <None Include="SFML\SFML-2.5.1\bin\sfml-graphics-2.dll" />
+    <None Include="SFML\SFML-2.5.1\bin\sfml-network-2.dll" />
+    <None Include="SFML\SFML-2.5.1\bin\sfml-system-2.dll" />
+    <None Include="SFML\SFML-2.5.1\bin\sfml-window-2.dll">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

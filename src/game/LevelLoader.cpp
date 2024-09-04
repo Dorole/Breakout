@@ -46,6 +46,4 @@ void LevelLoader::setLevel(LoadLevelMode mode)
 
 	for (const auto& observer : levelObservers)
 		observer->onValueChanged(currentLevel, ValueType::LEVEL);
-
-	std::cout << "Current level: " << currentLevel << std::endl;
 }

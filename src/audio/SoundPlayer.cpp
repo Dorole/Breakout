@@ -112,8 +112,9 @@ void SoundPlayer::registerBrickSound(const std::string& brickTypeId, const std::
             std::cerr << brickTypeId << ": Failed to load break sound file: " << breakSoundPath << std::endl;
         }
 
-        if (hitSoundPath.empty() || breakSoundPath.empty()) //debug 
-            std::cout << brickTypeId << ": One or more brick sound paths are empty. Check if intended." << std::endl;
+        //debug 
+        //if (hitSoundPath.empty() || breakSoundPath.empty()) 
+        //    std::cout << brickTypeId << ": One or more brick sound paths are empty. Check if intended." << std::endl;
 
         brickHitBuffers[brickTypeId] = hitBuffer;
         brickBreakBuffers[brickTypeId] = breakBuffer;
