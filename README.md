@@ -4,6 +4,10 @@ A take on the classic Breakout game, with three levels and a possibility to choo
 Developed with C++ and [SFML library](https://www.sfml-dev.org/). <br>
 Levels and assets are defined in XML files. To parse them I used [pugixml](https://pugixml.org/).<br>
 
+**How TO RUN:** <br>
+Download the project and run the .exe application from the Release folder.
+
+**How to PLAY:** <br>
 Control the platform at the bottom of the screen to make the ball bounce off in the intended direction.<br>
 Destroy all the bricks on the screen to clear the level.<br>
 The first level contains only "soft" bricks - hit them once to destroy them.
